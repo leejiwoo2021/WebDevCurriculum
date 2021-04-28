@@ -45,9 +45,45 @@
 <br>
 
 * git의 Object, Commit, Head, Branch, Tag는 어떤 개념일까요? git 시스템은 프로젝트의 히스토리를 어떻게 저장할까요?
+  - **Object** : 
+    - init 명령으로 저장소를 초기화할 때 objects 디렉토리를 생성한다 `/.git/objects`
+    - 실제로는 디렉토리 구조로, key-value 쌍의 형태로 구성되어 있다.
+    - 모든것을 Tree와 Blob 객체로 저장한다
+    - 주요 객체로는 Blob, Tree, Commit 객체가 있다
+    - **Tree** : 파일 이름을 저장하는 객체, 하위에 Blob 객체 또는 Tree 객체를 여러개 저장할 수 있다. `SHA-1 포인터`, `파일 모드`, `개체 타입`, `파일 이름` 항목들을 저장한다
+  - **Commit** : 어떤 스냅샷을 누가, 언제, 왜(Message) 저장했는지 정보를 갖는 객체. 부모 commit과, 자식 commit이 존재한다면, 무엇인지 기억한다
+    - 지정한 스냅샷의 최상단 Tree를 가리킨다(Hash 값)
+    - 형식은 다음과 같다
+    ```bash
+    tree <Tree Hash Value>
+    author <user.name> <user.email> <time>
+    committer <user.name> <user.email> <time>
+
+    <Commit Message>
+    ```
+    - **(미해결)** `bak` 포인터가 왜 매 commit마다 존재하지 않고, 최상단에만 존재하는가?
+  - **Head** : 현재 작업중인 branch를 가리키는 pointer이다.
+  - **Branch** : 특정 commit을 가리키는 pointer 이다.
+    -  어떤 한 커밋을 가리키는 40글자의 SHA-1 체크섬 파일에 불과하다!
+    - 해당 branch에서 새 commit을 생성할 경우, 자동으로 방금 생성한 (가장 마지막) commit을 가리킨다.
+  - **Tag**
+    - `Lightweight` 태그와 `Annotated` 태그로 두 종류가 있다.
+    - `LightWeight` 태그는 단순히 특정 Commit을 가리키는 pointer 이며, 해당 tag의 이름만 저장한다.
+    - `Annotated` 태그는 이에 추가적으로 태그를 생성한 사람의 이름, 만든 날짜, 메시지 등을 저장한다
+    - local에서 remote 저장소에 `git push`를 실행하여도 tag는 반영되지 않는다. 원한다면 `git push origin <태그 이름>`을 명령해야한다.
+  - **History**
+    1. blob 객체로 파일의 내용을 관리한다
+    2. tree 객체로 blob과 하위 tree를 관리한다
+    3. 스냅샷을 생성할 때, tree 객체를 새로 생성하고, index에 등록한 blob 객체들을 tree에 등록한다. 만약 이전에 index tree가 존재했다면, 이를 하위 tree에 등록한다
+    4. 해당 tree를 가리키는 commit 객체를 생성한다. 이전 commit이 존재한다면, 이 commit은 이전 commit을 참조한다. 즉, 하위 tree의 내용을 참조한다
 <br>
 
 * 리모트 git 저장소에 원하지 않는 파일이 올라갔을 때 이를 되돌리려면 어떻게 해야 할까요?
+  - force push를 통해 원하는 History를 반영한다 **(위험)**
+  - 문제를 수정한 commit을 작성한 뒤, push 한다.
+    - 수정하고 새 commit을 작성하거나
+    - `git revert`를 사용하여 이전 혹은 지정 범위의 commit을 취소하는 내용을 담은 commit을 생성한다.
+
 
 ## 참고 문서
 - [Version Control](https://en.wikipedia.org/wiki/Version_control) by wikipedia
