@@ -83,10 +83,21 @@
   - 문제를 수정한 commit을 작성한 뒤, push 한다.
     - 수정하고 새 commit을 작성하거나
     - `git revert`를 사용하여 이전 혹은 지정 범위의 commit을 취소하는 내용을 담은 commit을 생성한다.
+<br>
 
+## Advanced
+* Mercurial은 어떤 형상관리 시스템일까요? 어떤 장점이 있을까요?
+  - 상대적으로, 러닝커브를 줄일 수 있다.
+  - git과는 다르게, 파일의 변경 내용만을 저장하여 크기가 적다 (단, 변경 이력이 쌓일수록 병합하는  비용이 증가한다)
+  - 확장 명령 번들이 다양하다.
+* 실리콘밸리의 테크 대기업들은 어떤 형상관리 시스템을 쓰고 있을까요?
+  - git : Netflix, Reddit, Lyft, Robinhood ...etc
+  - subversion : linkedin, facebook, newegg ...etc
+  - mercurial : bitbucket, AO.com ...etc
 
 ## 참고 문서
 - [Version Control](https://en.wikipedia.org/wiki/Version_control) by wikipedia
 - [Git Documentation Reference](https://git-scm.com/docs)
 - [Git Documentation Book](https://git-scm.com/book/ko/v2)
 - [GitHub Guides - What is GitHub?](https://guides.github.com/activities/hello-world)
+- [Git vs Mercurial](https://d2.naver.com/helloworld/1011)
