@@ -59,6 +59,14 @@
 - HTML 문서를 파싱하여 DOM을 구현하고 이를 사용자가 볼 수 있도록 화면에 그리는 소프트웨어 장치를 말한다. 통상적으로 레이아웃 + 렌더링 엔진을 통틀어 말한다
 - Blink (크롬, 오페라), Gecko(Firefox), Trident(IE), Webkit(Safari) 등이 존재한다.
 ### 모바일 시대 이후, 최근에 출시된 브라우저들은 어떤 특징을 가지고 있을까요?
+- 유료 브라우저의 등장 (G-suite 광고 제거 Enterprise Chrome)
+- 음성인식
+- 빠른 페이지 로딩 속도
+- 브라우저 광고 차단 기능의 삭제(예정)
+- Ai 앱 구동
+- 개인 정보 보호
+    - 개인 정보 트래킹 방지
+    - 브라우징 기록, 쿠키 저장 X
 
 ### HTML 문서는 어떤 구조로 이루어져 있나요?
 ### `<head>`에 자주 들어가는 엘리먼트들은 어떤 것이 있고, 어떤 역할을 할까요?
@@ -73,3 +81,4 @@
 [웹 접근성과 웹 표준](https://seulbinim.github.io/WSA/accessibility.html)
 [History of web browsers](https://smartbear.com/blog/history-of-web-browsers/)
 [Wikipedia - Browser Engine](https://ko.wikipedia.org/wiki/브라우저_엔진)
+[Browser Trends for 2021/2022](https://financesonline.com/browser-trends/)
