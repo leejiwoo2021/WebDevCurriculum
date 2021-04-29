@@ -11,11 +11,14 @@
 
 ### HTML 표준을 지키는 것은 왜 중요할까요?
 - 브라우저마다 구현이 다를경우, 사용자에게 동일한 경험을 제공하려면 매번 다르게 개발해야 하고, 이를 유지보수 하기 위한 작업이 계속 발생된다
+- 표준을 지킨다면, 브라우저 호환성이나, 웹 접근성을 향상시킬 수 있다.
 ### XHTML 2.0은 왜 세상에 나오지 못하게 되었을까요?
 - 브라우저 개발사와 W3C(XHTML 개발)의 의견 차이로 인해 빛을 보지 못했다. 
 ### HTML5 표준은 어떤 과정을 통해 정해질까요?
-- WHATWG와 W3C에 의해 정해진다
-- WHATWG가 HTML과 DOM의 Living Standard를 관리한다
+- WHATWG와 W3C에 의해 정해진다.
+- WHATWG가 HTML과 DOM의 Living Standard를 관리한다.
+- W3C가 위 repository를 참고하여 개발자 커뮤니티를 활성화 시킨다(이슈 및 문제, 테스트 관리)
+- WHATWG와 W3C의 의견 충돌시, 해결 프로세스를 통해 의견을 합의하려고 노력한다.
 - ![W3C Standardization Process](https://seulbinim.github.io/WSA/images/standards/process.png)
 
 ### 브라우저의 역사는 어떻게 될까요?
