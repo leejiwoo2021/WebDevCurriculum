@@ -81,6 +81,7 @@
   </body>
 </html>
 ```
+
 - `<!DOCTYPE html>` : 문서의 타입(형식)을 나타내는 구문입니다.
 - `<html> ~ </html>` : html 태그 요소입니다. 전체 페이지의 컨텐츠를 포함하며 기본 요소입니다.
 - `<head> ~ </head>` : 사용자에게는 보이지 않지만 홈페이지 설명, CSS 스타일, 문자 인코딩 등의 내용을 담고 있습니다.
@@ -89,6 +90,21 @@
 - `<body> ~ </body>` : 페이지에 표시되는 모든 컨텐츠가 포함됩니다. (ex. 텍스트, 이미지, 비디오, 오디오 등)
 
 ### `<head>`에 자주 들어가는 엘리먼트들은 어떤 것이 있고, 어떤 역할을 할까요?
+- 앞서 말한 `<title>` 태그와 `<meta charset="">` 이 존재합니다.
+- `<meta>` 태그의 `name`과 `content` 속성을 사용할 수 있습니다.
+    - ex. `<meta name="author" content="jiwoo">`
+    - `name`은 어떤 정보의 형태를 가지고 있는지,
+    - `content`는 실제 메타데이터의 컨텐츠 입니다.
+    - image나 페이지 설명도 추가할 수 있습니다.
+- `<link>` 태그를 사용하여 페이지 메타데이터에 아이콘을 추가할 수 있습니다.
+    - ex. 북마크 favicon : `<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">`
+- css와 javaScript 추가가 가능하다
+    - ex. css : `<link rel="stylesheet" href="my-css-file.css">`
+    - ex. Js : `<script src="my-js-file.js"></script>`
+    - js의 경우 head 부분보다, body 태그가 끝나기 직전에 삽입하는것이 좋다.
+
+
+
 ### 시맨틱 태그는 무엇일까요?
 ### 시맨틱 엘리먼트를 사용하면 어떤 점이 좋을까요?
 ### `<section>`과 `<div>`, `<header>`, `<footer>`, `<article>` 엘리먼트의 차이점은 무엇인가요?
@@ -102,3 +118,4 @@
 [Wikipedia - Browser Engine](https://ko.wikipedia.org/wiki/브라우저_엔진)
 [Browser Trends for 2021/2022](https://financesonline.com/browser-trends/)
 [MDN - HTML introduction](https://developer.mozilla.org/ko/docs/Learn/HTML/Introduction_to_HTML/Getting_started)
+[MDN - HTML Metadata](https://developer.mozilla.org/ko/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML)
