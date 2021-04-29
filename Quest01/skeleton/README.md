@@ -103,10 +103,18 @@
     - ex. Js : `<script src="my-js-file.js"></script>`
     - js의 경우 head 부분보다, body 태그가 끝나기 직전에 삽입하는것이 좋다.
 
-
-
 ### 시맨틱 태그는 무엇일까요?
+- HTML에서 시맨틱 태그란, 태그 자체가 정해진 역할 또는 의미를 가지고 있는 태그를 말합니다.
+
 ### 시맨틱 엘리먼트를 사용하면 어떤 점이 좋을까요?
+시맨틱 마크업을 사용하면 다음과 같은 이점이 있습니다
+
+- 검색 엔진이 시맨틱 마크업을 페이지의 검색 랭킹에 영향을 줄 수 있는 중요 키워드로 간주합니다.
+- 시각 장애가 있는 사용자가 화면 판독기로 페이지를 탐색할 때 시맨틱 마크업을 푯말로 사용할 수 있습니다.
+- 의이없고 클래스 이름이 붙여져있거나 그렇지 않은 `div`태그들을 탐색하는 것보다, 의미있는 코드 블록을 찾는 것이 훨씬 쉽습니다.
+- 개발자에게 태그 안에 채워질 유형을 제안합니다.
+- 의미있는 이름짓기(Semantic naming)는 적절한 사용자 정의 요소 / 구성 요소의 이름짓기(naming)를 반영합니다
+
 ### `<section>`과 `<div>`, `<header>`, `<footer>`, `<article>` 엘리먼트의 차이점은 무엇인가요?
 ### 블록 레벨 엘리먼트와 인라인 엘리먼트는 어떤 차이가 있을까요?
 
@@ -119,3 +127,4 @@
 [Browser Trends for 2021/2022](https://financesonline.com/browser-trends/)
 [MDN - HTML introduction](https://developer.mozilla.org/ko/docs/Learn/HTML/Introduction_to_HTML/Getting_started)
 [MDN - HTML Metadata](https://developer.mozilla.org/ko/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML)
+[MDN - Semantics](https://developer.mozilla.org/ko/docs/Glossary/Semantics)
