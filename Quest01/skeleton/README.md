@@ -7,13 +7,16 @@
 - WHATWG에서 자체적으로 HTML5 표준을 수립
 - 2014년, W3C의 HTML5 수용. 
 - 2019년, 그동안의 분쟁을 끝내며 함께 Standard 문서를 만들어가기로 합의
-- 위 과정으로 보아 W3C는 안정적인, 혹은 상대적으로 보수적인 자세를 취하는 단체의 느낌이었고, WHATTWG는 실험적 기능의 개발과 빠른 적용을 원하는 단체의 느낌이었음.
+- 위 과정으로 보아 W3C는 안정적인, 혹은 상대적으로 보수적인 자세를 취하는 단체의 느낌이었고, WHATWG는 실험적 기능의 개발과 빠른 적용을 원하는 단체의 느낌이었음.
 
 ### HTML 표준을 지키는 것은 왜 중요할까요?
-
+- 브라우저마다 구현이 다를경우, 사용자에게 동일한 경험을 제공하려면 매번 다르게 개발해야 하고, 이를 유지보수 하기 위한 작업이 계속 발생된다
 ### XHTML 2.0은 왜 세상에 나오지 못하게 되었을까요?
 - 브라우저 개발사와 W3C(XHTML 개발)의 의견 차이로 인해 빛을 보지 못했다. 
 ### HTML5 표준은 어떤 과정을 통해 정해질까요?
+- WHATWG와 W3C에 의해 정해진다
+- WHATWG가 HTML과 DOM의 Living Standard를 관리한다
+- ![W3C Standardization Process](https://seulbinim.github.io/WSA/images/standards/process.png)
 
 ### 브라우저의 역사는 어떻게 될까요?
 ### Internet Explorer가 브라우저 시장을 독점하면서 어떤 문제가 일어났고, 이 문제는 어떻게 해결되었을까요?
@@ -30,3 +33,5 @@
 
 ### 참고문서
 [HTML Standard - History](https://html.spec.whatwg.org/#history-2)
+[W3C Standards](https://www.sitepoint.com/importance-web-standards/)
+[웹 접근성과 웹 표준](https://seulbinim.github.io/WSA/accessibility.html)
