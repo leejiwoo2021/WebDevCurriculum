@@ -22,6 +22,19 @@
 - ![W3C Standardization Process](https://seulbinim.github.io/WSA/images/standards/process.png)
 
 ### 브라우저의 역사는 어떻게 될까요?
+- 1990 Nexus W3C 디렉터인 Tim Berners-Lee가 개발한 당시 유일한 브라우저.
+- 1992 Lynx 텍스트 기반의 브라우저.
+- 1993 Mosaic 이미지를 삽입 할 수 있는 최초의 브라우저. 
+- 1994 Netscape Navigator 출시
+- 1995 Microsoft에서 Internet Explorer를 출시
+- 1996 94년 연구 프로젝트로 시작되어 2년 뒤, Opera 브라우저 출시
+- 2003 Macintosh용 브라우저인 Safari 출시
+- 2004 Netscape 출신 개발자들이 Mozila 재단을 설립하고, Firefox 브라우저를 출시
+- 2007 Apple이 iOS를 지원하는 Mobile Safari 출시
+- 2008 Google Chrome 브라우저 출시
+- 2011 모바일 브라우저 시장을 타겟으로 Opera Mini 브라우저 출시
+- 2015 Microsoft가 Edge 브라우저를 출시
+
 ### Internet Explorer가 브라우저 시장을 독점하면서 어떤 문제가 일어났고, 이 문제는 어떻게 해결되었을까요?
 ### 현재 시점에 브라우저별 점유율은 어떻게 될까요? 이 브라우저별 점유율을 알아보는 것은 왜 중요할까요?
 ### 브라우저 엔진(렌더링 엔진)이란 무엇일까요? 어떤 브라우저들이 어떤 엔진을 쓸까요?
@@ -38,3 +51,4 @@
 [HTML Standard - History](https://html.spec.whatwg.org/#history-2)
 [W3C Standards](https://www.sitepoint.com/importance-web-standards/)
 [웹 접근성과 웹 표준](https://seulbinim.github.io/WSA/accessibility.html)
+[History of web browsers](https://smartbear.com/blog/history-of-web-browsers/)
