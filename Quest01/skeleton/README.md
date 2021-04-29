@@ -56,6 +56,8 @@
 - 웹 표준을 지향하고 있긴 하나 브라우저마다 동일한 기능을 구현하는 방법이 다른 경우가 존재하고, 따라서 동일한 코드가 각 환경에 100% 호환되지 않아 대응이 필요하기 때문에.
 
 ### 브라우저 엔진(렌더링 엔진)이란 무엇일까요? 어떤 브라우저들이 어떤 엔진을 쓸까요?
+- HTML 문서를 파싱하여 DOM을 구현하고 이를 사용자가 볼 수 있도록 화면에 그리는 소프트웨어 장치를 말한다. 통상적으로 레이아웃 + 렌더링 엔진을 통틀어 말한다
+- Blink (크롬, 오페라), Gecko(Firefox), Trident(IE), Webkit(Safari) 등이 존재한다.
 ### 모바일 시대 이후, 최근에 출시된 브라우저들은 어떤 특징을 가지고 있을까요?
 
 ### HTML 문서는 어떤 구조로 이루어져 있나요?
@@ -70,3 +72,4 @@
 [W3C Standards](https://www.sitepoint.com/importance-web-standards/)
 [웹 접근성과 웹 표준](https://seulbinim.github.io/WSA/accessibility.html)
 [History of web browsers](https://smartbear.com/blog/history-of-web-browsers/)
+[Wikipedia - Browser Engine](https://ko.wikipedia.org/wiki/브라우저_엔진)
