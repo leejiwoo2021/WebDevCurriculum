@@ -116,8 +116,18 @@
 - 의미있는 이름짓기(Semantic naming)는 적절한 사용자 정의 요소 / 구성 요소의 이름짓기(naming)를 반영합니다
 
 ### `<section>`과 `<div>`, `<header>`, `<footer>`, `<article>` 엘리먼트의 차이점은 무엇인가요?
-### 블록 레벨 엘리먼트와 인라인 엘리먼트는 어떤 차이가 있을까요?
+- `<section>` : 문서의 독립적인 구획을 나타낸다. 
+- `<div>` : 순수히 영역만을 구분하기 위한 컨테이너 입니다. (단순한 스타일링이 목적)
+- `<article>` : 독립적으로 구분해 배포하거나, 재사용할 수 있는 구획을 나타냅니다. ex) 게시판, 블로그 글, 매거진, 뉴스 기사 등
+- `<header>` : 소개 및 탐색에 도움을 주는 콘텐츠를 나타냅니다. 제목, 로고, 검색 폼, 작성자 이름 등의 요소도 포함될 수 있습니다.
+- `<footer>` : 가장 가까운 구획 콘텐츠나 구획 루트의 푸터를 나타냅니다. 일반적으로 구획의 작성자, 저작권 정보, 관련 문서 등의 내용을 담습니다.
 
+- ![](https://t1.daumcdn.net/cfile/tistory/261BFE435539390B1B)
+### 블록 레벨 엘리먼트와 인라인 엘리먼트는 어떤 차이가 있을까요?
+| 구분 | 블록 레벨 | 인라인 |
+| --- | --- | --- |
+| 포함 가능한 요소 | 데이터, 인라인, 블록레벨 | 데이터, 인라인 |
+| 콘텐츠 흐름 | 끊고, 새로운 줄에서 시작(좌우 너비를 모두 차지)| 끊지 않고 할당된 공간만 차지|
 ### 참고문서
 [HTML Standard - History](https://html.spec.whatwg.org/#history-2)
 [W3C Standards](https://www.sitepoint.com/importance-web-standards/)
@@ -128,3 +138,4 @@
 [MDN - HTML introduction](https://developer.mozilla.org/ko/docs/Learn/HTML/Introduction_to_HTML/Getting_started)
 [MDN - HTML Metadata](https://developer.mozilla.org/ko/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML)
 [MDN - Semantics](https://developer.mozilla.org/ko/docs/Glossary/Semantics)
+[MDN - Inline Element vs Block Level Element](https://developer.mozilla.org/ko/docs/Web/HTML/Inline_elements#인라인_vs._블록_레벨_요소)
