@@ -128,6 +128,25 @@
 | --- | --- | --- |
 | 포함 가능한 요소 | 데이터, 인라인, 블록레벨 | 데이터, 인라인 |
 | 콘텐츠 흐름 | 끊고, 새로운 줄에서 시작(좌우 너비를 모두 차지)| 끊지 않고 할당된 공간만 차지|
+
+## Advanced
+* XML은 어떤 표준일까요? 어떤 식으로 발전해 왔을까요?
+- (eXtensible Markup Language), W3C 권고의 마크업 언어입니다.
+- HTML은 사용자에게 정보를 표시할 목적으로 설계된 언어이며, XML은 사용자 정의의 데이터 내용을 정의할 때 사용됩니다.
+- 초기에  미디어 출판사들이 동적 정보 표시를 위해 관심을 갖기 시작했으며, 1996년 썬 마이크로 시스템즈의 엔지니어가 표준화 작업을 시작했으며 이에 추가적인 작업을 통해 1998년 2월 W3C의 권고안이 되었다.
+* YML, Markdown 등 다른 마크업 언어들은 어떤 특징을 가지고 있고, 어떤 용도로 쓰일까요?
+- YML : 가벼운 마크업 언어로 사용되는 중
+  - 들여쓰기를 사용하여 사람이 알아보기 편하다.
+  - 단, JSON에 비해서 생성 및 파싱이 복잡하다.
+  - 주석을 사용할 수 있다.
+  - 복잡한 객체 구조를 표현하는데 사용한다.
+- Markdown : 간단하게 서식이 있는 문서를 작성하는 용도
+  - HTML로 쉽게 변환이 가능하다.
+  - 기본 문법만 익히면 쉽게 사용할 수 있어 직관적이다.
+  - Readme를 작성하는데 많이 사용해보았다.
+  - 다른 Markup 언어와 비교해 기능이 적고, 단순하다
+
+
 ### 참고문서
 [HTML Standard - History](https://html.spec.whatwg.org/#history-2)
 [W3C Standards](https://www.sitepoint.com/importance-web-standards/)
@@ -139,3 +158,4 @@
 [MDN - HTML Metadata](https://developer.mozilla.org/ko/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML)
 [MDN - Semantics](https://developer.mozilla.org/ko/docs/Glossary/Semantics)
 [MDN - Inline Element vs Block Level Element](https://developer.mozilla.org/ko/docs/Web/HTML/Inline_elements#인라인_vs._블록_레벨_요소)
+[XML - Wikipedia](https://ko.wikipedia.org/wiki/XML)
