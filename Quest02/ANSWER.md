@@ -22,10 +22,30 @@
 - 상위 객체에 의해 상속된 속성
 
 ### CSS의 박스모델은 무엇일까요? 박스가 화면에서 차지하는 크기는 어떻게 결정될까요?
+- 각각의 요소를 사각형 박스로 표현하는것을 말한다.
+- 박스모델은 4개의 영역으로, 내부의 콘텐츠 영역, 안쪽 여백(padding)영역, 테두리(border) 영역, 바깥 여백(margin) 영역으로 구성됩니다.
+- 영역의 크기는 CSS box-sizng 속성에 따라 결정됩니다.
+  - width: 20px로 가정시,
+  - `content-box` : 내부의 콘텐츠 영역 가로 크기를 20px로 정하고, 이에 padding과 border의 크기를 더합니다. 
+  - 즉, 영역 = `content`
+  - `border-box` : 내부의 콘텐츠 영역과 padding, border 영역을 합하여 20px의 가로 영역을 갖게 됩니다. 
+  - 즉 영역 = `content + padding + border`
 
 ### `float` 속성은 왜 좋지 않을까요?
+- clear 속성을 사용하지 않으면, 선언 이후에 등장하는 태그들에게도 영향을 끼치게 된다.
+- 줄바꿈 발생시, 레이아웃이 틀어질 가능성이 있다.
+- 부모 요소의 크기를 지정하지 않고, 자식 float 요소의 높이 지정시, 부모 요소의 크기가 자동으로 커지지 않음
+
 ### Flexbox(Flexible box)와 CSS Grid의 차이와 장단점은 무엇일까요?
+|구분|flex|grid|
+|---|---|---|
+|구분 축|1차원(평면)|2차원(평면 및 높이)|
+|쓰기 방향|다양함(위,아래, 왼쪽, 오른쪽)|왼쪽 위부터 오른쪽 아래로|
+|브라우저 지원률|98.57%|95.01%|
+|위치 정하는 방법|해당 container 내에서만 가능|grid line이 있는곳 어디든|
 ### CSS의 비슷한 요소들을 어떤 식으로 정리할 수 있을까요?
+- 겹치는 부분은 공통된 class를 생성하여 함께 관리한다.
+- 다양한 방법론들이 존재하는데, layout이냐 theme color냐 와 같이 역할에 따라서 class를 구분하기도 하고 역할이나 특정 상태에 따라서 모듈화를 추구하기도 한다.
 
 ## Advanced
 ### 왜 CSS는 어려울까요?
@@ -35,3 +55,7 @@
 
 ## 참고문서
 [MDN - CSS](https://developer.mozilla.org/ko/docs/Web/CSS)
+[MDN - CSS box model](https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model)
+[MDN - CSS flexbox](https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)
+[MDN - CSS grid](https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Grid_Layout)
+[MDN - Grid and Flexbox](https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Grid_Layout/Relationship_of_Grid_Layout)
