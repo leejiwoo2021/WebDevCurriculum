@@ -49,13 +49,36 @@
 
 ## Advanced
 ### 왜 CSS는 어려울까요?
-### CSS의 어려움을 극복하기 위해 어떤 방법들이 제시되고 나왔을까요?
-### CSS가 브라우저에 의해 해석되고 적용되기까지 내부적으로 어떤 과정을 거칠까요?
-### 웹 폰트의 경우에는 브라우저 엔진 별로 어떤 과정을 통해 렌더링 될까요?
+- 다양한 기기 또는 화면을 고려해야해서
+- CSS 속성들이 서로 연관되는 경우가 많고, 이를 전부 파악하기 힘들어서
+- 특정 컴포넌트에 최종적으로 어떤 CSS들이 적용되는지 파악하기 힘들어서
 
+### CSS의 어려움을 극복하기 위해 어떤 방법들이 제시되고 나왔을까요?
+- bootstrap, material과 같이 미리 제작된 템플릿 라이브러리
+- CSS 전처리기 (Sass, Less, Stylus 등)를 통한 개발
+- styled-component와 같은 CSS-in-JS 방식
+
+### CSS가 브라우저에 의해 해석되고 적용되기까지 내부적으로 어떤 과정을 거칠까요?
+1. HTML 문서가 파싱되고, CSS 문서가 파싱되며 DOM과 CSSOM을 생성.
+2. CSSOM을 기반으로 DOM의 어느 노드에 어떤 style을 적용할지 결정하고, 이를 통해 Render Tree 생성.
+  2-1. 만약 브라우저가 알지 못하는 CSS 속성이 입력될 경우, 이를 건너뜁니다. (유효하지 않은 라인만 무시)
+3. 브라우저를 통해 페이지를 화면에 표시.
+### 웹 폰트의 경우에는 브라우저 엔진 별로 어떤 과정을 통해 렌더링 될까요?
+- 일반적으로 두가지 방식으로 동작하게 됩니다
+- Font 파일의 로딩 처리에 따라 FOUT(Flash Of Unstyled Text), FOIT(Flash of Invisible Text)로 나뉘게 된다.
+- FOUT
+  - font 파일을 받아오기 전까지 fallback font 혹은 기본 font로 해당 부분을 렌더링
+  - IE 계열의 부라우저에서 사용했다.
+- FOIT
+  - font 파일을 받아오기 전까지 해당 부분의 렌더링을 blocking
+  - Chrome, Firefox 등의 브라우저에서 사용한다
+- 이외에도 로딩은 하되, 일정 시간 이후로 완료될 경우 다음에 페이지를 렌더링 할 때 폰트를 적용하거나, 무조건 fallback font로 렌더링 뒤, 일정 시간 이후에 웹 폰트로 전환하는 방식들이 있다.
 ## 참고문서
 [MDN - CSS](https://developer.mozilla.org/ko/docs/Web/CSS)
 [MDN - CSS box model](https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model)
 [MDN - CSS flexbox](https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)
 [MDN - CSS grid](https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Grid_Layout)
 [MDN - Grid and Flexbox](https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Grid_Layout/Relationship_of_Grid_Layout)
+[CSS tricks - Why is CSS Frustrating?](https://css-tricks.com/why-is-css-frustrating/)
+[MDN - How CSS Works](https://developer.mozilla.org/ko/docs/Learn/CSS/First_steps/How_CSS_works)
+[웹 폰트 사용과 최적화의 최근 동향](https://d2.naver.com/helloworld/4969726)
