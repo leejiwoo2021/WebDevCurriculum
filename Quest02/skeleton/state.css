@@ -1,0 +1,13 @@
+.t-searchbox-input:focus {
+  outline: none;
+}
+
+.t-searchbox-button:hover {
+  color: white;
+  background-color: #2db400;
+  box-shadow: rgba(117, 145, 181, 0.12) 0px 5px 10px 0px;
+}
+
+.t-nav-button:hover {
+  box-shadow: rgba(117, 145, 181, 0.12) 0px 5px 10px 0px;
+}
