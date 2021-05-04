@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <!-- TODO: 또 무엇이 필요할까요? -->
-    <title>Quest 01</title>
+    <title>Quest 02</title>
     <link href="theme.css" rel="stylesheet" />
     <link href="state.css" rel="stylesheet" />
     <link href="normalize.css" rel="stylesheet" />
@@ -69,52 +69,106 @@
         </ul>
       </nav>
     </header>
-    <section class="main">
+    <section class="main t-normal-bg">
       <!-- TODO: main은 어떤 식으로 나눌 수 있을까요? -->
-      <article>
-        <h2>날씨</h2>
+      <article class="l-weather-small t-weather-small">
+        <h2 class="s-display-none">날씨</h2>
         <img alt="날씨 흐림" />
-        <div>10° 맑음</div>
-        <div>어제보다 2° 높아요</div>
-      </article>
-      <article>
-        <div>
-          <h2>날씨</h2>
-          <p>서울시 잠실동</p>
-          <button>toggle</button>
+        <div class="l-weather-small-info">
+          <div><strong>10° 맑음</strong></div>
+          <div>어제보다 2° 높아요</div>
         </div>
-        <div>
+      </article>
+      <article class="l-weather-large t-weather-large">
+        <div class="l-row-container l-justify-between">
+          <div class="l-row-container">
+            <h2 class="l-weather-large-title">날씨</h2>
+            <div>서울시 잠실동</div>
+          </div>
+          <button class="l-weather-large-toggle t-weather-large-toggle">
+            toggle
+          </button>
+        </div>
+        <div class="l-weather-large-nav">
           <ul>
             <li>
-              <button>시간대별 날씨</button>
+              <button
+                class="l-weather-large-navbtn t-weather-large-navbtn s-weather-large-navbtn-normal"
+              >
+                시간대별 날씨
+              </button>
             </li>
             <li>
-              <button>시간대별 미세먼지</button>
+              <button
+                class="l-weather-large-navbtn t-weather-large-navbtn s-weather-large-navbtn-normal"
+              >
+                시간대별 미세먼지
+              </button>
             </li>
             <li>
-              <button>주간 날씨</button>
+              <button
+                class="l-weather-large-navbtn t-weather-large-navbtn s-weather-large-navbtn-active"
+              >
+                주간 날씨
+              </button>
             </li>
             <li>
-              <button>주간 미세먼지</button>
+              <button
+                class="l-weather-large-navbtn t-weather-large-navbtn s-weather-large-navbtn-normal"
+              >
+                주간 미세먼지
+              </button>
             </li>
           </ul>
         </div>
-        <div>
+        <div class="l-weather-large-listarea">
           <ul>
             <li>
-              <div>
+              <div class="l-weather-large-list">
                 <p>19°</p>
                 <p>8°</p>
                 <img alt="clear sun image" />
-                <p>어제</p>
+                <p class="s-weather-large-date-normal">어제</p>
               </div>
             </li>
             <li>
-              <div>
+              <div class="l-weather-large-list">
                 <p>22°</p>
                 <p>7°</p>
                 <img alt="clear sun image" />
-                <p>오늘</p>
+                <p class="s-weather-large-date-active">오늘</p>
+              </div>
+            </li>
+            <li>
+              <div class="l-weather-large-list">
+                <p>19°</p>
+                <p>8°</p>
+                <img alt="clear sun image" />
+                <p class="s-weather-large-date-normal">월</p>
+              </div>
+            </li>
+            <li>
+              <div class="l-weather-large-list">
+                <p>19°</p>
+                <p>8°</p>
+                <img alt="clear sun image" />
+                <p class="s-weather-large-date-normal">화</p>
+              </div>
+            </li>
+            <li>
+              <div class="l-weather-large-list">
+                <p>19°</p>
+                <p>8°</p>
+                <img alt="clear sun image" />
+                <p class="s-weather-large-date-normal">수</p>
+              </div>
+            </li>
+            <li>
+              <div class="l-weather-large-list">
+                <p>19°</p>
+                <p>8°</p>
+                <img alt="clear sun image" />
+                <p class="s-weather-large-date-normal">목</p>
               </div>
             </li>
           </ul>

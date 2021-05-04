@@ -50,3 +50,27 @@
   border-radius: 20px;
   font-size: 0.7em;
 }
+
+.t-weather-small {
+  background-color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: rgba(117, 145, 181, 0.12) 0px 5px 10px 0px;
+}
+
+.t-weather-large {
+  background-color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: rgba(117, 145, 181, 0.12) 0px 5px 10px 0px;
+}
+
+.t-weather-large-toggle {
+  background-color: #7cc763;
+  color: white;
+  border-radius: 20px;
+}
+
+.t-weather-large-navbtn {
+  cursor: pointer;
+}
