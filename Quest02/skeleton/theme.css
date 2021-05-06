@@ -74,3 +74,30 @@
 .t-weather-large-navbtn {
   cursor: pointer;
 }
+
+.t-covid {
+  background-color: white;
+  box-shadow: rgba(117, 145, 181, 0.12) 0px 5px 10px 0px;
+}
+
+.t-holiday {
+  background-color: white;
+  box-shadow: rgba(117, 145, 181, 0.12) 0px 5px 10px 0px;
+}
+
+.t-ad {
+  font-size: 0.9rem;
+  background-color: white;
+  box-shadow: rgba(117, 145, 181, 0.12) 0px 5px 10px 0px;
+}
+
+.t-ad-btn {
+  border: 1px solid #4042b8;
+  color: #4042b8;
+  border-radius: 5px;
+}
+
+.t-webtoon {
+  background-color: white;
+  box-shadow: rgba(117, 145, 181, 0.12) 0px 5px 10px 0px;
+}

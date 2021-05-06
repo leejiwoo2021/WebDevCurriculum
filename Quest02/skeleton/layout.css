@@ -143,3 +143,61 @@
 .l-weather-large-listarea {
   overflow: scroll;
 }
+
+.l-covid {
+  width: 500px;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.l-covid-large-title {
+  margin: 0;
+  margin-right: 10px;
+}
+
+.l-width-half {
+  width: 50%;
+}
+
+.l-holiday {
+  width: 500px;
+  height: 50px;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.l-ad {
+  width: 500px;
+  height: 50px;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.l-ad-btn {
+  padding: 5px;
+}
+
+.l-webtoon{
+  width: 500px;
+  height: 50px;  
+  margin-top: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.l-webtoon-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
