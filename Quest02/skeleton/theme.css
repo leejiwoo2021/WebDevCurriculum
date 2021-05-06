@@ -110,3 +110,14 @@
 .t-popular-pann {
   background-color: rgb(223, 223, 223);
 }
+
+.t-notice {
+  background-color: white;
+  box-shadow: rgba(117, 145, 181, 0.12) 0px 5px 10px 0px;
+}
+
+.t-notice-label{
+  color:#7cc763;
+  border: 1px solid #7cc763;
+  border-radius: 10px;
+}
