@@ -101,3 +101,12 @@
   background-color: white;
   box-shadow: rgba(117, 145, 181, 0.12) 0px 5px 10px 0px;
 }
+
+.t-popular {
+  background-color: white;
+  box-shadow: rgba(117, 145, 181, 0.12) 0px 5px 10px 0px;
+}
+
+.t-popular-pann {
+  background-color: rgb(223, 223, 223);
+}

@@ -201,3 +201,46 @@
   width: 100%;
   height: 100%;
 }
+
+.l-popular {
+  width: 500px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  flex-flow: column;
+}
+
+.l-popular-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.l-popular-title {
+  margin: 0;
+  padding: 0;
+}
+
+.l-popular-pann-area{
+  width: 100%;
+  display:flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+
+}
+
+.l-popular-pann-container{
+  width: 50%;
+  height: 40px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.l-popular-pann{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}

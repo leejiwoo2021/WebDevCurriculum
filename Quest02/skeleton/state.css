@@ -53,3 +53,10 @@
   background-color: #123123;
   text-align: center;
 }
+
+.t-ad-btn:hover {
+  transition: color, background-color, 0.2s;
+  background-color: #4042b8;
+  color: white;
+
+}
