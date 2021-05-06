@@ -272,3 +272,22 @@
   padding: 5px;
   box-sizing: border-box;
 }
+
+.l-footer {
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.l-footer-row {
+  margin-top: 5px; 
+}
+
+.l-footer-link {
+  box-sizing: border-box;
+  padding-left: 3px;
+  padding-right:3px;
+}
