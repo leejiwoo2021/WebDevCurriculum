@@ -46,6 +46,8 @@ class Icon {
     icon.appendChild(this.createImg());
     icon.appendChild(this.createName());
 
+    this.addDragEvent(icon);
+
     return icon;
   }
 
@@ -61,6 +63,33 @@ class Icon {
     name.className = 'icon-name';
     name.innerHTML = this.name;
     return name;
+  }
+
+  addDragEvent(icon) {
+    let isClicked = false;
+    // let originPosition = this.position;
+    icon.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+      isClicked = true;
+    });
+
+    icon.addEventListener('mousemove', function (e) {
+      if (isClicked) {
+        const top = e.clientY - 50;
+        const left = e.clientX - 50;
+
+        icon.style.top = top + 'px';
+        icon.style.left = left + 'px';
+      }
+    });
+
+    icon.addEventListener('mouseup', function (e) {
+      isClicked = false;
+      // if (false) {
+      //   icon.style.top = originPosition.top + 'px';
+      //   icon.style.left = originPosition.left + 'px';
+      // }
+    });
   }
 }
 
