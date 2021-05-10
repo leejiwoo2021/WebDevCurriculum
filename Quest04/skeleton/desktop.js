@@ -1,36 +1,34 @@
 class Desktop {
   /* TODO: Desktop 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
   constructor(count) {
-    this.iconList = this.initIconlist(count);
-    this.desktopElement = document.getElementsByClassName('desktop')[0];
-    this.displayIcons();
+    this.display(this.getRenderList(count));
   }
 
-  initIconlist(count) {
-    const iconList = new Array();
+  getRenderList(count) {
+    const renderList = new Array();
     for (let index = 0; index < count.folder; index++)
-      iconList.push(new Icon('folder', index));
+      renderList.push(new Folder(index));
 
     for (let index = 0; index < count.common; index++)
-      iconList.push(new Icon('file', index));
+      renderList.push(new Icon(index));
 
-    return iconList;
+    return renderList;
   }
 
-  displayIcons() {
-    const desktopElement = this.desktopElement;
-    this.iconList.forEach((icon) => {
-      desktopElement.appendChild(icon.createIcon());
+  display(renderList) {
+    const desktopElement = document.getElementsByClassName('desktop')[0];
+    renderList.forEach((element) => {
+      desktopElement.appendChild(element.createIcon());
     });
   }
 }
 
 class Icon {
   /* TODO: Icon 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
-  constructor(type, index) {
-    this.src = type === 'folder' ? './folder.png' : './file.png';
-    this.type = type;
-    this.name = type + index;
+  constructor(index) {
+    this.src = './file.png';
+    this.type = 'icon';
+    this.name = 'icon' + index;
     this.position = {
       top: Math.floor(Math.random() * 500),
       left: Math.floor(Math.random() * 800),
@@ -93,8 +91,35 @@ class Icon {
   }
 }
 
-class Folder {
+class Folder extends Icon {
   /* TODO: Folder 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
+  constructor(index) {
+    super(index);
+    this.type = 'folder';
+    this.src = './folder.png';
+    this.name = 'folder' + index;
+  }
+
+  createIcon() {
+    const icon = document.createElement('div');
+    icon.className = 'icon';
+    icon.style.top = this.position.top + 'px';
+    icon.style.left = this.position.left + 'px';
+
+    icon.appendChild(this.createImg());
+    icon.appendChild(this.createName());
+
+    this.addDragEvent(icon);
+    this.addOpenEvent(icon);
+
+    return icon;
+  }
+
+  addOpenEvent(icon) {
+    icon.addEventListener('dblclick', function (e) {
+      alert('double clicked');
+    });
+  }
 }
 
 class Window {
