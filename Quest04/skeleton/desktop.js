@@ -2,6 +2,8 @@ class Desktop {
   /* TODO: Desktop 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
   constructor(count) {
     this.iconList = this.initIconlist(count);
+    this.desktopElement = document.getElementsByClassName('desktop')[0];
+    this.displayIcons();
   }
 
   initIconlist(count) {
@@ -13,6 +15,13 @@ class Desktop {
       iconList.push(new Icon('file', index));
 
     return iconList;
+  }
+
+  displayIcons() {
+    const desktopElement = this.desktopElement;
+    this.iconList.forEach((icon) => {
+      desktopElement.appendChild(icon.createIcon());
+    });
   }
 }
 
@@ -26,22 +35,32 @@ class Icon {
       top: Math.floor(Math.random() * 500),
       left: Math.floor(Math.random() * 800),
     };
-
-    this.displayIcon();
-  }
-
-  displayIcon() {
-    const desktop = document.getElementsByClassName('desktop')[0];
-    desktop.appendChild(this.createIcon());
   }
 
   createIcon() {
-    const element = document.createElement('img');
-    element.src = this.src;
-    element.className = 'icon';
-    element.style.top = this.position.top + 'px';
-    element.style.left = this.position.left + 'px';
-    return element;
+    const icon = document.createElement('div');
+    icon.className = 'icon';
+    icon.style.top = this.position.top + 'px';
+    icon.style.left = this.position.left + 'px';
+
+    icon.appendChild(this.createImg());
+    icon.appendChild(this.createName());
+
+    return icon;
+  }
+
+  createImg() {
+    const img = document.createElement('img');
+    img.className = 'icon-image';
+    img.src = this.src;
+    return img;
+  }
+
+  createName() {
+    const name = document.createElement('p');
+    name.className = 'icon-name';
+    name.innerHTML = this.name;
+    return name;
   }
 }
 

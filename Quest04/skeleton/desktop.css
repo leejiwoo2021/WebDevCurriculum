@@ -12,7 +12,19 @@ body {
 }
 
 .icon {
+  position: absolute;
+}
+
+.icon-image {
   width: 100px;
   height: 100px;
-  position: absolute;
+}
+
+.icon-name {
+  margin: 0;
+  padding: 0;
+  width: 100px;
+  height: 20px;
+  background-color: black;
+  color: white;
 }
