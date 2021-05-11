@@ -105,10 +105,6 @@ class Icon {
 
     icon.addEventListener('mouseup', function (e) {
       isClicked = false;
-      // if (false) {
-      //   icon.style.top = originPosition.top + 'px';
-      //   icon.style.left = originPosition.left + 'px';
-      // }
     });
   }
 }
@@ -138,12 +134,73 @@ class Folder extends Icon {
   }
 
   addOpenEvent(icon) {
+    const name = this.name;
     icon.addEventListener('dblclick', function (e) {
-      alert('double clicked');
+      const windowLayer = new Window(name);
+      windowLayer.display();
     });
   }
 }
 
 class Window {
   /* TODO: Window 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
+  constructor(title) {
+    this.title = title;
+  }
+
+  display() {
+    const body = document.getElementsByTagName('body')[0];
+    body.appendChild(this.createWindow(this.title));
+  }
+
+  createWindow(title) {
+    const windowElement = document.createElement('section');
+    windowElement.classList.add('window');
+
+    const windowBar = document.createElement('div');
+    windowBar.classList.add('window-bar');
+
+    const windowTitle = document.createElement('p');
+    windowTitle.innerHTML = title;
+
+    const windowCloseButton = document.createElement('button');
+    windowCloseButton.innerHTML = '닫기';
+    windowCloseButton.classList.add('window-close-button');
+
+    this.addDragEvent(windowBar, windowElement);
+    this.addCloseEvent(windowCloseButton, windowElement);
+
+    windowBar.appendChild(windowTitle);
+    windowBar.appendChild(windowCloseButton);
+    windowElement.appendChild(windowBar);
+
+    return windowElement;
+  }
+
+  addDragEvent(windowBar, windowElement) {
+    let isClicked = false;
+    windowBar.addEventListener('mousedown', function (e) {
+      isClicked = true;
+    });
+
+    windowBar.addEventListener('mousemove', function (e) {
+      if (isClicked) {
+        const top = e.clientY - 15;
+        const left = e.clientX - 100;
+
+        windowElement.style.top = top + 'px';
+        windowElement.style.left = left + 'px';
+      }
+    });
+
+    windowBar.addEventListener('mouseup', function (e) {
+      isClicked = false;
+    });
+  }
+
+  addCloseEvent(button, windowElement) {
+    button.addEventListener('click', function () {
+      windowElement.remove();
+    });
+  }
 }
