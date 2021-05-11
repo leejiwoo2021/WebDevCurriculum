@@ -86,21 +86,31 @@ class Icon {
 
   addDragEvent(icon) {
     let isClicked = false;
+    let shiftX, shiftY;
+
     icon.addEventListener('mousedown', function (e) {
       e.preventDefault();
       isClicked = true;
+
+      shiftX = e.clientX - icon.getBoundingClientRect().left;
+      shiftY = e.clientY - icon.getBoundingClientRect().top;
+      moveAt(e.pageX, e.pageY);
     });
 
-    icon.addEventListener('mousemove', function (e) {
+    document.addEventListener('mousemove', function (e) {
       if (isClicked) {
-        icon.style.top = e.clientY - 50 + 'px';
-        icon.style.left = e.clientX - 50 + 'px';
+        moveAt(e.pageX, e.pageY);
       }
     });
 
     icon.addEventListener('mouseup', function (e) {
       isClicked = false;
     });
+
+    function moveAt(pageX, pageY) {
+      icon.style.left = pageX - shiftX + 'px';
+      icon.style.top = pageY - shiftY + 'px';
+    }
   }
 }
 
@@ -174,20 +184,31 @@ class Window {
 
   addDragEvent(windowBar, windowElement) {
     let isClicked = false;
+    let shiftX, shiftY;
+
     windowBar.addEventListener('mousedown', function (e) {
+      e.preventDefault();
       isClicked = true;
+
+      shiftX = e.clientX - windowElement.getBoundingClientRect().left;
+      shiftY = e.clientY - windowElement.getBoundingClientRect().top;
+      moveAt(e.pageX, e.pageY);
     });
 
-    windowBar.addEventListener('mousemove', function (e) {
+    document.addEventListener('mousemove', function (e) {
       if (isClicked) {
-        windowElement.style.top = e.clientY - 15 + 'px';
-        windowElement.style.left = e.clientX - 150 + 'px';
+        moveAt(e.pageX, e.pageY);
       }
     });
 
     windowBar.addEventListener('mouseup', function (e) {
       isClicked = false;
     });
+
+    function moveAt(pageX, pageY) {
+      windowElement.style.left = pageX - shiftX + 'px';
+      windowElement.style.top = pageY - shiftY + 'px';
+    }
   }
 
   addCloseEvent(button, windowElement) {
