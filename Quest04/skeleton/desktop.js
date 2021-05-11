@@ -93,11 +93,8 @@ class Icon {
 
     icon.addEventListener('mousemove', function (e) {
       if (isClicked) {
-        const top = e.clientY - 50;
-        const left = e.clientX - 50;
-
-        icon.style.top = top + 'px';
-        icon.style.left = left + 'px';
+        icon.style.top = e.clientY - 50 + 'px';
+        icon.style.left = e.clientX - 50 + 'px';
       }
     });
 
@@ -135,7 +132,7 @@ class Folder extends Icon {
     const name = this.name;
     icon.addEventListener('dblclick', function (e) {
       const windowLayer = new Window(name);
-      windowLayer.display();
+      windowLayer.setWindow();
     });
   }
 }
@@ -146,7 +143,7 @@ class Window {
     this.title = title;
   }
 
-  display() {
+  setWindow() {
     const body = document.getElementsByTagName('body')[0];
     body.appendChild(this.createWindow(this.title));
   }
@@ -183,11 +180,8 @@ class Window {
 
     windowBar.addEventListener('mousemove', function (e) {
       if (isClicked) {
-        const top = e.clientY - 15;
-        const left = e.clientX - 150;
-
-        windowElement.style.top = top + 'px';
-        windowElement.style.left = left + 'px';
+        windowElement.style.top = e.clientY - 15 + 'px';
+        windowElement.style.left = e.clientX - 150 + 'px';
       }
     });
 
