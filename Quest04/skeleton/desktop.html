@@ -20,6 +20,20 @@
       <button class="explorer-button">Desktop 2</button>
       <button class="explorer-button">Desktop 3</button>
     </section>
+    <template id="template-window">
+      <section class="window">
+        <div class="window-bar">
+          <p>Title</p>
+          <button class="window-close-button">닫기</button>
+        </div>
+      </section>
+    </template>
+    <template id="template-icon">
+      <div class="icon">
+        <img class="icon-image" />
+        <p class="icon-name"></p>
+      </div>
+    </template>
     <script>
       /* TODO: myDesktop 인스턴스의 생성자의 변수로 무엇이 들어가야 할까요? */
       let myDesktop1 = new Desktop({ folder: 3, common: 4 }, 0);

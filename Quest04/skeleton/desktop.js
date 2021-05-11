@@ -57,31 +57,21 @@ class Icon {
   }
 
   createIcon() {
-    const icon = document.createElement('div');
-    icon.className = 'icon';
-    icon.style.top = this.position.top + 'px';
-    icon.style.left = this.position.left + 'px';
+    const iconTemplate = document.querySelector('#template-icon');
+    const iconClone = document.importNode(iconTemplate.content, true);
 
-    icon.appendChild(this.createImg());
-    icon.appendChild(this.createName());
+    const iconElement = iconClone.querySelector('.icon');
+    const iconImg = iconElement.querySelector('.icon-image');
+    const iconName = iconElement.querySelector('.icon-name');
 
-    this.addDragEvent(icon);
+    iconElement.style.top = this.position.top + 'px';
+    iconElement.style.left = this.position.left + 'px';
+    iconImg.setAttribute('src', this.src);
+    iconName.innerText = this.name;
 
-    return icon;
-  }
+    this.addDragEvent(iconElement);
 
-  createImg() {
-    const img = document.createElement('img');
-    img.className = 'icon-image';
-    img.src = this.src;
-    return img;
-  }
-
-  createName() {
-    const name = document.createElement('p');
-    name.className = 'icon-name';
-    name.innerHTML = this.name;
-    return name;
+    return iconElement;
   }
 
   addDragEvent(icon) {
@@ -124,18 +114,22 @@ class Folder extends Icon {
   }
 
   createIcon() {
-    const icon = document.createElement('div');
-    icon.className = 'icon';
-    icon.style.top = this.position.top + 'px';
-    icon.style.left = this.position.left + 'px';
+    const iconTemplate = document.querySelector('#template-icon');
+    const iconClone = document.importNode(iconTemplate.content, true);
 
-    icon.appendChild(this.createImg());
-    icon.appendChild(this.createName());
+    const iconElement = iconClone.querySelector('.icon');
+    const iconImg = iconElement.querySelector('.icon-image');
+    const iconName = iconElement.querySelector('.icon-name');
 
-    this.addDragEvent(icon);
-    this.addOpenEvent(icon);
+    iconElement.style.top = this.position.top + 'px';
+    iconElement.style.left = this.position.left + 'px';
+    iconImg.setAttribute('src', this.src);
+    iconName.innerText = this.name;
 
-    return icon;
+    this.addDragEvent(iconElement);
+    this.addOpenEvent(iconElement);
+
+    return iconElement;
   }
 
   addOpenEvent(icon) {
@@ -159,25 +153,18 @@ class Window {
   }
 
   createWindow(title) {
-    const windowElement = document.createElement('section');
-    windowElement.classList.add('window');
+    const windowTemplate = document.getElementById('template-window');
+    const windowClone = document.importNode(windowTemplate.content, true);
 
-    const windowBar = document.createElement('div');
-    windowBar.classList.add('window-bar');
+    const windowElement = windowClone.querySelector('.window');
+    const windowBar = windowClone.querySelector('.window-bar');
+    const windowTitle = windowClone.querySelector('p');
 
-    const windowTitle = document.createElement('p');
-    windowTitle.innerHTML = title;
-
-    const windowCloseButton = document.createElement('button');
-    windowCloseButton.innerHTML = '닫기';
-    windowCloseButton.classList.add('window-close-button');
+    windowTitle.innerText = title;
+    const windowCloseButton = windowClone.querySelector('.window-close-button');
 
     this.addDragEvent(windowBar, windowElement);
     this.addCloseEvent(windowCloseButton, windowElement);
-
-    windowBar.appendChild(windowTitle);
-    windowBar.appendChild(windowCloseButton);
-    windowElement.appendChild(windowBar);
 
     return windowElement;
   }
