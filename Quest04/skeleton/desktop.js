@@ -34,13 +34,12 @@ class Desktop {
 
   setDesktopVisible(index) {
     [...this.desktopElements].forEach((desktop, desktopIndex) => {
-      if (index === desktopIndex) {
-        desktop.classList.remove('desktop-hide');
-        desktop.classList.add('desktop-active');
-      } else {
-        desktop.classList.remove('desktop-active');
-        desktop.classList.add('desktop-hide');
-      }
+      desktop.classList.remove(
+        index === desktopIndex ? 'desktop-hide' : 'desktop-active'
+      );
+      desktop.classList.add(
+        index === desktopIndex ? 'desktop-active' : 'desktop-hide'
+      );
     });
   }
 }
@@ -87,7 +86,6 @@ class Icon {
 
   addDragEvent(icon) {
     let isClicked = false;
-    // let originPosition = this.position;
     icon.addEventListener('mousedown', function (e) {
       e.preventDefault();
       isClicked = true;
@@ -186,7 +184,7 @@ class Window {
     windowBar.addEventListener('mousemove', function (e) {
       if (isClicked) {
         const top = e.clientY - 15;
-        const left = e.clientX - 100;
+        const left = e.clientX - 150;
 
         windowElement.style.top = top + 'px';
         windowElement.style.left = left + 'px';
