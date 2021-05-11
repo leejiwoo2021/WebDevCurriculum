@@ -1,44 +1,44 @@
 class Desktop {
   /* TODO: Desktop 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
-  constructor(count, index) {
+  constructor(count, desktopIndex) {
     this.desktopElements = document.getElementsByClassName('desktop');
     this.explorerButtons = document.getElementsByClassName('explorer-button');
-    this.setDesktop(this.getIconList(count), index);
-    this.setExplorer(index);
+    this.setDesktop(this.getIconList(count, desktopIndex), desktopIndex);
+    this.setExplorer(desktopIndex);
   }
 
-  getIconList(count) {
+  getIconList(count, desktopIndex) {
     const renderList = new Array();
     for (let index = 0; index < count.folder; index++)
-      renderList.push(new Folder(index));
+      renderList.push(new Folder(index, desktopIndex));
 
     for (let index = 0; index < count.common; index++)
-      renderList.push(new Icon(index));
+      renderList.push(new Icon(index, desktopIndex));
 
     return renderList;
   }
 
-  setDesktop(renderList, index) {
+  setDesktop(renderList, desktopIndex) {
     const desktopElements = this.desktopElements;
     renderList.forEach((element) => {
-      desktopElements[index].appendChild(element.createIcon());
+      desktopElements[desktopIndex].appendChild(element.createIcon());
     });
   }
 
-  setExplorer(index) {
+  setExplorer(desktopIndex) {
     const that = this;
-    this.explorerButtons[index].addEventListener('click', function () {
-      that.setDesktopVisible(index);
+    this.explorerButtons[desktopIndex].addEventListener('click', function () {
+      that.setDesktopVisible(desktopIndex);
     });
   }
 
-  setDesktopVisible(index) {
-    [...this.desktopElements].forEach((desktop, desktopIndex) => {
+  setDesktopVisible(clickedIndex) {
+    [...this.desktopElements].forEach((desktop, index) => {
       desktop.classList.remove(
-        index === desktopIndex ? 'desktop-hide' : 'desktop-active'
+        clickedIndex === index ? 'desktop-hide' : 'desktop-active'
       );
       desktop.classList.add(
-        index === desktopIndex ? 'desktop-active' : 'desktop-hide'
+        clickedIndex === index ? 'desktop-active' : 'desktop-hide'
       );
     });
   }
@@ -46,7 +46,7 @@ class Desktop {
 
 class Icon {
   /* TODO: Icon 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
-  constructor(index) {
+  constructor(index, desktopIndex) {
     this.src = './file.png';
     this.type = 'icon';
     this.name = 'icon' + index;
@@ -54,6 +54,7 @@ class Icon {
       top: Math.floor(Math.random() * 500),
       left: Math.floor(Math.random() * 800),
     };
+    this.desktopIndex = desktopIndex;
   }
 
   createIcon() {
@@ -106,8 +107,8 @@ class Icon {
 
 class Folder extends Icon {
   /* TODO: Folder 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
-  constructor(index) {
-    super(index);
+  constructor(index, desktopIndex) {
+    super(index, desktopIndex);
     this.type = 'folder';
     this.src = './folder.png';
     this.name = 'folder' + index;
@@ -134,9 +135,10 @@ class Folder extends Icon {
 
   addOpenEvent(icon) {
     const name = this.name;
+    const desktopIndex = this.desktopIndex;
     icon.addEventListener('dblclick', function (e) {
       const windowLayer = new Window(name);
-      windowLayer.setWindow();
+      windowLayer.setWindow(desktopIndex);
     });
   }
 }
@@ -147,9 +149,11 @@ class Window {
     this.title = title;
   }
 
-  setWindow() {
-    const body = document.getElementsByTagName('body')[0];
-    body.appendChild(this.createWindow(this.title));
+  setWindow(desktopIndex) {
+    const desktopElements = document.getElementsByClassName('desktop')[
+      desktopIndex
+    ];
+    desktopElements.appendChild(this.createWindow(this.title));
   }
 
   createWindow(title) {
