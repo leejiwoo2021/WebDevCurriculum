@@ -42,10 +42,15 @@
 ## Advanced
 
 - 객체지향의 역사는 어떻게 될까요?
+  - 1960년대 시뮬라에서 시작되어 C++, 스몰토크 등의 언어들에서 활용 및 발전
+  - 이후 90년대 Java의 등장으로 발전이 가속화 된다
 - Smalltalk, Java, Go, Kotlin 등의 언어들로 넘어오면서 객체지향 패러다임 측면에서 어떤 발전이 있었을까요?
+  - 함수형 프로그래밍이라는 새로운 패러다임이 등장하기도 했다.
+  - 초기엔 없던 상속, 다형성, 추상클래스 등의 개념들이 추가되었다.
 
 ## Resources
 
 - [MDN - Private class fields](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/Private_class_fields)
 - [MDN - Class static](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/static)
 - [Wikipedia - 프로토타입 기반 프로그래밍](https://ko.wikipedia.org/wiki/%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85_%EA%B8%B0%EB%B0%98_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)
+- [Wikipedia - 객체 지향 프로그래밍](https://ko.wikipedia.org/wiki/%EA%B0%9D%EC%B2%B4_%EC%A7%80%ED%96%A5_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)
