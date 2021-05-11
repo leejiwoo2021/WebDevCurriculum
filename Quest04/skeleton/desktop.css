@@ -11,6 +11,14 @@ body {
   height: 100%;
 }
 
+.desktop-active {
+  display: block;
+}
+
+.desktop-hide {
+  display: none;
+}
+
 .icon {
   position: absolute;
 }
@@ -27,4 +35,22 @@ body {
   height: 20px;
   background-color: black;
   color: white;
+}
+
+.explorer {
+  z-index: 100;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: gray;
+  display: flex;
+  align-items: center;
+}
+
+.explorer > button {
+  width: 100px;
+  height: 50px;
+  margin-left: 20px;
 }

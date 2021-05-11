@@ -1,10 +1,13 @@
 class Desktop {
   /* TODO: Desktop 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
-  constructor(count) {
-    this.display(this.getRenderList(count));
+  constructor(count, index) {
+    this.desktopElements = document.getElementsByClassName('desktop');
+    this.explorerButtons = document.getElementsByClassName('explorer-button');
+    this.setDesktop(this.getIconList(count), index);
+    this.setExplorer(index);
   }
 
-  getRenderList(count) {
+  getIconList(count) {
     const renderList = new Array();
     for (let index = 0; index < count.folder; index++)
       renderList.push(new Folder(index));
@@ -15,10 +18,29 @@ class Desktop {
     return renderList;
   }
 
-  display(renderList) {
-    const desktopElement = document.getElementsByClassName('desktop')[0];
+  setDesktop(renderList, index) {
+    const desktopElements = this.desktopElements;
     renderList.forEach((element) => {
-      desktopElement.appendChild(element.createIcon());
+      desktopElements[index].appendChild(element.createIcon());
+    });
+  }
+
+  setExplorer(index) {
+    const that = this;
+    this.explorerButtons[index].addEventListener('click', function () {
+      that.setDesktopVisible(index);
+    });
+  }
+
+  setDesktopVisible(index) {
+    [...this.desktopElements].forEach((desktop, desktopIndex) => {
+      if (index === desktopIndex) {
+        desktop.classList.remove('desktop-hide');
+        desktop.classList.add('desktop-active');
+      } else {
+        desktop.classList.remove('desktop-active');
+        desktop.classList.add('desktop-hide');
+      }
     });
   }
 }
