@@ -12,12 +12,12 @@ class Desktop {
   getIconList() {
     const renderList = new Array();
     for (let index = 0; index < this.count.folder; index++)
-      renderList.push(new FolderComp('folder'+index, this.desktopIndex));
-      // renderList.push(new Folder(index, desktopIndex));
+      // renderList.push(new FolderComp('folder'+index, this.desktopIndex));
+      renderList.push(new Folder(index, this.desktopIndex));
 
     for (let index = 0; index < this.count.common; index++)
-      renderList.push(new IconComp('file'+index,'./file.png', this.desktopIndex));
-      // renderList.push(new Icon(index, desktopIndex));
+      // renderList.push(new IconComp('file'+index,'./file.png', this.desktopIndex));
+      renderList.push(new Icon(index, this.desktopIndex));
 
     return renderList;
   }
@@ -143,26 +143,27 @@ class Folder extends Icon {
     const name = this.name;
     const desktopIndex = this.desktopIndex;
     icon.addEventListener('dblclick', function (e) {
-      const windowLayer = new Window(name);
-      windowLayer.setWindow(desktopIndex);
+      const windowLayer = new Window(name,desktopIndex);
+      windowLayer.setWindow();
     });
   }
 }
 
 class Window {
   /* TODO: Window 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
-  constructor(title) {
+  constructor(title, desktopIndex) {
     this.title = title;
+    this.desktopIndex = desktopIndex;
   }
 
-  setWindow(desktopIndex) {
+  setWindow() {
     const desktopElements = document.getElementsByClassName('desktop')[
-      desktopIndex
+      this.desktopIndex
     ];
-    desktopElements.appendChild(this.createWindow(this.title));
+    desktopElements.appendChild(this.createWindow());
   }
 
-  createWindow(title) {
+  createWindow() {
     const windowTemplate = document.getElementById('template-window');
     const windowClone = document.importNode(windowTemplate.content, true);
 
@@ -170,7 +171,7 @@ class Window {
     const windowBar = windowClone.querySelector('.window-bar');
     const windowTitle = windowClone.querySelector('p');
 
-    windowTitle.innerText = title;
+    windowTitle.innerText = this.title;
     const windowCloseButton = windowClone.querySelector('.window-close-button');
 
     this.addDragEvent(windowBar, windowElement);
@@ -292,8 +293,8 @@ class FolderComp {
     const name = this.name;
     const desktopIndex = this.desktopIndex;
     this.icon.addEventListener('dblclick', function (e) {
-      const windowLayer = new Window(name);
-      windowLayer.setWindow(desktopIndex);
+      const windowLayer = new Window(name, desktopIndex);
+      windowLayer.setWindow();
     });
   }
 }
