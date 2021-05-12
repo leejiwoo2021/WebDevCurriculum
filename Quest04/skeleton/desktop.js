@@ -13,11 +13,11 @@ class Desktop {
     const renderList = new Array();
     for (let index = 0; index < this.count.folder; index++)
       // renderList.push(new FolderComp('folder'+index, this.desktopIndex));
-      renderList.push(new Folder(index, this.desktopIndex));
+      renderList.push(new Folder('folder'+index,'./folder.png', this.desktopIndex));
 
     for (let index = 0; index < this.count.common; index++)
       // renderList.push(new IconComp('file'+index,'./file.png', this.desktopIndex));
-      renderList.push(new Icon(index, this.desktopIndex));
+      renderList.push(new Icon('file'+index,'./file.png', this.desktopIndex));
 
     return renderList;
   }
@@ -52,15 +52,14 @@ class Desktop {
 
 class Icon {
   /* TODO: Icon 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
-  constructor(index, desktopIndex) {
-    this.src = './file.png';
-    this.type = 'icon';
-    this.name = 'icon' + index;
+  constructor(name, src, desktopIndex) {
+    this.name = name;
+    this.src = src;
+    this.desktopIndex = desktopIndex;
     this.position = {
       top: Math.floor(Math.random() * 500),
       left: Math.floor(Math.random() * 800),
     };
-    this.desktopIndex = desktopIndex;
   }
 
   createIcon() {
@@ -113,11 +112,8 @@ class Icon {
 
 class Folder extends Icon {
   /* TODO: Folder 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
-  constructor(index, desktopIndex) {
-    super(index, desktopIndex);
-    this.type = 'folder';
-    this.src = './folder.png';
-    this.name = 'folder' + index;
+  constructor(name, src, desktopIndex) {
+    super(name, src, desktopIndex);
   }
 
   createIcon() {
