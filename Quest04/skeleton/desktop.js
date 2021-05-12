@@ -3,34 +3,38 @@ class Desktop {
   constructor(count, desktopIndex) {
     this.desktopElements = document.getElementsByClassName('desktop');
     this.explorerButtons = document.getElementsByClassName('explorer-button');
-    this.setDesktop(this.getIconList(count, desktopIndex), desktopIndex);
-    this.setExplorer(desktopIndex);
+    this.count = count;
+    this.desktopIndex= desktopIndex
+    this.setDesktopIcons();
+    this.addExplorerEvent();
   }
 
-  getIconList(count, desktopIndex) {
+  getIconList() {
     const renderList = new Array();
-    for (let index = 0; index < count.folder; index++)
-      renderList.push(new FolderComp('folder'+index, desktopIndex));
+    for (let index = 0; index < this.count.folder; index++)
+      renderList.push(new FolderComp('folder'+index, this.desktopIndex));
       // renderList.push(new Folder(index, desktopIndex));
 
-    for (let index = 0; index < count.common; index++)
-      renderList.push(new IconComp('file'+index,'./file.png', desktopIndex));
+    for (let index = 0; index < this.count.common; index++)
+      renderList.push(new IconComp('file'+index,'./file.png', this.desktopIndex));
       // renderList.push(new Icon(index, desktopIndex));
 
     return renderList;
   }
 
-  setDesktop(renderList, desktopIndex) {
+  setDesktopIcons() {
     const desktopElements = this.desktopElements;
-    renderList.forEach((element) => {
+    const desktopIndex = this.desktopIndex;
+    this.getIconList().forEach((element) => {
       desktopElements[desktopIndex].appendChild(element.createIcon());
     });
   }
 
-  setExplorer(desktopIndex) {
-    const that = this;
+  addExplorerEvent() {
+    const desktop = this;
+    const desktopIndex = this.desktopIndex;
     this.explorerButtons[desktopIndex].addEventListener('click', function () {
-      that.setDesktopVisible(desktopIndex);
+      desktop.setDesktopVisible(desktopIndex);
     });
   }
 
