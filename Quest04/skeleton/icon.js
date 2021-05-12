@@ -1,6 +1,6 @@
 class Icon{
   #name;
-  #src = './file.png';
+  #src
   #position = {
     top: Math.floor(Math.random() * 500),
     left: Math.floor(Math.random() * 800),
@@ -8,8 +8,9 @@ class Icon{
   #iconElement;
   #iconImg;
   #iconName;
-  constructor(iconIndex){
+  constructor(iconIndex, src){
     this.#name = 'icon' + iconIndex;
+    this.#src = src;
     this.#init();
   }
 

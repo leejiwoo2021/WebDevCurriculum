@@ -23,17 +23,18 @@ class Desktop {
 
   #createIconElements(){
     for(let index=0; index<this.#count.common; index++)
-      this.#iconList.push(new Icon(index));
+      this.#iconList.push(new Icon(index, './file.png'));
   }
 
   #render(){
     const desktopElement = this.#desktopElement;
-
-    this.#bodyElement.appendChild(desktopElement);
     this.#iconList.forEach((icon) => {
       const iconElement = icon.getElement();
       desktopElement.appendChild(iconElement);
     })
+
+    this.#bodyElement.appendChild(desktopElement);
+ 
   }
 
   getElement(){
