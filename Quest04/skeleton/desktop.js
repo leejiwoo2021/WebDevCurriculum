@@ -10,10 +10,12 @@ class Desktop {
   getIconList(count, desktopIndex) {
     const renderList = new Array();
     for (let index = 0; index < count.folder; index++)
-      renderList.push(new Folder(index, desktopIndex));
+      renderList.push(new FolderComp('folder'+index, desktopIndex));
+      // renderList.push(new Folder(index, desktopIndex));
 
     for (let index = 0; index < count.common; index++)
-      renderList.push(new Icon(index, desktopIndex));
+      renderList.push(new IconComp('file'+index,'./file.png', desktopIndex));
+      // renderList.push(new Icon(index, desktopIndex));
 
     return renderList;
   }
@@ -205,6 +207,89 @@ class Window {
   addCloseEvent(button, windowElement) {
     button.addEventListener('click', function () {
       windowElement.remove();
+    });
+  }
+}
+
+class IconComp {
+  /* TODO: Icon 클래스는 어떤 멤버함수와 멤버변수를 가져야 할까요? */
+  constructor(name, src, desktopIndex) {
+    this.name = name;
+    this.src = src
+    this.desktopIndex = desktopIndex;
+    this.position = {
+      top: Math.floor(Math.random() * 500),
+      left: Math.floor(Math.random() * 800),
+    };
+  }
+
+  createIcon(){
+    const iconTemplate = document.querySelector('#template-icon');
+    const iconClone = document.importNode(iconTemplate.content, true);
+
+    const iconElement = iconClone.querySelector('.icon');
+    const iconImg = iconElement.querySelector('.icon-image');
+    const iconName = iconElement.querySelector('.icon-name');
+
+    iconElement.style.top = this.position.top + 'px';
+    iconElement.style.left = this.position.left + 'px';
+    iconImg.setAttribute('src', this.src);
+    iconName.innerText = this.name;
+    
+    this.addDragEvent(iconElement);
+
+    return iconElement;
+  }
+
+  addDragEvent(icon) {
+    let isClicked = false;
+    let shiftX, shiftY;
+
+    icon.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+      isClicked = true;
+
+      shiftX = e.clientX - icon.getBoundingClientRect().left;
+      shiftY = e.clientY - icon.getBoundingClientRect().top;
+      moveAt(e.pageX, e.pageY);
+    });
+
+    document.addEventListener('mousemove', function (e) {
+      if (isClicked) {
+        moveAt(e.pageX, e.pageY);
+      }
+    });
+
+    icon.addEventListener('mouseup', function (e) {
+      isClicked = false;
+    });
+
+    function moveAt(pageX, pageY) {
+      icon.style.left = pageX - shiftX + 'px';
+      icon.style.top = pageY - shiftY + 'px';
+    }
+  }
+}
+
+class FolderComp {
+  constructor(name, desktopIndex) {
+    this.name = name;
+    this.desktopIndex = desktopIndex;
+    this.icon = new IconComp(name , './folder.png', desktopIndex).createIcon();
+  }
+
+  createIcon(){
+    this.addOpenEvent();
+
+    return this.icon;
+  }
+
+  addOpenEvent(){
+    const name = this.name;
+    const desktopIndex = this.desktopIndex;
+    this.icon.addEventListener('dblclick', function (e) {
+      const windowLayer = new Window(name);
+      windowLayer.setWindow(desktopIndex);
     });
   }
 }
