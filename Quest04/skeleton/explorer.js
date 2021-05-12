@@ -60,4 +60,11 @@ class Explorer {
     })
   }
 
+  showFirstDesktop(){
+    // this.#desktopList[0].getElement().classList.remove('desktop-hide');
+    // this.#desktopList[0].getElement().classList.add('desktop-active');  
+    // or
+    this.#buttonList[0].click();
+  }
+
 }
