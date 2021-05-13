@@ -2,6 +2,7 @@ class Window {
   #name;
   #windowElement;
   #windowBar;
+  #windowCloseButton;
   constructor(name) {
     this.#name = name;
     this.#init();
@@ -21,11 +22,12 @@ class Window {
     const windowTitle = windowClone.querySelector('p');
 
     windowTitle.innerText = this.#name;
-    const windowCloseButton = windowClone.querySelector('.window-close-button');
+    this.#windowCloseButton = windowClone.querySelector('.window-close-button');
   }
 
   #addEvent() {
     this.#addDragEvent();
+    this.#addCloseEvent();
   }
 
   #addDragEvent() {
@@ -33,6 +35,13 @@ class Window {
       this.#windowElement,
       this.#windowBar
     ).getElement();
+  }
+
+  #addCloseEvent() {
+    const windowElement = this.#windowElement;
+    this.#windowCloseButton.addEventListener('click', function (e) {
+      windowElement.remove();
+    });
   }
 
   getElement() {
