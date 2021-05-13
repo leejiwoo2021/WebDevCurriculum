@@ -1,7 +1,9 @@
 class Draggable {
   #draggableElement;
-  constructor(element) {
-    this.#draggableElement = element;
+  #controlElement;
+  constructor(draggableElement, controlElement) {
+    this.#draggableElement = draggableElement;
+    this.#controlElement = controlElement || draggableElement;
     this.#init();
   }
 
@@ -11,7 +13,8 @@ class Draggable {
 
   #addEvent() {
     const draggableElement = this.#draggableElement;
-    draggableElement.addEventListener('mousedown', function (e) {
+    const controlElement = this.#controlElement;
+    controlElement.addEventListener('mousedown', function (e) {
       e.preventDefault();
 
       let shiftX = e.clientX - draggableElement.getBoundingClientRect().left;
@@ -19,7 +22,7 @@ class Draggable {
       onMouseMove(e);
 
       document.addEventListener('mousemove', onMouseMove);
-      draggableElement.addEventListener('mouseup', onMouseUp);
+      controlElement.addEventListener('mouseup', onMouseUp);
 
       function onMouseMove(e) {
         draggableElement.style.left = e.pageX - shiftX + 'px';
@@ -28,7 +31,7 @@ class Draggable {
 
       function onMouseUp() {
         document.removeEventListener('mousemove', onMouseMove);
-        draggableElement.removeEventListener('mouseup', onMouseUp);
+        controlElement.removeEventListener('mouseup', onMouseUp);
       }
     });
   }

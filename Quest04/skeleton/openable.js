@@ -13,9 +13,10 @@ class Openable {
 
   #addEvent() {
     const name = this.#name;
-    this.#openableElement.addEventListener('dblclick', function (e) {
-      // const windowLayer = new Window(name, desktopIndex);
-      // windowLayer.setWindow();
+    const openableElement = this.#openableElement;
+    openableElement.addEventListener('dblclick', function (e) {
+      const windowElement = new Window(name).getElement();
+      openableElement.parentNode.appendChild(windowElement);
     });
   }
 
