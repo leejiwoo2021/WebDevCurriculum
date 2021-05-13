@@ -8,7 +8,10 @@ class Folder {
   }
 
   #init() {
-    // this.#folderElement = new openable(this.#folderElement).getElement();
+    this.#folderElement = new Openable(
+      this.#folderElement,
+      this.#name
+    ).getElement();
   }
 
   getElement() {
