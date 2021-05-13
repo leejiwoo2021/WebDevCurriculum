@@ -3,7 +3,7 @@ class Desktop {
   #bodyElement = document.querySelector('body');
   #desktopElement;
   #active;
-  #iconList = new Array();
+  #iconElementList = new Array();
   constructor(count, active) {
     this.#count = count;
     this.#active = active;
@@ -30,13 +30,14 @@ class Desktop {
 
   #createIconElements() {
     for (let index = 0; index < this.#count.common; index++)
-      this.#iconList.push(new Icon(index, './file.png'));
+      this.#iconElementList.push(
+        new Icon(`icon ${index}`, './file.png').getElement()
+      );
   }
 
   #render() {
     const desktopElement = this.#desktopElement;
-    this.#iconList.forEach((icon) => {
-      const iconElement = icon.getElement();
+    this.#iconElementList.forEach((iconElement) => {
       desktopElement.appendChild(iconElement);
     });
 
