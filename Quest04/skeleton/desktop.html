@@ -26,22 +26,19 @@
     <template id="template-desktop">
       <section class="desktop desktop-hide"></section>
     </template>
-    <template id='template-explorer'>
-      <section class="explorer">
-      </section>
+    <template id="template-explorer">
+      <section class="explorer"></section>
     </template>
     <script>
       /* TODO: myDesktop 인스턴스의 생성자의 변수로 무엇이 들어가야 할까요? */
-      let myDesktop1 = new Desktop({ folder: 3, common: 4 });
-      let myDesktop2 = new Desktop({ folder: 2, common: 5 });
-      let myDesktop3 = new Desktop({ folder: 3, common: 1 });
+      let myDesktop1 = new Desktop({ folder: 3, common: 4 }, true);
+      let myDesktop2 = new Desktop({ folder: 2, common: 5 }, false);
+      let myDesktop3 = new Desktop({ folder: 3, common: 1 }, false);
 
       let myExplorer = new Explorer();
-      myExplorer.addDesktop(myDesktop1);
-      myExplorer.addDesktop(myDesktop2);
-      myExplorer.addDesktop(myDesktop3);
-
-      myExplorer.showFirstDesktop();
+      myExplorer.addExplorerButton(myDesktop1.getElement());
+      myExplorer.addExplorerButton(myDesktop2.getElement());
+      myExplorer.addExplorerButton(myDesktop3.getElement());
     </script>
   </body>
 </html>

@@ -1,70 +1,78 @@
 class Explorer {
   #bodyElement = document.querySelector('body');
   #explorerElement;
-  #desktopList = new Array();
-  #buttonList = new Array();
+  #desktopElementList = new Array();
+  #buttonElementList = new Array();
   constructor() {
     this.#init();
   }
 
-  #init(){
+  #init() {
     this.#cloneTemplate();
     this.#render();
   }
 
-  #cloneTemplate(){
+  #cloneTemplate() {
     const explorerTemplate = document.querySelector('#template-explorer');
     const explorerClone = document.importNode(explorerTemplate.content, true);
-    
+
     this.#explorerElement = explorerClone.querySelector('.explorer');
   }
 
-  #render(){
+  #render() {
     this.#bodyElement.appendChild(this.#explorerElement);
   }
 
-  // add Desktop
+  addExplorerButton(desktopElement) {
+    this.#desktopElementList.push(desktopElement);
+    const explorerButton = new ExplorerButton(
+      this.#desktopElementList,
+      this.#desktopElementList.length - 1
+    );
 
-  addDesktop(desktopElement){
-    this.#desktopList.push(desktopElement);
-    this.#cloneButton();
-    this.#addButtonEvent();
-    this.#explorerElement.appendChild(this.#buttonList[this.#buttonList.length-1]);
+    this.#explorerElement.appendChild(explorerButton.getElement());
+  }
+}
+
+class ExplorerButton {
+  #buttonElement;
+  #desktopElementList;
+  #index;
+  constructor(desktopElementList, index) {
+    this.#desktopElementList = desktopElementList;
+    this.#index = index;
+    this.#init();
   }
 
-  #cloneButton(){
+  #init() {
+    this.#cloneTemplate();
+    this.#addEvent();
+  }
+
+  #cloneTemplate() {
     const buttonElement = document.createElement('button');
     buttonElement.classList.add('explorer-button');
-    buttonElement.innerHTML = 'Desktop' + this.#desktopList.length;
+    buttonElement.innerHTML = 'Desktop' + this.#index;
 
-    this.#buttonList.push(buttonElement);
+    this.#buttonElement = buttonElement;
   }
 
-  #addButtonEvent(){
-    const newButton = this.#buttonList[this.#buttonList.length-1];
-    const buttonIndex = this.#buttonList.length-1;
+  #addEvent() {
     const explorer = this;
-
-    newButton.addEventListener('click', function(e){
-      explorer.#desktopList.forEach((desktop, index) => {
-        const desktopElement = desktop.getElement();
-        if(index === buttonIndex){
-          desktopElement.classList.remove('desktop-hide')
-          desktopElement.classList.add('desktop-active');
+    this.#buttonElement.addEventListener('click', function (e) {
+      explorer.#desktopElementList.forEach((desktop, index) => {
+        if (index === explorer.#index) {
+          desktop.classList.remove('desktop-hide');
+          desktop.classList.add('desktop-active');
+        } else {
+          desktop.classList.remove('desktop-active');
+          desktop.classList.add('desktop-hide');
         }
-        else{
-          desktopElement.classList.remove('desktop-active')
-          desktopElement.classList.add('desktop-hide');
-        }
-      })
-    })
+      });
+    });
   }
 
-  showFirstDesktop(){
-    // this.#desktopList[0].getElement().classList.remove('desktop-hide');
-    // this.#desktopList[0].getElement().classList.add('desktop-active');  
-    // or
-    this.#buttonList[0].click();
+  getElement() {
+    return this.#buttonElement;
   }
-
 }
