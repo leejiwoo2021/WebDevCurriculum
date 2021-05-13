@@ -4,6 +4,7 @@ class Desktop {
   #desktopElement;
   #active;
   #iconElementList = new Array();
+  #folderElementList = new Array();
   constructor(count, active) {
     this.#count = count;
     this.#active = active;
@@ -13,6 +14,7 @@ class Desktop {
   #init() {
     this.#cloneTemplate();
     this.#createIconElements();
+    this.#createFolderElements();
     this.#render();
   }
 
@@ -35,10 +37,21 @@ class Desktop {
       );
   }
 
+  #createFolderElements() {
+    for (let index = 0; index < this.#count.folder; index++)
+      this.#folderElementList.push(
+        new Folder(`folder ${index}`, './folder.png').getElement()
+      );
+  }
+
   #render() {
     const desktopElement = this.#desktopElement;
     this.#iconElementList.forEach((iconElement) => {
       desktopElement.appendChild(iconElement);
+    });
+
+    this.#folderElementList.forEach((folderElement) => {
+      desktopElement.appendChild(folderElement);
     });
 
     this.#bodyElement.appendChild(desktopElement);
