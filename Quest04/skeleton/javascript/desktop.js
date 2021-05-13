@@ -33,14 +33,14 @@ class Desktop {
   #createIconElements() {
     for (let index = 0; index < this.#count.common; index++)
       this.#iconElementList.push(
-        new Icon(`icon ${index}`, './file.png').getElement()
+        new Icon(`icon ${index}`, './asset/file.png').getElement()
       );
   }
 
   #createFolderElements() {
     for (let index = 0; index < this.#count.folder; index++)
       this.#folderElementList.push(
-        new Folder(`folder ${index}`, './folder.png').getElement()
+        new Folder(`folder ${index}`, './asset/folder.png').getElement()
       );
   }
 
