@@ -1,78 +1,36 @@
-class Editor{
+class Editor {
   #editorElement = document.querySelector('#editor');
-  constructor(){
+  constructor() {
     this.#init();
   }
-
-  #init(){
+  #init() {
     this.#addEvent();
-    this.#addNewLine();
+    this.#initNewLine();
   }
 
-  #addEvent(){
-    this.#addKeydownEvent();
-  };
-
-  #addKeydownEvent(){
-    const editor = this;
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Enter')
-        editor.#addNewLine();
-    })
+  #addEvent() {
+    this.#addkeydownEvent();
   }
 
-  #addNewLine(){
+  #initNewLine() {
     const newLine = new Line().getElement();
     this.#editorElement.appendChild(newLine);
-    newLine.focus();
   }
 
-}
-
-class Line{
-  #lineElement;
-
-  constructor(){
-    this.#init();
-  }
-
-  #init(){
-    this.#createLineElement();
-    this.#addEvent();
-  }
-
-  #createLineElement(){
-    const lineTemplate = document.querySelector('#template-editor-line');
-    const lineClone = document.importNode(lineTemplate.content, true);
-    this.#lineElement = lineClone.querySelector('p');
-  }
-
-  #addEvent(){
-    this.#addClickEvent();
-    this.#addKeydownEvent();
-  };
-
-  #addClickEvent(){
-    const lineElement = this.#lineElement;
-    lineElement.addEventListener('click', function(e){
-      lineElement.focus();
-    })
-  }
-
-  #addKeydownEvent(){
-    const lineElement = this.#lineElement;
-    lineElement.addEventListener('keydown', function(e){
+  #addkeydownEvent() {
+    document.addEventListener('keydown', function (e) {
+      const activeElement = document.activeElement;
       const key = e.key;
-      const keyCode = e.keyCode;
-      
-      if(key.length === 1)
-        lineElement.innerHTML += key;
 
-        
-    })
-  }
-
-  getElement(){
-    return this.#lineElement;
+      switch (key) {
+        case 'Enter':
+          if (activeElement.className === 'l-editor-line t-editor-line') {
+            const newLine = new Line().getElement();
+            activeElement.after(newLine);
+            newLine.focus();
+          }
+          break;
+      }
+    });
   }
 }

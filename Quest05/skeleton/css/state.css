@@ -21,5 +21,6 @@ p:empty:focus::before {
 }
 
 p:focus::after {
-  content: " █ ";
+  content: " ▌";
+  color: green;
 }
