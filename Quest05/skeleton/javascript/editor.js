@@ -22,14 +22,25 @@ class Editor {
       const activeElement = document.activeElement;
       const key = e.key;
 
-      switch (key) {
-        case 'Enter':
-          if (activeElement.className === 'l-editor-line t-editor-line') {
+      if (activeElement.className === 'l-editor-line t-editor-line') {
+        switch (key) {
+          case 'Enter': {
             const newLine = new Line().getElement();
             activeElement.after(newLine);
             newLine.focus();
+            break;
           }
-          break;
+          case 'ArrowUp': {
+            const previousLine = activeElement.previousElementSibling;
+            if (previousLine) previousLine.focus();
+            break;
+          }
+          case 'ArrowDown': {
+            const nextLine = activeElement.nextElementSibling;
+            if (nextLine) nextLine.focus();
+            break;
+          }
+        }
       }
     });
   }

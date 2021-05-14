@@ -30,6 +30,8 @@ class Line {
 
   #addKeydownEvent() {
     const lineElement = this.#lineElement;
+    let meta = false;
+
     lineElement.addEventListener('keydown', function (e) {
       const key = e.key;
 
@@ -40,14 +42,28 @@ class Line {
           break;
         }
         case 'Meta': {
+          meta = true;
           break;
         }
         case 'Enter': {
           break;
         }
         default: {
-          lineElement.innerHTML += key;
+          if (!meta) {
+            lineElement.innerHTML += key;
+          }
         }
+      }
+
+      lineElement.addEventListener('keyup', keyUpHandler);
+
+      function keyUpHandler(e) {
+        const key = e.key;
+        switch (key) {
+          case 'Meta':
+            meta = false;
+        }
+        lineElement.removeEventListener('keyup', keyUpHandler);
       }
     });
   }
