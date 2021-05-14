@@ -7,20 +7,15 @@
   background: white;
 }
 
+.t-editor-container:focus {
+  outline: none;
+}
+
 .t-editor-line:focus {
   outline: none;
 }
 
 p:empty::before {
-  content: "write your text";
+  content: 'write your text';
   color: gray;
-}
-
-p:empty:focus::before {
-  content: "";
-}
-
-p:focus::after {
-  content: " ▌";
-  color: green;
 }
