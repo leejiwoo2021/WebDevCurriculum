@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="./css/theme.css">
 		<link rel="stylesheet" href="./css/state.css">
 		<script src="./javascript/notepad.js"></script>
+		<script src="./javascript/editor.js"></script>
+
 	</head>
 	<body>
 		<!-- TODO: 이 곳을 채워 클라이언트를 만들어 보세요 -->
@@ -17,14 +19,14 @@
 		</nav>	
 		<section id="editor" class="l-editor-container t-editor-container">
 		</section>
-		<template id="nav-button">
+		<template id="template-nav-button">
 			<button class="l-nav-button t-nav-button">
 				<h2 class="l-nav-button-title t-nav-button-title"></h3>
 				<div class="l-nav-button-state"></div>
 			</button>
 		</template>
-		<template id="editor-line">
-			<p class="l-editor-line t-editor-line"></p>
+		<template id="template-editor-line">
+			<p tabindex='0' class="l-editor-line t-editor-line"></p>
 		</template>
 		<script>
 			let notepad = new Notepad();

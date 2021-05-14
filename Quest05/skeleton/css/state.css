@@ -6,3 +6,20 @@
 .t-nav-button:active {
   background: white;
 }
+
+.t-editor-line:focus {
+  outline: none;
+}
+
+p:empty::before {
+  content: "write your text";
+  color: gray;
+}
+
+p:empty:focus::before {
+  content: "";
+}
+
+p:focus::after {
+  content: " █ ";
+}
