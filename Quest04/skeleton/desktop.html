@@ -1,18 +1,48 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" href="./desktop.css">
-		<script src="./desktop.js"></script>
-	</head>
-	<body>
-		<section class="desktop">
-		</section>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./desktop.css" />
+    <script src="./javascript/desktop.js"></script>
+    <script src="./javascript/draggable.js"></script>
+    <script src="./javascript/openable.js"></script>
+    <script src="./javascript/explorer.js"></script>
+    <script src="./javascript/icon.js"></script>
+    <script src="./javascript/folder.js"></script>
+    <script src="./javascript/window.js"></script>
+  </head>
+  <body>
+    <template id="template-window">
+      <section class="window">
+        <div class="window-bar">
+          <p>Title</p>
+          <button class="window-close-button">닫기</button>
+        </div>
+      </section>
+    </template>
+    <template id="template-icon">
+      <div class="icon">
+        <img class="icon-image" />
+        <p class="icon-name"></p>
+      </div>
+    </template>
+    <template id="template-desktop">
+      <section class="desktop desktop-hide"></section>
+    </template>
+    <template id="template-explorer">
+      <section class="explorer"></section>
+    </template>
+    <script>
+      /* TODO: myDesktop 인스턴스의 생성자의 변수로 무엇이 들어가야 할까요? */
+      let myDesktop1 = new Desktop({ folder: 3, common: 4 }, true);
+      let myDesktop2 = new Desktop({ folder: 2, common: 5 }, false);
+      let myDesktop3 = new Desktop({ folder: 3, common: 1 }, false);
 
-		<script>
-			let myDesktop = new Desktop(
-				/* TODO: myDesktop 인스턴스의 생성자의 변수로 무엇이 들어가야 할까요? */
-			);
-		</script>
-	</body>
+      let myExplorer = new Explorer();
+      myExplorer.addExplorerButton(myDesktop1.getElement());
+      myExplorer.addExplorerButton(myDesktop2.getElement());
+      myExplorer.addExplorerButton(myDesktop3.getElement());
+    </script>
+  </body>
+
 </html>

@@ -1,0 +1,52 @@
+.l-header-container {
+  width: 900px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.l-header-title {
+  margin: 0;
+  padding: 0;
+}
+
+.l-nav-container {
+  width: 900px;
+  height: 80px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  overflow: auto;
+  display: flex;
+}
+
+.l-nav-button {
+  height: 50px;
+  padding: 10px 20px 10px 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.l-nav-button-title {
+  margin: 0;
+  padding: 0;
+}
+
+.l-nav-button-state {
+  margin-left: 5px;
+  white-space: nowrap;
+}
+
+.l-editor-container {
+  width: 900px;
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 50px;
+}
+
+.t-editor-line {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
