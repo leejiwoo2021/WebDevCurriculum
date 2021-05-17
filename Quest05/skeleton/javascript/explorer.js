@@ -24,6 +24,7 @@ class Explorer {
     const editor = this.#editor;
 
     buttonElement.addEventListener('click', function () {
+      editor.saveTemp();
       Explorer.setButtonActive(name);
       editor.showFile(name);
     });
