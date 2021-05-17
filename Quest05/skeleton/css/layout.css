@@ -46,7 +46,26 @@
   margin-bottom: 50px;
 }
 
-.t-editor-line {
+.l-editor-line {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.l-menu-container {
+  width: 900px;
+  height: 80px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.l-menu-button {
+  height: 50px;
+  padding: 10px 20px 10px 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
 }

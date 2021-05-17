@@ -2,10 +2,6 @@ class Line {
   #lineElement;
 
   constructor() {
-    this.#init();
-  }
-
-  #init() {
     this.#createLineElement();
   }
 
