@@ -1,16 +1,19 @@
 class Editor {
   #editorElement = document.querySelector('#editor');
-  #menu = new Menu();
+  #storage = new Storage();
 
-  constructor() {
-    this.#init();
-  }
-  #init() {
-    this.#initNewLine();
-  }
+  constructor() {}
 
   #initNewLine() {
     const newLine = new Line().getElement();
     this.#editorElement.appendChild(newLine);
+  }
+
+  showFile(name) {
+    const fileData = this.#storage.getFile(name);
+    this.#editorElement.innerHTML = '';
+    fileData.forEach((text) => {
+      this.#editorElement.appendChild(new Line(text).getElement());
+    });
   }
 }

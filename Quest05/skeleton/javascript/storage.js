@@ -1,5 +1,5 @@
 class Storage {
-  getNameList() {
+  getFileNameList() {
     const result = new Array();
     for (let index = 0; index < localStorage.length; index++)
       result.push(localStorage.key(index));
