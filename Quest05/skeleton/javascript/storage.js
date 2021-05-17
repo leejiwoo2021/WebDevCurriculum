@@ -1,21 +1,21 @@
 class Storage {
-  getFileNameList() {
+  static getFileNameList() {
     const result = new Array();
     for (let index = 0; index < localStorage.length; index++)
       result.push(localStorage.key(index));
     return result;
   }
 
-  hasFile(name) {
+  static hasFile(name) {
     if (localStorage.getItem(name) === null) return false;
     return true;
   }
 
-  getFile(name) {
+  static getFile(name) {
     return JSON.parse(localStorage.getItem(name));
   }
 
-  removeFile(name) {
+  static removeFile(name) {
     if (localStorage.getItem(name) === null) return false;
     else {
       localStorage.removeItem(name);
@@ -23,11 +23,11 @@ class Storage {
     }
   }
 
-  saveFile(name, content) {
+  static saveFile(name, content) {
     localStorage.setItem(name, JSON.stringify(content));
   }
 
-  saveFileAs(currentName, newName, content) {
+  static saveFileAs(currentName, newName, content) {
     localStorage.setItem(name, JSON.stringify(content));
   }
 }
