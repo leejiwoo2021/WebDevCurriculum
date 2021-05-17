@@ -1,5 +1,7 @@
 class Editor {
   #editorElement = document.querySelector('#editor');
+  #menu = new Menu();
+
   constructor() {
     this.#init();
   }

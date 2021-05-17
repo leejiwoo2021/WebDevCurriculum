@@ -19,3 +19,16 @@ p:empty::before {
   content: 'write your text';
   color: gray;
 }
+
+.t-menu-button:hover {
+  cursor: pointer;
+  background: linear-gradient(145deg, #3b2a2a, #463232);
+}
+
+.t-menu-button:focus {
+  outline: none;
+}
+
+.t-menu-button:active {
+  background: black;
+}
