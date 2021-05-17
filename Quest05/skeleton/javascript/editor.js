@@ -16,4 +16,10 @@ class Editor {
       this.#editorElement.appendChild(new Line(text).getElement());
     });
   }
+
+  static getContent() {
+    return [...document.querySelector('#editor').children].map(
+      (element) => element.innerHTML
+    );
+  }
 }

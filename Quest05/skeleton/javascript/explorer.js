@@ -47,4 +47,17 @@ class Explorer {
       }
     });
   }
+
+  static getActiveFileName() {
+    let result;
+
+    [
+      ...document.querySelector('.l-nav-container.t-nav-contaier').children,
+    ].forEach((button) => {
+      const fileName = button.querySelector('h2').innerHTML;
+      if (button.classList.contains('t-nav-button-active')) result = fileName;
+    });
+
+    return result;
+  }
 }
