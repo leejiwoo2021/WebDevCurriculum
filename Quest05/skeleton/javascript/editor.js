@@ -7,9 +7,10 @@ class Editor {
   }
 
   showFile(name) {
-    const fileData = this.#tempData.has(name)
+    let fileData = this.#tempData.has(name)
       ? this.#tempData.get(name)
       : Storage.getFile(name);
+    if (fileData === null) fileData = [''];
     this.#editorElement.innerHTML = '';
     fileData.forEach((text) => {
       this.#editorElement.appendChild(new Line(text).getElement());
@@ -41,7 +42,7 @@ class Editor {
       editor.saveTemp();
       const savedFile = Storage.getFile(Explorer.getActiveFileName());
       const tempedFile = tempData.get(Explorer.getActiveFileName());
-      if (Editor.equals(savedFile, tempedFile)) {
+      if (savedFile && tempedFile && Editor.equals(savedFile, tempedFile)) {
         Menu.setSaveButtonDisable();
         Explorer.setButtonStateSaved();
       } else {

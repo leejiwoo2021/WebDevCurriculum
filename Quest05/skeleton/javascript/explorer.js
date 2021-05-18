@@ -35,7 +35,7 @@ class Explorer {
         if (editor.getTemp(name)) {
           const savedFile = Storage.getFile(Explorer.getActiveFileName());
           const tempedFile = editor.getTemp(Explorer.getActiveFileName());
-          if (Editor.equals(savedFile, tempedFile)) {
+          if (savedFile && tempedFile && Editor.equals(savedFile, tempedFile)) {
             Menu.setSaveButtonDisable();
           } else {
             Menu.setSaveButtonAvailable();

@@ -1,9 +1,12 @@
 class Menu {
   #saveButton = document.querySelector('.l-save-button');
   #newButton = document.querySelector('.l-new-button');
-  constructor() {
+  #explorer;
+
+  constructor(explorer) {
+    this.#explorer = explorer;
     this.#addSaveEvent();
-    // this.#addNewFileEvent();
+    this.#addNewFileEvent();
   }
 
   #addSaveEvent() {
@@ -18,19 +21,19 @@ class Menu {
     });
   }
 
-  // #addNewFileEvent() {
-  //   this.#newButton.addEventListener('click', function () {
-  //     const fileName = prompt('파일 이름을 입력하세요');
-  //     const fileNameList = Storage.getFileNameList();
+  #addNewFileEvent() {
+    const explorer = this.#explorer;
+    this.#newButton.addEventListener('click', function () {
+      const fileName = prompt('파일 이름을 입력하세요');
+      const fileNameList = Storage.getFileNameList();
 
-  //     if (fileNameList.indexOf(fileName) !== -1) {
-  //       alert('중복된 이름이 존재합니다');
-  //     } else {
-  //       //to-do
-  //       Explorer.appendButton(fileName);
-  //     }
-  //   });
-  // }
+      if (fileNameList.indexOf(fileName) !== -1) {
+        alert('중복된 이름이 존재합니다');
+      } else {
+        explorer.appendButton(fileName);
+      }
+    });
+  }
 
   static setSaveButtonDisable() {
     const saveButton = document.querySelector('.l-save-button');
