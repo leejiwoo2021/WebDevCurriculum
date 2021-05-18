@@ -1,6 +1,10 @@
 class Explorer {
   #navElement = document.querySelector('.l-nav-container.t-nav-contaier');
-  #editor = new Editor();
+  #editor;
+
+  setEditor(editor) {
+    this.#editor = editor;
+  }
 
   setFileList(fileNameList) {
     fileNameList.forEach((name) => {
@@ -32,17 +36,23 @@ class Explorer {
           const savedFile = Storage.getFile(Explorer.getActiveFileName());
           const tempedFile = editor.getTemp(Explorer.getActiveFileName());
           if (Editor.equals(savedFile, tempedFile)) {
-            Menu.setButtonDisable();
+            Menu.setSaveButtonDisable();
           } else {
-            Menu.setButtonAvailable();
+            Menu.setSaveButtonAvailable();
           }
         } else {
-          Menu.setButtonDisable();
+          Menu.setSaveButtonDisable();
         }
       }
     });
 
     return buttonElement;
+  }
+
+  appendButton(name) {
+    document
+      .querySelector('.l-nav-container.t-nav-contaier')
+      .appendChild(this.#createButtonElement(name, ''));
   }
 
   static setButtonActive(name) {

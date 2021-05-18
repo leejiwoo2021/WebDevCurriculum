@@ -42,10 +42,10 @@ class Editor {
       const savedFile = Storage.getFile(Explorer.getActiveFileName());
       const tempedFile = tempData.get(Explorer.getActiveFileName());
       if (Editor.equals(savedFile, tempedFile)) {
-        Menu.setButtonDisable();
+        Menu.setSaveButtonDisable();
         Explorer.setButtonStateSaved();
       } else {
-        Menu.setButtonAvailable();
+        Menu.setSaveButtonAvailable();
         Explorer.setButtonStateNotSaved();
       }
     });

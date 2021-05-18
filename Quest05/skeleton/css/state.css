@@ -20,15 +20,28 @@ p:empty::before {
   color: gray;
 }
 
-.t-menu-button:hover {
+.t-save-button:hover {
   cursor: pointer;
   background: linear-gradient(145deg, #3b2a2a, #463232);
 }
 
-.t-menu-button:focus {
+.t-save-button:focus {
   outline: none;
 }
 
-.t-menu-button:active {
+.t-save-button:active {
+  background: black;
+}
+
+.t-new-button:hover {
+  cursor: pointer;
+  background: linear-gradient(145deg, #3b2a2a, #463232);
+}
+
+.t-new-button:focus {
+  outline: none;
+}
+
+.t-new-button:active {
   background: black;
 }

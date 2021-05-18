@@ -1,9 +1,9 @@
 class Menu {
-  #saveButton = document
-    .querySelector('.l-menu-container.t-menu-container')
-    .querySelector('button');
+  #saveButton = document.querySelector('.l-save-button');
+  #newButton = document.querySelector('.l-new-button');
   constructor() {
     this.#addSaveEvent();
+    // this.#addNewFileEvent();
   }
 
   #addSaveEvent() {
@@ -12,29 +12,39 @@ class Menu {
       if (fileName) {
         const contents = Editor.getContent();
         Storage.saveFile(fileName, contents);
-        Menu.setButtonDisable();
+        Menu.setSaveButtonDisable();
         Explorer.setButtonStateSaved();
       }
     });
   }
 
-  static setButtonDisable() {
-    const saveButton = document
-      .querySelector('.l-menu-container.t-menu-container')
-      .querySelector('button');
+  // #addNewFileEvent() {
+  //   this.#newButton.addEventListener('click', function () {
+  //     const fileName = prompt('파일 이름을 입력하세요');
+  //     const fileNameList = Storage.getFileNameList();
 
-    saveButton.classList.remove('t-menu-button');
-    saveButton.classList.add('t-menu-button-disable');
+  //     if (fileNameList.indexOf(fileName) !== -1) {
+  //       alert('중복된 이름이 존재합니다');
+  //     } else {
+  //       //to-do
+  //       Explorer.appendButton(fileName);
+  //     }
+  //   });
+  // }
+
+  static setSaveButtonDisable() {
+    const saveButton = document.querySelector('.l-save-button');
+
+    saveButton.classList.remove('t-save-button');
+    saveButton.classList.add('t-save-button-disable');
     saveButton.setAttribute('disable', true);
   }
 
-  static setButtonAvailable() {
-    const saveButton = document
-      .querySelector('.l-menu-container.t-menu-container')
-      .querySelector('button');
+  static setSaveButtonAvailable() {
+    const saveButton = document.querySelector('.l-save-button');
 
-    saveButton.classList.remove('t-menu-button-disable');
-    saveButton.classList.add('t-menu-button');
+    saveButton.classList.remove('t-save-button-disable');
+    saveButton.classList.add('t-save-button');
     saveButton.setAttribute('disable', false);
   }
 }
