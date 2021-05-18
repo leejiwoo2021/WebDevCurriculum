@@ -27,11 +27,17 @@ class Menu {
       const fileName = prompt('파일 이름을 입력하세요');
       const fileNameList = Storage.getFileNameList();
 
+      if (!fileName) {
+        alert('올바른 이름을 입력해주세요');
+        return;
+      }
+
       if (fileNameList.indexOf(fileName) !== -1) {
         alert('중복된 이름이 존재합니다');
-      } else {
-        explorer.appendButton(fileName);
+        return;
       }
+
+      explorer.appendButton(fileName);
     });
   }
 
