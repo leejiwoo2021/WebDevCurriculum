@@ -24,9 +24,11 @@ class Explorer {
     const editor = this.#editor;
 
     buttonElement.addEventListener('click', function () {
-      editor.saveTemp();
-      Explorer.setButtonActive(name);
-      editor.showFile(name);
+      if (buttonElement.classList.contains('t-nav-button')) {
+        editor.saveTemp();
+        Explorer.setButtonActive(name);
+        editor.showFile(name);
+      }
     });
 
     return buttonElement;
@@ -58,5 +60,29 @@ class Explorer {
     });
 
     return result;
+  }
+
+  static setButtonStateNotSaved() {
+    const activeName = Explorer.getActiveFileName();
+    [
+      ...document.querySelector('.l-nav-container.t-nav-contaier').children,
+    ].forEach((button) => {
+      const fileName = button.querySelector('h2').innerHTML;
+      if (activeName === fileName) {
+        button.querySelector('div').innerHTML = 'Not Saved';
+      }
+    });
+  }
+
+  static setButtonStateSaved() {
+    const activeName = Explorer.getActiveFileName();
+    [
+      ...document.querySelector('.l-nav-container.t-nav-contaier').children,
+    ].forEach((button) => {
+      const fileName = button.querySelector('h2').innerHTML;
+      if (activeName === fileName) {
+        button.querySelector('div').innerHTML = '';
+      }
+    });
   }
 }

@@ -37,8 +37,13 @@ class Editor {
       editor.saveTemp();
       const savedFile = Storage.getFile(Explorer.getActiveFileName());
       const tempedFile = tempData.get(Explorer.getActiveFileName());
-      if (Editor.equals(savedFile, tempedFile)) console.log('same');
-      else console.log('diff');
+      if (Editor.equals(savedFile, tempedFile)) {
+        Menu.setButtonDisable();
+        Explorer.setButtonStateSaved();
+      } else {
+        Menu.setButtonAvailable();
+        Explorer.setButtonStateNotSaved();
+      }
     });
   }
 
