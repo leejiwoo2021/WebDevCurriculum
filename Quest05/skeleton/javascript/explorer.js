@@ -28,6 +28,17 @@ class Explorer {
         editor.saveTemp();
         Explorer.setButtonActive(name);
         editor.showFile(name);
+        if (editor.getTemp(name)) {
+          const savedFile = Storage.getFile(Explorer.getActiveFileName());
+          const tempedFile = editor.getTemp(Explorer.getActiveFileName());
+          if (Editor.equals(savedFile, tempedFile)) {
+            Menu.setButtonDisable();
+          } else {
+            Menu.setButtonAvailable();
+          }
+        } else {
+          Menu.setButtonDisable();
+        }
       }
     });
 

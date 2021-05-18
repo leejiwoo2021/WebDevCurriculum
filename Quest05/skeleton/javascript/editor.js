@@ -24,6 +24,10 @@ class Editor {
     }
   }
 
+  getTemp(key) {
+    return this.#tempData.get(key);
+  }
+
   static getContent() {
     return [...document.querySelector('#editor').children].map(
       (element) => element.innerHTML
