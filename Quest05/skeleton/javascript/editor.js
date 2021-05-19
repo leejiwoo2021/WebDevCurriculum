@@ -29,6 +29,10 @@ class Editor {
     return this.#tempData.get(key);
   }
 
+  removeTemp(key) {
+    this.#tempData.delete(key);
+  }
+
   static getContent() {
     return [...document.querySelector('#editor').children].map(
       (element) => element.innerHTML

@@ -3,9 +3,11 @@ class Menu {
   #newButton = document.querySelector('.l-new-button');
   #saveAsButton = document.querySelector('.l-saveAs-button');
   #explorer;
+  #editor;
 
-  constructor(explorer) {
+  constructor(explorer, editor) {
     this.#explorer = explorer;
+    this.#editor = editor;
     this.#addSaveEvent();
     this.#addNewFileEvent();
     this.#addSaveAsEvent();
@@ -45,9 +47,9 @@ class Menu {
 
   #addSaveAsEvent() {
     const explorer = this.#explorer;
+    const editor = this.#editor;
     this.#saveAsButton.addEventListener('click', function () {
       const fileName = prompt('파일 이름을 입력하세요');
-      const fileNameList = Storage.getFileNameList();
 
       if (!fileName) {
         alert('올바른 이름을 입력해주세요');
@@ -62,7 +64,7 @@ class Menu {
 
       const contents = Editor.getContent();
       Storage.saveFileAs(fileName, contents);
-
+      editor.removeTemp(fileName);
       explorer.appendButton(fileName);
     });
   }

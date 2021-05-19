@@ -50,9 +50,12 @@ class Explorer {
   }
 
   appendButton(name) {
-    document
-      .querySelector('.l-nav-container.t-nav-contaier')
-      .appendChild(this.#createButtonElement(name, ''));
+    const buttonList = Explorer.getButtonList();
+    if (buttonList.indexOf(name) === -1) {
+      document
+        .querySelector('.l-nav-container.t-nav-contaier')
+        .appendChild(this.#createButtonElement(name, ''));
+    }
   }
 
   static setButtonActive(name) {
@@ -68,6 +71,18 @@ class Explorer {
         button.classList.add('t-nav-button');
       }
     });
+  }
+
+  static getButtonList() {
+    const result = new Array();
+    [
+      ...document.querySelector('.l-nav-container.t-nav-contaier').children,
+    ].forEach((button) => {
+      const fileName = button.querySelector('h2').innerHTML;
+      result.push(fileName);
+    });
+
+    return result;
   }
 
   static getActiveFileName() {
