@@ -45,3 +45,16 @@ p:empty::before {
 .t-new-button:active {
   background: black;
 }
+
+.t-saveAs-button:hover {
+  cursor: pointer;
+  background: linear-gradient(145deg, #3b2a2a, #463232);
+}
+
+.t-saveAs-button:focus {
+  outline: none;
+}
+
+.t-saveAs-button:active {
+  background: black;
+}

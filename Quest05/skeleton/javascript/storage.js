@@ -27,7 +27,7 @@ class Storage {
     localStorage.setItem(name, JSON.stringify(content));
   }
 
-  static saveFileAs(currentName, newName, content) {
-    localStorage.setItem(name, JSON.stringify(content));
+  static saveFileAs(newName, content) {
+    localStorage.setItem(newName, JSON.stringify(content));
   }
 }

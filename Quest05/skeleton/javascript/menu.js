@@ -1,12 +1,14 @@
 class Menu {
   #saveButton = document.querySelector('.l-save-button');
   #newButton = document.querySelector('.l-new-button');
+  #saveAsButton = document.querySelector('.l-saveAs-button');
   #explorer;
 
   constructor(explorer) {
     this.#explorer = explorer;
     this.#addSaveEvent();
     this.#addNewFileEvent();
+    this.#addSaveAsEvent();
   }
 
   #addSaveEvent() {
@@ -36,6 +38,30 @@ class Menu {
         alert('중복된 이름이 존재합니다');
         return;
       }
+
+      explorer.appendButton(fileName);
+    });
+  }
+
+  #addSaveAsEvent() {
+    const explorer = this.#explorer;
+    this.#saveAsButton.addEventListener('click', function () {
+      const fileName = prompt('파일 이름을 입력하세요');
+      const fileNameList = Storage.getFileNameList();
+
+      if (!fileName) {
+        alert('올바른 이름을 입력해주세요');
+        return;
+      }
+
+      // 덮어씌우기
+      // if (fileNameList.indexOf(fileName) !== -1) {
+      //   alert('중복된 이름이 존재합니다');
+      //   return;
+      // }
+
+      const contents = Editor.getContent();
+      Storage.saveFileAs(fileName, contents);
 
       explorer.appendButton(fileName);
     });
