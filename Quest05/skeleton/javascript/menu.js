@@ -22,6 +22,7 @@ class Menu {
     this.#addNewFileEvent();
     this.#addSaveEvent();
     this.#addSaveAsEvent();
+    this.setSaveButtonDisable();
   }
 
   #addSaveEvent() {
