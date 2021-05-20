@@ -35,16 +35,18 @@ class Menu {
         const contents = editor.getContent();
         storage.saveFile(fileName, contents);
         menu.setSaveButtonDisable();
-        explorer.setButtonStateSaved();
+        explorer.setStateSaved();
       }
     });
   }
 
   #addNewFileEvent() {
     const explorer = this.#explorer;
+    const storage = this.#storage;
+
     this.#newButton.addEventListener('click', function () {
       const fileName = prompt('파일 이름을 입력하세요');
-      const fileNameList = Storage.getFileNameList();
+      const fileNameList = storage.getFileNameList();
 
       if (!fileName) {
         alert('올바른 이름을 입력해주세요');
@@ -56,7 +58,7 @@ class Menu {
         return;
       }
 
-      explorer.appendButton(fileName);
+      explorer.appendNewButton(fileName);
     });
   }
 
@@ -73,7 +75,7 @@ class Menu {
       const contents = editor.getContent();
       storage.saveFileAs(fileName, contents);
       editor.removeTemp(fileName);
-      explorer.appendButton(fileName);
+      explorer.appendNewButton(fileName);
     });
   }
 

@@ -17,10 +17,10 @@ class Explorer {
   }
 
   init() {
-    this.#setFileList();
+    this.#setFileButtons();
   }
 
-  #setFileList() {
+  #setFileButtons() {
     this.#storage.getFileNameList().forEach((name) => {
       this.#navElement.appendChild(this.#createButtonElement(name, ''));
     });
@@ -46,13 +46,13 @@ class Explorer {
 
     buttonElement.addEventListener('click', function () {
       if (buttonElement.classList.contains('t-nav-button')) {
-        editor.saveTemp();
+        editor.setContentTemp();
         explorer.setButtonActive(name);
-        editor.showFile(name);
+        editor.showContent(name);
         if (editor.getTemp(name)) {
           const savedFile = storage.getFile(explorer.getActiveFileName());
           const tempedFile = editor.getTemp(explorer.getActiveFileName());
-          if (savedFile && tempedFile && editor.equals(savedFile, tempedFile))
+          if (savedFile && tempedFile && editor.isEqual(savedFile, tempedFile))
             menu.setSaveButtonDisable();
           else menu.setSaveButtonAvailable();
         } else {
@@ -64,8 +64,8 @@ class Explorer {
     return buttonElement;
   }
 
-  appendButton(name) {
-    const buttonList = this.getButtonList();
+  appendNewButton(name) {
+    const buttonList = this.getButtonNameList();
     if (buttonList.indexOf(name) === -1) {
       this.#navElement.appendChild(this.#createButtonElement(name, ''));
     }
@@ -84,7 +84,7 @@ class Explorer {
     });
   }
 
-  getButtonList() {
+  getButtonNameList() {
     const result = new Array();
     [...this.#navElement.children].forEach((button) => {
       const fileName = button.querySelector('h2').innerHTML;
@@ -105,7 +105,7 @@ class Explorer {
     return result;
   }
 
-  setButtonStateNotSaved() {
+  setStateNotSaved() {
     const activeName = this.getActiveFileName();
     [...this.#navElement.children].forEach((button) => {
       const fileName = button.querySelector('h2').innerHTML;
@@ -115,7 +115,7 @@ class Explorer {
     });
   }
 
-  setButtonStateSaved() {
+  setStateSaved() {
     const activeName = this.getActiveFileName();
     [...this.#navElement.children].forEach((button) => {
       const fileName = button.querySelector('h2').innerHTML;

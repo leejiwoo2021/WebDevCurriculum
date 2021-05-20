@@ -21,7 +21,13 @@ class Editor {
     this.#addChangeEvent();
   }
 
-  showFile(name) {
+  getContent() {
+    return [...this.#editorElement.children].map(
+      (element) => element.innerHTML
+    );
+  }
+
+  showContent(name) {
     let fileData = this.#tempData.has(name)
       ? this.#tempData.get(name)
       : this.#storage.getFile(name);
@@ -32,7 +38,11 @@ class Editor {
     });
   }
 
-  saveTemp() {
+  getTemp(key) {
+    return this.#tempData.get(key);
+  }
+
+  setContentTemp() {
     const currentFileName = this.#explorer.getActiveFileName();
     if (currentFileName) {
       const content = this.getContent();
@@ -40,18 +50,8 @@ class Editor {
     }
   }
 
-  getTemp(key) {
-    return this.#tempData.get(key);
-  }
-
   removeTemp(key) {
     this.#tempData.delete(key);
-  }
-
-  getContent() {
-    return [...this.#editorElement.children].map(
-      (element) => element.innerHTML
-    );
   }
 
   #addChangeEvent() {
@@ -61,21 +61,21 @@ class Editor {
     const menu = this.#menu;
     const editor = this;
     this.#editorElement.addEventListener('keyup', function (e) {
-      editor.saveTemp();
+      editor.setContentTemp();
       const activeFileName = explorer.getActiveFileName();
       const savedFile = storage.getFile(activeFileName);
       const tempedFile = tempData.get(activeFileName);
-      if (savedFile && tempedFile && editor.equals(savedFile, tempedFile)) {
+      if (savedFile && tempedFile && editor.isEqual(savedFile, tempedFile)) {
         menu.setSaveButtonDisable();
-        explorer.setButtonStateSaved();
+        explorer.setStateSaved();
       } else {
         menu.setSaveButtonAvailable();
-        explorer.setButtonStateNotSaved();
+        explorer.setStateNotSaved();
       }
     });
   }
 
-  equals(arr1, arr2) {
+  isEqual(arr1, arr2) {
     if (arr1.length !== arr2.length) return false;
 
     for (let i = 0; i < arr1.length; i++) if (arr1[i] !== arr2[i]) return false;
