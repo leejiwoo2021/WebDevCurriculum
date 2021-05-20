@@ -70,7 +70,10 @@ class Menu {
     this.#saveAsButton.addEventListener('click', function () {
       const fileName = prompt('파일 이름을 입력하세요');
 
-      if (!fileName) return;
+      if (!fileName) {
+        alert('올바른 이름을 입력해주세요');
+        return;
+      }
 
       const contents = editor.getContent();
       storage.saveFileAs(fileName, contents);
