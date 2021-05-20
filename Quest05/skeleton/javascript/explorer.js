@@ -1,13 +1,27 @@
 class Explorer {
   #navElement = document.querySelector('.l-nav-container.t-nav-contaier');
   #editor;
+  #menu;
+  #storage;
 
   setEditor(editor) {
     this.#editor = editor;
   }
 
-  setFileList(fileNameList) {
-    fileNameList.forEach((name) => {
+  setMenu(menu) {
+    this.#menu = menu;
+  }
+
+  setStorage(storage) {
+    this.#storage = storage;
+  }
+
+  init() {
+    this.#setFileList();
+  }
+
+  #setFileList() {
+    this.#storage.getFileNameList().forEach((name) => {
       this.#navElement.appendChild(this.#createButtonElement(name, ''));
     });
   }
@@ -26,22 +40,23 @@ class Explorer {
     buttonState.innerText = state;
 
     const editor = this.#editor;
+    const menu = this.#menu;
+    const storage = this.#storage;
+    const explorer = this;
 
     buttonElement.addEventListener('click', function () {
       if (buttonElement.classList.contains('t-nav-button')) {
         editor.saveTemp();
-        Explorer.setButtonActive(name);
+        explorer.setButtonActive(name);
         editor.showFile(name);
         if (editor.getTemp(name)) {
-          const savedFile = Storage.getFile(Explorer.getActiveFileName());
-          const tempedFile = editor.getTemp(Explorer.getActiveFileName());
-          if (savedFile && tempedFile && Editor.equals(savedFile, tempedFile)) {
-            Menu.setSaveButtonDisable();
-          } else {
-            Menu.setSaveButtonAvailable();
-          }
+          const savedFile = storage.getFile(explorer.getActiveFileName());
+          const tempedFile = editor.getTemp(explorer.getActiveFileName());
+          if (savedFile && tempedFile && editor.equals(savedFile, tempedFile))
+            menu.setSaveButtonDisable();
+          else menu.setSaveButtonAvailable();
         } else {
-          Menu.setSaveButtonDisable();
+          menu.setSaveButtonDisable();
         }
       }
     });
@@ -50,18 +65,14 @@ class Explorer {
   }
 
   appendButton(name) {
-    const buttonList = Explorer.getButtonList();
+    const buttonList = this.getButtonList();
     if (buttonList.indexOf(name) === -1) {
-      document
-        .querySelector('.l-nav-container.t-nav-contaier')
-        .appendChild(this.#createButtonElement(name, ''));
+      this.#navElement.appendChild(this.#createButtonElement(name, ''));
     }
   }
 
-  static setButtonActive(name) {
-    [
-      ...document.querySelector('.l-nav-container.t-nav-contaier').children,
-    ].forEach((button) => {
+  setButtonActive(name) {
+    [...this.#navElement.children].forEach((button) => {
       const fileName = button.querySelector('h2').innerHTML;
       if (name === fileName) {
         button.classList.remove('t-nav-button');
@@ -73,11 +84,9 @@ class Explorer {
     });
   }
 
-  static getButtonList() {
+  getButtonList() {
     const result = new Array();
-    [
-      ...document.querySelector('.l-nav-container.t-nav-contaier').children,
-    ].forEach((button) => {
+    [...this.#navElement.children].forEach((button) => {
       const fileName = button.querySelector('h2').innerHTML;
       result.push(fileName);
     });
@@ -85,12 +94,10 @@ class Explorer {
     return result;
   }
 
-  static getActiveFileName() {
+  getActiveFileName() {
     let result;
 
-    [
-      ...document.querySelector('.l-nav-container.t-nav-contaier').children,
-    ].forEach((button) => {
+    [...this.#navElement.children].forEach((button) => {
       const fileName = button.querySelector('h2').innerHTML;
       if (button.classList.contains('t-nav-button-active')) result = fileName;
     });
@@ -98,11 +105,9 @@ class Explorer {
     return result;
   }
 
-  static setButtonStateNotSaved() {
-    const activeName = Explorer.getActiveFileName();
-    [
-      ...document.querySelector('.l-nav-container.t-nav-contaier').children,
-    ].forEach((button) => {
+  setButtonStateNotSaved() {
+    const activeName = this.getActiveFileName();
+    [...this.#navElement.children].forEach((button) => {
       const fileName = button.querySelector('h2').innerHTML;
       if (activeName === fileName) {
         button.querySelector('div').innerHTML = 'Not Saved';
@@ -110,11 +115,9 @@ class Explorer {
     });
   }
 
-  static setButtonStateSaved() {
-    const activeName = Explorer.getActiveFileName();
-    [
-      ...document.querySelector('.l-nav-container.t-nav-contaier').children,
-    ].forEach((button) => {
+  setButtonStateSaved() {
+    const activeName = this.getActiveFileName();
+    [...this.#navElement.children].forEach((button) => {
       const fileName = button.querySelector('h2').innerHTML;
       if (activeName === fileName) {
         button.querySelector('div').innerHTML = '';

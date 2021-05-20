@@ -1,15 +1,30 @@
 class Editor {
   #editorElement = document.querySelector('#editor');
+  #storage;
+  #explorer;
+  #menu;
   #tempData = new Map();
 
-  constructor() {
+  setExplorer(explorer) {
+    this.#explorer = explorer;
+  }
+
+  setMenu(menu) {
+    this.#menu = menu;
+  }
+
+  setStorage(storage) {
+    this.#storage = storage;
+  }
+
+  init() {
     this.#addChangeEvent();
   }
 
   showFile(name) {
     let fileData = this.#tempData.has(name)
       ? this.#tempData.get(name)
-      : Storage.getFile(name);
+      : this.#storage.getFile(name);
     if (fileData === null) fileData = [''];
     this.#editorElement.innerHTML = '';
     fileData.forEach((text) => {
@@ -18,9 +33,9 @@ class Editor {
   }
 
   saveTemp() {
-    const currentFileName = Explorer.getActiveFileName();
+    const currentFileName = this.#explorer.getActiveFileName();
     if (currentFileName) {
-      const content = Editor.getContent();
+      const content = this.getContent();
       this.#tempData.set(currentFileName, content);
     }
   }
@@ -33,30 +48,34 @@ class Editor {
     this.#tempData.delete(key);
   }
 
-  static getContent() {
-    return [...document.querySelector('#editor').children].map(
+  getContent() {
+    return [...this.#editorElement.children].map(
       (element) => element.innerHTML
     );
   }
 
   #addChangeEvent() {
     const tempData = this.#tempData;
+    const explorer = this.#explorer;
+    const storage = this.#storage;
+    const menu = this.#menu;
     const editor = this;
     this.#editorElement.addEventListener('keyup', function (e) {
       editor.saveTemp();
-      const savedFile = Storage.getFile(Explorer.getActiveFileName());
-      const tempedFile = tempData.get(Explorer.getActiveFileName());
-      if (savedFile && tempedFile && Editor.equals(savedFile, tempedFile)) {
-        Menu.setSaveButtonDisable();
-        Explorer.setButtonStateSaved();
+      const activeFileName = explorer.getActiveFileName();
+      const savedFile = storage.getFile(activeFileName);
+      const tempedFile = tempData.get(activeFileName);
+      if (savedFile && tempedFile && editor.equals(savedFile, tempedFile)) {
+        menu.setSaveButtonDisable();
+        explorer.setButtonStateSaved();
       } else {
-        Menu.setSaveButtonAvailable();
-        Explorer.setButtonStateNotSaved();
+        menu.setSaveButtonAvailable();
+        explorer.setButtonStateNotSaved();
       }
     });
   }
 
-  static equals(arr1, arr2) {
+  equals(arr1, arr2) {
     if (arr1.length !== arr2.length) return false;
 
     for (let i = 0; i < arr1.length; i++) if (arr1[i] !== arr2[i]) return false;
