@@ -1,24 +1,9 @@
 class Editor {
   #editorElement = document.querySelector('#editor');
-  #storage;
-  #explorer;
-  #menu;
   #tempData = new Map();
 
-  setExplorer(explorer) {
-    this.#explorer = explorer;
-  }
-
-  setMenu(menu) {
-    this.#menu = menu;
-  }
-
-  setStorage(storage) {
-    this.#storage = storage;
-  }
-
-  init() {
-    this.#addChangeEvent();
+  getElement() {
+    return this.#editorElement;
   }
 
   getContent() {
@@ -27,10 +12,10 @@ class Editor {
     );
   }
 
-  showContent(name) {
-    let fileData = this.#tempData.has(name)
-      ? this.#tempData.get(name)
-      : this.#storage.getFile(name);
+  showContent(fileName, savedContent) {
+    let fileData = this.#tempData.has(fileName)
+      ? this.#tempData.get(fileName)
+      : savedContent;
     if (fileData === null) fileData = [''];
     this.#editorElement.innerHTML = '';
     fileData.forEach((text) => {
@@ -42,37 +27,15 @@ class Editor {
     return this.#tempData.get(key);
   }
 
-  setContentTemp() {
-    const currentFileName = this.#explorer.getActiveFileName();
-    if (currentFileName) {
+  setContentTemp(fileName) {
+    if (fileName) {
       const content = this.getContent();
-      this.#tempData.set(currentFileName, content);
+      this.#tempData.set(fileName, content);
     }
   }
 
   removeTemp(key) {
     this.#tempData.delete(key);
-  }
-
-  #addChangeEvent() {
-    const tempData = this.#tempData;
-    const explorer = this.#explorer;
-    const storage = this.#storage;
-    const menu = this.#menu;
-    const editor = this;
-    this.#editorElement.addEventListener('keyup', function (e) {
-      editor.setContentTemp();
-      const activeFileName = explorer.getActiveFileName();
-      const savedFile = storage.getFile(activeFileName);
-      const tempedFile = tempData.get(activeFileName);
-      if (savedFile && tempedFile && editor.isEqual(savedFile, tempedFile)) {
-        menu.setSaveButtonDisable();
-        explorer.setStateSaved();
-      } else {
-        menu.setSaveButtonAvailable();
-        explorer.setStateNotSaved();
-      }
-    });
   }
 
   isEqual(arr1, arr2) {

@@ -1,32 +1,7 @@
 class Explorer {
   #navElement = document.querySelector('.l-nav-container.t-nav-contaier');
-  #editor;
-  #menu;
-  #storage;
 
-  setEditor(editor) {
-    this.#editor = editor;
-  }
-
-  setMenu(menu) {
-    this.#menu = menu;
-  }
-
-  setStorage(storage) {
-    this.#storage = storage;
-  }
-
-  init() {
-    this.#setFileButtons();
-  }
-
-  #setFileButtons() {
-    this.#storage.getFileNameList().forEach((name) => {
-      this.#navElement.appendChild(this.#createButtonElement(name, ''));
-    });
-  }
-
-  #createButtonElement(name, state) {
+  createButtonElement(name, state) {
     const buttonTemplate = document.querySelector('#template-nav-button');
     const buttonClone = document.importNode(buttonTemplate.content, true);
     const buttonElement = buttonClone.querySelector(
@@ -39,36 +14,11 @@ class Explorer {
     const buttonState = buttonElement.querySelector('div');
     buttonState.innerText = state;
 
-    const editor = this.#editor;
-    const menu = this.#menu;
-    const storage = this.#storage;
-    const explorer = this;
-
-    buttonElement.addEventListener('click', function () {
-      if (buttonElement.classList.contains('t-nav-button')) {
-        editor.setContentTemp();
-        explorer.setButtonActive(name);
-        editor.showContent(name);
-        if (editor.getTemp(name)) {
-          const savedFile = storage.getFile(explorer.getActiveFileName());
-          const tempedFile = editor.getTemp(explorer.getActiveFileName());
-          if (savedFile && tempedFile && editor.isEqual(savedFile, tempedFile))
-            menu.setSaveButtonDisable();
-          else menu.setSaveButtonAvailable();
-        } else {
-          menu.setSaveButtonDisable();
-        }
-      }
-    });
-
     return buttonElement;
   }
 
-  appendNewButton(name) {
-    const buttonList = this.getButtonNameList();
-    if (buttonList.indexOf(name) === -1) {
-      this.#navElement.appendChild(this.#createButtonElement(name, ''));
-    }
+  appendNewButton(buttonElement) {
+    this.#navElement.appendChild(buttonElement);
   }
 
   setButtonActive(name) {

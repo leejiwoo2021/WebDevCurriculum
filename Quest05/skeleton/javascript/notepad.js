@@ -6,20 +6,117 @@ class Notepad {
   #storage = new Storage();
 
   constructor() {
-    this.#menu.setEditor(this.#editor);
-    this.#menu.setExplorer(this.#explorer);
-    this.#menu.setStorage(this.#storage);
+    this.addFileButtons();
+    this.addEditorChangeEvent();
+    this.addSaveEvent();
+    this.addNewFileEvent();
+    this.addSaveAsEvent();
+  }
 
-    this.#explorer.setEditor(this.#editor);
-    this.#explorer.setMenu(this.#menu);
-    this.#explorer.setStorage(this.#storage);
+  addFileButtons() {
+    this.#storage.getFileNameList().forEach((fileName) => {
+      const fileButton = this.#explorer.createButtonElement(fileName, '');
+      this.addFileClickEvent(fileButton);
+      this.#explorer.appendNewButton(fileButton);
+    });
+  }
 
-    this.#editor.setExplorer(this.#explorer);
-    this.#editor.setStorage(this.#storage);
-    this.#editor.setMenu(this.#menu);
+  addFileClickEvent(fileButton) {
+    fileButton.addEventListener('click', () => {
+      const fileName = fileButton.querySelector('h2').innerHTML;
+      const currentFileName = this.#explorer.getActiveFileName();
+      this.#editor.setContentTemp(currentFileName);
+      this.#explorer.setButtonActive(fileName);
 
-    this.#editor.init();
-    this.#explorer.init();
-    this.#menu.init();
+      const savedContent = this.#storage.getFile(fileName);
+      this.#editor.showContent(fileName, savedContent);
+
+      if (this.#editor.getTemp(fileName)) {
+        const savedFile = this.#storage.getFile(fileName);
+        const tempedFile = this.#editor.getTemp(fileName);
+        if (
+          savedFile &&
+          tempedFile &&
+          this.#editor.isEqual(savedFile, tempedFile)
+        )
+          this.#menu.setSaveButtonDisable();
+        else this.#menu.setSaveButtonAvailable();
+      } else {
+        this.#menu.setSaveButtonDisable();
+      }
+    });
+  }
+
+  addEditorChangeEvent() {
+    this.#editor.getElement().addEventListener('keyup', (e) => {
+      const activeFileName = this.#explorer.getActiveFileName();
+      this.#editor.setContentTemp(activeFileName);
+
+      const savedFile = this.#storage.getFile(activeFileName);
+      const tempedFile = this.#editor.getTemp(activeFileName);
+      if (
+        savedFile &&
+        tempedFile &&
+        this.#editor.isEqual(savedFile, tempedFile)
+      ) {
+        this.#menu.setSaveButtonDisable();
+        this.#explorer.setStateSaved();
+      } else {
+        this.#menu.setSaveButtonAvailable();
+        this.#explorer.setStateNotSaved();
+      }
+    });
+  }
+
+  addSaveEvent() {
+    this.#menu.getSaveButtonElement().addEventListener('click', () => {
+      const fileName = this.#explorer.getActiveFileName();
+      if (fileName) {
+        const contents = this.#editor.getContent();
+        this.#storage.saveFile(fileName, contents);
+        this.#menu.setSaveButtonDisable();
+        this.#explorer.setStateSaved();
+      }
+    });
+  }
+
+  addNewFileEvent() {
+    this.#menu.getNewButtonElement().addEventListener('click', () => {
+      const fileName = prompt('파일 이름을 입력하세요');
+      const fileNameList = this.#storage.getFileNameList();
+
+      if (!fileName) {
+        alert('올바른 이름을 입력해주세요');
+        return;
+      }
+
+      if (fileNameList.indexOf(fileName) !== -1) {
+        alert('중복된 이름이 존재합니다');
+        return;
+      }
+
+      const newFileButton = this.#explorer.createButtonElement(fileName, '');
+      this.addFileClickEvent(newFileButton);
+      this.#explorer.appendNewButton(newFileButton);
+    });
+  }
+
+  addSaveAsEvent() {
+    this.#menu.getSaveAsButtonElement().addEventListener('click', () => {
+      const fileName = prompt('파일 이름을 입력하세요');
+
+      if (!fileName) {
+        alert('올바른 이름을 입력해주세요');
+        return;
+      }
+
+      const contents = this.#editor.getContent();
+      this.#storage.saveFileAs(fileName, contents);
+      this.#editor.removeTemp(fileName);
+
+      const fileButton = this.#explorer.createButtonElement(fileName);
+      this.addFileClickEvent(fileButton);
+      this.#explorer.appendNewButton(fileButton);
+    });
   }
 }
