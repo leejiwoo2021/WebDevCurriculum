@@ -136,17 +136,64 @@
 - tracert(Windows가 아닌 경우 traceroute) 명령을 통해 www.google.com 까지 가는 경로를 찾아 보세요.
   - 어떤 IP주소들이 있나요?
   - 그 IP주소들은 어디에 위치해 있나요?
+    - 10.180.190.1 : 서울
+    - 121.138.235.85 : 서울
+    - 112.189.35.153 : 서울
+    - 112.189.29.105 : 서울
+    - 112.189.29.141 : 서울
+    - 112.189.29.97 : 서울
+    - 112.174.73.178 : 서울
+    - 112.174.47.230 : 서울
+    - 112.174.47.162 : 서울
+    - 74.125.52.16 : 미국 Oregon주
+    - 72.14.194.194 : 미국 Kansas 주
+    - 108.170.242.193 : 미국 Kansas 주
+    - 108.170.242.161 : 미국 Kansas 주
+    - 108.170.233.81 : 미국 Kansas 주
+    - 172.217.25.100 : 미국 Kansas 주 - google.com
+    - 매번 로딩할 때 마다 나열되는 IP 주소가 바뀐다.
 - Wireshark를 통해 www.google.com 으로 요청을 날렸을 떄 어떤 TCP 패킷이 오가는지 확인해 보세요
+
   - TCP 패킷을 주고받는 과정은 어떻게 되나요?
   - 각각의 패킷에 어떤 정보들이 담겨 있나요?
+    - 3 Way HandShake 발생
+      - client -> google SYN Seq=0, WIn=65535, Len=0, port 64253 -> 80
+      - google -> client SYN,ACK Seq=0, Ack=1, win=65535, Len=0 ...
+      - client -> google ACK Sqe=1, Ack=1, Win=131840, Len=0 ...
+    - 이후 데이터 동신 시작
+      - GET / HTTP/1.1
+        - HTTP 요청이 진행되어 response를 받게 된다.
+      - 위 요청에 대한 응답 ACK 발생, HTTP 문서의 길이가 435 바이트 였으므로 Ack=436(직전Seq1 + 435) 으로 google -> client 전송
+    - 공통적으로 목표 port, source port, seq 혹은 ack number, 상태 표현을 위한 flags, windw 크기, checksum 등을 가지고 있다.
+
 - telnet 명령을 통해 http://www.google.com/ URL에 HTTP 요청을 날려 보세요.
   - 어떤 헤더들이 있나요?
-  - 그 헤더들은 어떤 역할을 하나요?
+  - 그 헤더들은 어떤 역할을 하나요? (1~4는 실패시 등장했음, 400 Bad Request)
+    1. Content-Type : 리소스의 media-type을 나타내기 위해 사용됩니다. (ex. 오디오 : audio.ogg, 이미지 : image/png, HTML 문서 : text/html 등)
+    2. Referrer-Policy : 생성된 요청이 Referer 헤더에서 전송된 referrer 정보에 포함되어야 하는지를 관리합니다. (referrer 헤더 : 현재 요청된 페이지의 링크 이전의 웹페이지 주소를 포함)
+    3. Content-Length : 메시지 바디의 길이를 나타냅니다. (10진수)
+    4. Date : 메시지가 생성된 날짜와 시간을 포함
+    5. Expires : 응답이 만료되었다고 판단할 날짜/시간
+    6. Cache-Control : 요청/응답 내의 캐싱 매커니즘을 정의, 요청과 응답에서 사용할 수 있는 요소가 다르다.
+    7. P3P : 웹 사이트 간 프라이버시 정책을 관리하는 기준
+    8. Server : 요청을 수행하는 서버의 소프트웨어 정보를 포함
+    9. X-XSS-Protection : XSS 공격 필터링에 대한 옵션 설정
+    10. X-Frame-Options : 브라우저가 \<frame>, \<iframe>, \<object> 에서 렌더링 할 수 있는지 여부를 나타내는데 사용, 사이트 내의 콘텐츠들이 다른 사이트에 포함되지 않도록 할 수 있다.
+    11. Set-Cookie : client에게 쿠키를 전송합니다.
+    12. Accept-Ranges : 서버가 범위 요청을 지원하는지를 나타내며, 지원할 경우 범위가 표현될 수 있는 단위를 나타냄
+    13. Vary : 서버로부터 새로운 요청을 하는 대신, 캐시된 응답을 사용할지를 결정. 대체적으로 Cache-Control을 사용하는것이 더 명확하게 표현된다.
+    14. Transfer-Encoding : 사용자에게 entity 헤더를 안전하게 전송하기 위해 사용하는 인코딩 형식을 지정합니다.
 
 ## Advanced
 
 - HTTP의 최신 버전인 HTTP/3는 어떤 식으로 구성되어 있을까요?
+  - 기존 HTTP/2 + TCP + IP 와는 다르게, TCP 대신 UDP(QUIC)를 사용한다.
+  - 기존 HTTPS의 암호화 영역(Data)에 Packet Number, Ack Number, Window Size, Options들이 더해진 구조를 채택했다.
+  - 모든 Hand-Shake가 단일 요청/응답으로 끝난다
+  - 패킷이 개별적으로 암호화 되며, 다른 데이터 부분의 패킷을 기다릴 필요가 없다.
+  - Source-Address와 무관하게, 서버-클라이언트의 연결을 고유하기 식별하는 식별자가 포함되어있어 (Connection ID), IP 주소가 변경되더라도 커넥션을 유지할 수 있다.
 - TCP/IP 외에 전세계적인 네트워크를 구성하기 위한 다른 방식도 제안된 바 있을까요?
+  - UDP/IP?, QUIC
 
 ## 의문점
 
@@ -155,3 +202,5 @@
 - TCP/IP 통신을 하는 경우 한 번의 전송마다 IP헤더 + TCP헤더 + TCP 데이터(세그먼트) 의 구조가 되는걸까? : YES
   - TCP를 사용하는 경우 데이터(세그먼트)를 여러개로 나누어 전송하게 되는데, 이는 결국 IP 헤더에서 정하는 variable length에 따라서 어떻게 분할될지 정해진다.
 - HTTP 연결 하나당 (즉, 브라우저 하나에서 페이지를 켤 때), TCP/IP 연결을 하나 생성하는것으로 보이는데, 그렇다면 크롬, 사파리, 오페라, 웨일 등 브라우저마다 naver.com을 띄운다면 TCP/IP 연결 갯수도 그만큼 늘어나게 될까?
+- 근거리에 있는 여러 대의 전자기기가 서로 통신하는 프로토콜은 어떻게 동작할까요?
+  - 이 질문에서 "여러 대" 라는게 잘 와닿지 않는다. 위의 방법 말고도 여러명이 동시에 상호작용 할 수 있는 프로토콜이 존재한다는 의미일까?
