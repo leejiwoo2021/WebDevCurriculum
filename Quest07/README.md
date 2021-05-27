@@ -131,9 +131,27 @@
   - workspaces
     - 설치 되어야 할 파일들의 위치(작업 공간)을 지정할 수 있는 배열 필드.
 - npx는 어떤 명령인가요? npm 패키지를 `-g` 옵션을 통해 글로벌로 저장하는 것과 그렇지 않은 것은 어떻게 다른가요?
+  - npx : npm 패키지를 실행 시킬 수 있는 명령어
+  - -g로 설치할 경우, 전역 workspace에 해당 패키지가 설치되며, 옵션을 사용하지 않을 경우, cli를 실행한 해당 workspace에 패키지가 설치됩니다.
 - 자바스크립트 코드에서 다른 파일의 코드를 부르는 시도들은 지금까지 어떤 것이 있었을까요? CommonJS 대신 ES Modules가 등장한 이유는 무엇일까요?
+  - AMD(require.js), CommonJS, UMD ...
+  - 더 나은 모듈화를 위해서(병렬적으로 파일을 받아와 정리, use strict, 별개의 this, 스코프 등등)
 - ES Modules는 기존의 `require()`와 동작상에 어떤 차이가 있을까요? CommonJS는 할 수 있으나 ES Modules가 할 수 없는 일에는 어떤 것이 있을까요?
+  - ESM : use strict 모드가 적용, this가 global object가 아니며 별개의 스코프를 갖는다. 비동기적으로 파일을 가져오게 되며, 구문을 찾아서 스크립트를 파싱한다.
+  - CJS : require는 동기적으로 이루어지며, 그 즉시 스크립트를 실행한다.
 - node.js에서 ES Modules를 사용하려면 어떻게 해야 할까요? ES Modules 기반의 코드에서 CommonJS 기반의 패키지를 불러오려면 어떻게 해야 할까요? 그 반대는 어떻게 될까요?
+  - Node.js에서 ES Modules를 사용하려면
+    - package.json의 type 필드를 "module"로 지정하거나
+    - 각 파일에서 import 하고자 하는 js 파일의 확장자를 mjs로 변경하여 사용하거나
+  - ESM에서 CJS를 불러오려면
+    - `import module from './example.cjs'` 처럼 파일을 .cjs로 변경하여 사용하거나
+  - CJS에서 ESM을 불러오려면 - async/await 혹은 promise 패턴을 사용하여 다음과같이 사용해야 합니다
+  ```javascript
+  async function myFunc() {
+    const { itsMine } = await import('./myESTest.mjs');
+  }
+  myFunc();
+  ```
 
 ## Quest
 
@@ -150,3 +168,7 @@
   - deno : nodejs 개발자 라이언 달이 개발한 JS 런타임
     - 보안성, 빌드 시스템, Promise 등의 개선점이 존재하고, 기본적으로 타입스크립트 컴파일을 지원한다고 한다.
     - [Node.js에 관해 후회하는 10가지 - Ryan Dahl](https://www.youtube.com/watch?v=M3BM9TB-8yA&t=1148s&ab_channel=JSConf)
+
+```
+
+```
