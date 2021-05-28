@@ -7,31 +7,21 @@ class Notepad {
   #dom = document.querySelector('body');
 
   constructor() {
-    this.addFileButtons();
+    this.addFileClickEvent();
     this.addEditorChangeEvent();
     this.addSaveEvent();
     this.addNewFileEvent();
     this.addSaveAsEvent();
   }
 
-  addFileButtons() {
-    this.#storage.getFileNameList().forEach((fileName) => {
-      const fileButton = this.#explorer.createButtonElement(fileName, '');
-      this.addFileClickEvent(fileButton);
-      this.#explorer.appendNewButton(fileButton);
-    });
-  }
-
-  addFileClickEvent(fileButton) {
-    fileButton.addEventListener('click', () => {
-      const fileName = fileButton.querySelector('h2').innerHTML;
+  addFileClickEvent() {
+    this.#dom.addEventListener('openFile', (e) => {
+      const fileName = e.detail.fileName;
       const currentFileName = this.#explorer.getActiveFileName();
       this.#editor.setContentTemp(currentFileName);
       this.#explorer.setButtonActive(fileName);
-
       const savedContent = this.#storage.getFile(fileName);
       this.#editor.showContent(fileName, savedContent);
-
       if (this.#editor.getTemp(fileName)) {
         const savedFile = this.#storage.getFile(fileName);
         const tempedFile = this.#editor.getTemp(fileName);
@@ -93,9 +83,7 @@ class Notepad {
         alert('중복된 이름이 존재합니다');
         return;
       }
-      const newFileButton = this.#explorer.createButtonElement(fileName, '');
-      this.addFileClickEvent(newFileButton);
-      this.#explorer.appendNewButton(newFileButton);
+      this.#explorer.addFileButton(fileName);
     });
   }
 
@@ -109,9 +97,7 @@ class Notepad {
       const contents = this.#editor.getContent();
       this.#storage.saveFileAs(fileName, contents);
       this.#editor.removeTemp(fileName);
-      const fileButton = this.#explorer.createButtonElement(fileName, '');
-      this.addFileClickEvent(fileButton);
-      this.#explorer.appendNewButton(fileButton);
+      this.#explorer.addFileButton(fileName);
     });
   }
 }

@@ -1,5 +1,27 @@
 class Explorer {
   #navElement = document.querySelector('.l-nav-container.t-nav-contaier');
+  #storage = new Storage();
+
+  constructor() {
+    this.#storage.getFileNameList().forEach((fileName) => {
+      this.addFileButton(fileName);
+    });
+  }
+
+  addFileButton(fileName) {
+    const fileButton = this.createButtonElement(fileName, '');
+    const openEvent = new CustomEvent('openFile', {
+      bubbles: true,
+      detail: {
+        fileName: fileName,
+      },
+    });
+
+    fileButton.addEventListener('click', () => {
+      fileButton.dispatchEvent(openEvent);
+    });
+    this.appendNewButton(fileButton);
+  }
 
   createButtonElement(name, state) {
     const buttonTemplate = document.querySelector('#template-nav-button');
