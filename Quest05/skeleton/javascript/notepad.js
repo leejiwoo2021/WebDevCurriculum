@@ -4,6 +4,7 @@ class Notepad {
   #editor = new Editor();
   #menu = new Menu();
   #storage = new Storage();
+  #dom = document.querySelector('body');
 
   constructor() {
     this.addFileButtons();
@@ -48,7 +49,7 @@ class Notepad {
   }
 
   addEditorChangeEvent() {
-    this.#editor.getElement().addEventListener('keyup', (e) => {
+    this.#dom.addEventListener('editorChange', (e) => {
       const activeFileName = this.#explorer.getActiveFileName();
       this.#editor.setContentTemp(activeFileName);
 
@@ -69,7 +70,7 @@ class Notepad {
   }
 
   addSaveEvent() {
-    this.#menu.getSaveButtonElement().addEventListener('click', () => {
+    this.#dom.addEventListener('saveFile', () => {
       const fileName = this.#explorer.getActiveFileName();
       if (fileName) {
         const contents = this.#editor.getContent();
@@ -81,20 +82,17 @@ class Notepad {
   }
 
   addNewFileEvent() {
-    this.#menu.getNewButtonElement().addEventListener('click', () => {
+    this.#dom.addEventListener('newFile', () => {
       const fileName = prompt('파일 이름을 입력하세요');
       const fileNameList = this.#storage.getFileNameList();
-
       if (!fileName) {
         alert('올바른 이름을 입력해주세요');
         return;
       }
-
       if (fileNameList.indexOf(fileName) !== -1) {
         alert('중복된 이름이 존재합니다');
         return;
       }
-
       const newFileButton = this.#explorer.createButtonElement(fileName, '');
       this.addFileClickEvent(newFileButton);
       this.#explorer.appendNewButton(newFileButton);
@@ -102,19 +100,16 @@ class Notepad {
   }
 
   addSaveAsEvent() {
-    this.#menu.getSaveAsButtonElement().addEventListener('click', () => {
+    this.#dom.addEventListener('saveAsFile', () => {
       const fileName = prompt('파일 이름을 입력하세요');
-
       if (!fileName) {
         alert('올바른 이름을 입력해주세요');
         return;
       }
-
       const contents = this.#editor.getContent();
       this.#storage.saveFileAs(fileName, contents);
       this.#editor.removeTemp(fileName);
-
-      const fileButton = this.#explorer.createButtonElement(fileName);
+      const fileButton = this.#explorer.createButtonElement(fileName, '');
       this.addFileClickEvent(fileButton);
       this.#explorer.appendNewButton(fileButton);
     });

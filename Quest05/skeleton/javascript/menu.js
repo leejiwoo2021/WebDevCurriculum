@@ -3,16 +3,40 @@ class Menu {
   #newButton = document.querySelector('.l-new-button');
   #saveAsButton = document.querySelector('.l-saveAs-button');
 
-  getSaveButtonElement() {
-    return this.#saveButton;
+  constructor() {
+    this.#addNewEvent();
+    this.#addSaveEvent();
+    this.#addSaveAsEvent();
   }
 
-  getNewButtonElement() {
-    return this.#newButton;
+  #addNewEvent() {
+    const newEvent = new CustomEvent('newFile', {
+      bubbles: true,
+    });
+
+    this.#newButton.addEventListener('click', () => {
+      this.#newButton.dispatchEvent(newEvent);
+    });
   }
 
-  getSaveAsButtonElement() {
-    return this.#saveAsButton;
+  #addSaveEvent() {
+    const saveEvent = new CustomEvent('saveFile', {
+      bubbles: true,
+    });
+
+    this.#saveButton.addEventListener('click', () => {
+      this.#saveButton.dispatchEvent(saveEvent);
+    });
+  }
+
+  #addSaveAsEvent() {
+    const saveAsEvent = new CustomEvent('saveAsFile', {
+      bubbles: true,
+    });
+
+    this.#saveAsButton.addEventListener('click', () => {
+      this.#saveAsButton.dispatchEvent(saveAsEvent);
+    });
   }
 
   setSaveButtonDisable() {

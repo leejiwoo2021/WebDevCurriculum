@@ -2,8 +2,18 @@ class Editor {
   #editorElement = document.querySelector('#editor');
   #tempData = new Map();
 
-  getElement() {
-    return this.#editorElement;
+  constructor() {
+    this.#addChangeEvent();
+  }
+
+  #addChangeEvent() {
+    const changeEvent = new CustomEvent('editorChange', {
+      bubbles: true,
+    });
+
+    this.#editorElement.addEventListener('keyup', () => {
+      this.#editorElement.dispatchEvent(changeEvent);
+    });
   }
 
   getContent() {
