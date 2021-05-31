@@ -5,14 +5,14 @@ function router(req, res, path, query) {
     case 'upload':
       switch (req.method) {
         case 'POST':
-          // uploadPost(req, res, path, query);
+          uploadPost(req, res, path, query);
           break;
       }
       break;
     case 'show':
       switch (req.method) {
         case 'GET':
-          // showGet(req, res, path, query);
+          showGet(req, res, path, query);
           break;
       }
       break;
@@ -36,7 +36,7 @@ function uploadPost(req, res, path, query) {
     .on('end', () => {
       body = Buffer.concat(body).toString('base64');
       image = body;
-      // res.write(body);
+
       res.end();
     });
 }
@@ -45,7 +45,9 @@ function showGet(req, res, path, query) {
   res.writeHead(200, {
     'Content-Type': 'image/png',
   });
-  res.end(image);
+  const binaryImage = Buffer.from(image, 'base64');
+  res.write(binaryImage);
+  res.end();
 }
 
 export default router;
