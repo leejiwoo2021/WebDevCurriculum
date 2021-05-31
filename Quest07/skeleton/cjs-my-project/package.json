@@ -1,3 +1,10 @@
 {
-    "name": "cjs-my-project"
+  "name": "cjs-my-project",
+  "dependencies": {
+    "cjs": "file:../cjs-package",
+    "esm": "file:../esm-package"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
 }
