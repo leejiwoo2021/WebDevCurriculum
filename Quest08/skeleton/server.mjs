@@ -17,6 +17,7 @@ const server = http.createServer((req, res) => {
       pic(req, res, path.slice(1, path.length), query);
       break;
     default:
+      res.writeHead(200);
       res.write('Hello World!');
       res.end();
       break;

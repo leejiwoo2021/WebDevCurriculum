@@ -24,7 +24,9 @@ function router(req, res, path, query) {
       }
       break;
     default:
-      res.end();
+      res.writeHead(400);
+      res.end('bad request');
+      break;
   }
 }
 
@@ -38,26 +40,47 @@ function uploadPost(req, res, path, query) {
       body = Buffer.concat(body);
       const fileData = new Uint8Array(Buffer.from(body));
 
-      fs.writeFileSync('pic.jpg', fileData, (err) => {
-        if (err) throw err;
-        console.log('The file has been saved!');
-      });
+      try {
+        fs.writeFileSync('pic.jpg', fileData);
+      } catch (err) {
+        console.log(err);
+        res.writeHead(400, {
+          // 400~? 500~?
+          'Content-type': 'text/plain;charset=utf-8',
+        });
+        res.end('파일 업로드중 오류가 발생했습니다.');
+      }
+      res.writeHead(201);
       res.end();
     });
 }
 
 function showGet(req, res, path, query) {
-  res.writeHead(200, {
-    'Content-Type': 'image/png',
-  });
-
-  const file = fs.readFileSync('pic.jpg');
-  res.write(file);
-  res.end();
+  try {
+    const file = fs.readFileSync('pic.jpg');
+    res.writeHead(200, {
+      'Content-Type': 'image/png',
+    });
+    res.write(file);
+    res.end();
+  } catch (err) {
+    console.log(err);
+    res.writeHead(404, {
+      'Content-type': 'text/plain;charset=utf-8',
+    });
+    res.end('이미지가 존재하지 않습니다.');
+  }
 }
 
 function downloadGet(req, res, path, query) {
   const stream = fs.createReadStream('pic.jpg');
+  stream.on('error', (err) => {
+    console.log(err);
+    res.writeHead(404, {
+      'Content-type': 'text/plain;charset=utf-8',
+    });
+    res.end('이미지가 존재하지 않습니다.');
+  });
 
   res.writeHead(200, {
     'Content-disposition': 'attachment;filename=pic.jpg',
