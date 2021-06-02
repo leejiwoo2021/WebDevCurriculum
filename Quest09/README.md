@@ -95,14 +95,70 @@
       - 허용하지 않는다면, CORS 에러를 출력한다
     - `Access-Control-Allow-Origin` 헤더 외에도, 허용 HTTP method, 허용 헤더 종류 등의 정보를 받을 수 있고 이를 참고하여 사용해야한다.
 
+## 명세
+
+- API 서버
+  - `/api/file`
+    - GET : 파일 읽기
+      - queryString의 name 필드에 따라 파일을 읽어옵니다
+      - request
+        - queryString(?name=<nameString>)
+      - response
+        ```json
+        {
+          "name": <nameString>,
+          "content": "example content string"
+        }
+        ```
+    - POST : 파일 생성(다른 이름으로 저장)
+      - JSON 형태의 request body의 name, content 속성에 따라서 파일을 생성 또는 다른 이름으로 저장
+      - request
+        ```json
+        {
+          "name": <nameString>,
+          "content": "example content string"
+        }
+        ```
+      - response
+    - PUT : 파일 수정
+      - JSON 형태의 request body의 name, content 속성에 따라서 파일을 수정
+      - request
+        ```json
+        {
+          "name": <nameString>,
+          "content": "example content string"
+        }
+        ```
+      - response
+    - DELETE : 파일 삭제
+      - JSON 형태의 request body의 name 속성에 따라서 파일을 삭제
+      - request
+        ```json
+        {
+          "name": <nameString>,
+        }
+        ```
+      - response
+  - `/api/info`
+    - GET : 디렉토리에 존재하는 파일들의 목록을 읽어옵니다
+      - request
+      - response
+        ```json
+        {
+          "list": ["test.txt"]
+        }
+        ```
+- 클라이언트
+  - 기존 Storage API 대신, 서버쪽의 API를 사용하도록 적용
+
 ## Quest
 
 - 이번 퀘스트는 Midterm에 해당하는 과제입니다. 분량이 제법 많으니 한 번 기능별로 세부 일정을 정해 보고, 과제 완수 후에 그 일정이 얼마나 지켜졌는지 스스로 한 번 돌아보세요.
   - 일정
-    |구분|학습|서버 로컬 파일 시스템 적용|명세 및 서버 API 구현|클라이언트 API 연동|
+    |구분|학습|서버 CRUD API 구현|클라이언트 API 연동|에러처리 및 완성도 높이기|
     |---|---|---|---|---|
     |예상|수|수|목|목|
-    |실제|수||||
+    |실제|수|수|-|-|
   - 이번 퀘스트부터는 skeleton을 제공하지 않습니다!
 - Quest 05에서 만든 메모장 시스템을 서버와 연동하는 어플리케이션으로 만들어 보겠습니다.
   - 클라이언트는 `fetch` API를 통해 서버와 통신합니다.
