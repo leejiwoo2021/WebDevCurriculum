@@ -18,6 +18,8 @@ class Notepad {
     this.#dom.addEventListener('openFile', async (e) => {
       const fileName = e.detail.fileName;
       const currentFileName = this.#explorer.getActiveFileName();
+      if (fileName === currentFileName) return;
+
       this.#editor.setContentTemp(currentFileName);
       this.#explorer.setButtonActive(fileName);
 
