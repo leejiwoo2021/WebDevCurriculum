@@ -158,7 +158,7 @@
     |구분|학습|서버 CRUD API 구현|클라이언트 API 연동|에러처리 및 완성도 높이기|
     |---|---|---|---|---|
     |예상|수|수|목|목|
-    |실제|수|수|-|-|
+    |실제|수|수|목|목|
   - 이번 퀘스트부터는 skeleton을 제공하지 않습니다!
 - Quest 05에서 만든 메모장 시스템을 서버와 연동하는 어플리케이션으로 만들어 보겠습니다.
   - 클라이언트는 `fetch` API를 통해 서버와 통신합니다.
@@ -173,4 +173,19 @@
 ## Advanced
 
 - `fetch` API는 구현할 수 없지만 `XMLHttpRequest`로는 구현할 수 있는 기능이 있을까요?
+  - ???
+  - fetch
+    - missing a builtin method to consume documents
+    - no way to set a timeout yet
+    - can't override the content-type response header
+    - if the content-length response header is present but not exposed, the body's total length is unknown during the streaming
+    - will call the signal's abort handler even if the request has been completed
+    - no upload progress (support for ReadableStream instances as request bodies is yet to come)
+  - XHR
+    - there's no way to not send cookies (apart from using the non-standard mozAnon flag or the AnonXMLHttpRequest constructor)
+    - can't return FormData instances
+    - doesn't have an equivalent to fetch's no-cors mode
+    - always follow redirects
 - REST 이전에는 HTTP API에 어떤 패러다임들이 있었을까요? REST의 대안으로는 어떤 것들이 제시되고 있을까요?
+  - 과거 : CORBA, SO(A)P
+  - 대안 : graphql
