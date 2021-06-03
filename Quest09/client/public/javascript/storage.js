@@ -1,9 +1,9 @@
 class Storage {
-  getFileNameList() {
-    const result = new Array();
-    for (let index = 0; index < localStorage.length; index++)
-      result.push(localStorage.key(index));
-    return result;
+  async getFileNameList() {
+    let response = await fetch('http://localhost:8000/api/info');
+    response = response.json();
+
+    return response;
   }
 
   hasFile(name) {
@@ -11,8 +11,11 @@ class Storage {
     return true;
   }
 
-  getFile(name) {
-    return JSON.parse(localStorage.getItem(name));
+  async getFile(name) {
+    let response = await fetch(`http://localhost:8000/api/file?name=${name}`);
+    response = response.json();
+
+    return response;
   }
 
   removeFile(name) {
@@ -23,11 +26,39 @@ class Storage {
     }
   }
 
-  saveFile(name, content) {
-    localStorage.setItem(name, JSON.stringify(content));
+  async saveFile(name, content) {
+    let concatContent = '';
+    content.forEach((line) => {
+      concatContent += line + '\n';
+    });
+
+    await fetch('http://localhost:8000/api/file', {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        content: concatContent,
+      }),
+    });
   }
 
-  saveFileAs(newName, content) {
-    localStorage.setItem(newName, JSON.stringify(content));
+  async saveFileAs(newName, content) {
+    let concatContent = '';
+    content.forEach((line) => {
+      concatContent += line + '\n';
+    });
+
+    await fetch('http://localhost:8000/api/file', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: newName,
+        content: concatContent,
+      }),
+    });
   }
 }

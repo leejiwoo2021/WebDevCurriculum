@@ -3,9 +3,12 @@ class Explorer {
   #storage = new Storage();
 
   constructor() {
-    this.#storage.getFileNameList().forEach((fileName) => {
-      this.addFileButton(fileName);
-    });
+    (async () => {
+      const response = await this.#storage.getFileNameList();
+      response.list.forEach((fileName) => {
+        this.addFileButton(fileName);
+      });
+    })();
   }
 
   addFileButton(fileName) {
