@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('./middleware/cors');
 
 const indexRouter = require('./routes/index');
 const fileRouter = require('./routes/file');
@@ -13,6 +14,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors.allowCors);
 
 app.use('/', indexRouter);
 app.use('/api/file', fileRouter);
