@@ -4,6 +4,7 @@ class Menu {
   #saveAsButton = document.querySelector('.l-saveAs-button');
 
   constructor() {
+    if (!localStorage.getItem('token')) location.href = '/login';
     this.#addNewEvent();
     this.#addSaveEvent();
     this.#addSaveAsEvent();

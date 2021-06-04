@@ -3,7 +3,12 @@ class Storage {
 
   async getFileNameList() {
     try {
-      const response = await fetch('http://localhost:8000/api/info');
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:8000/api/info', {
+        headers: {
+          token: token,
+        },
+      });
       const body = await response.json();
       if (response.ok) return body;
       else throw new Error();
@@ -14,9 +19,15 @@ class Storage {
 
   async getFile(name) {
     if (this.#tempData.has(name)) return this.#tempData.get(name);
+    const token = localStorage.getItem('token');
     try {
       const response = await fetch(
-        `http://localhost:8000/api/file?name=${name}`
+        `http://localhost:8000/api/file?name=${name}`,
+        {
+          headers: {
+            token: token,
+          },
+        }
       );
       const body = await response.json();
       if (response.ok) {
@@ -30,10 +41,13 @@ class Storage {
 
   async saveFile(name, content) {
     try {
+      const token = localStorage.getItem('token');
+
       const response = await fetch('http://localhost:8000/api/file', {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',
+          token: token,
         },
         body: JSON.stringify({
           name: name,
@@ -50,10 +64,13 @@ class Storage {
 
   async saveFileAs(newName, content) {
     try {
+      const token = localStorage.getItem('token');
+
       const response = await fetch('http://localhost:8000/api/file', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
+          token: token,
         },
         body: JSON.stringify({
           name: newName,
