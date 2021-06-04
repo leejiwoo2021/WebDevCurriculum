@@ -12,6 +12,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/login', function (req, res) {
+  res.sendFile(__dirname + '/public/login.html');
+});
+
 app.use(function (req, res) {
   res.redirect('/');
 });

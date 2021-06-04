@@ -19,5 +19,17 @@ function fileNameContent(req, res, next) {
   next();
 }
 
+function idPw(req, res, next) {
+  const { id, pw } = req.body;
+
+  if (!id || !pw) {
+    res.status(400);
+    res.end('ID 또는 패스워드가 존재하지 않습니다');
+    return;
+  }
+  next();
+}
+
 exports.fileName = fileName;
 exports.fileNameContent = fileNameContent;
+exports.idPw = idPw;

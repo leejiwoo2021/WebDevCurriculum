@@ -7,6 +7,7 @@ const cors = require('./middleware/cors');
 const indexRouter = require('./routes/index');
 const fileRouter = require('./routes/file');
 const infoRouter = require('./routes/info');
+const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(cors.allowCors);
 app.use('/', indexRouter);
 app.use('/api/file', fileRouter);
 app.use('/api/info', infoRouter);
+app.use('/api/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
