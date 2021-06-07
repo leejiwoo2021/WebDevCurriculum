@@ -13,7 +13,8 @@ function verifyJWT(req, res, next) {
   } catch (err) {
     console.log('사용자 인증 실패, 만료되거나, 잘못된 토큰입니다');
     res.status(401);
-    res.end();
+    res.redirect('http://localhost:3000/login');
+    return;
   }
 
   next();

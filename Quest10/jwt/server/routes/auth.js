@@ -8,7 +8,7 @@ router.post('/login', check.idPw, function (req, res) {
   const { id, pw } = req.body;
 
   if (user.auth(id, pw)) {
-    const token = jwt.sign({ id: id }, 'jwSecret');
+    const token = jwt.sign({ iss: 'jiwoo', id: id }, 'jwSecret');
     res.status(200);
     res.json({
       token: token,
@@ -21,18 +21,3 @@ router.post('/login', check.idPw, function (req, res) {
 });
 
 module.exports = router;
-
-// router.post('/', checker.fileNameContent, function (req, res) {
-//   const { name, content } = req.body;
-//   try {
-//     fileModel.createFile(name, content);
-//   } catch (err) {
-//     console.log(err);
-//     res.status(404);
-//     res.send(err.toString());
-//     return;
-//   }
-
-//   res.status(200);
-//   res.send();
-// });
