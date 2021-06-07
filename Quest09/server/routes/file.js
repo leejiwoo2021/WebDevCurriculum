@@ -23,7 +23,7 @@ router.get('/', checker.fileName, function (req, res) {
   });
 });
 
-router.post('/', checker.fileNameContent, function (req, res) {
+router.post('/', checker.fileNameBody, function (req, res) {
   const { name, content } = req.body;
   try {
     fileModel.createFile(name, content);
