@@ -5,11 +5,13 @@ const auth = require('../middleware/auth');
 const jwt = require('jsonwebtoken');
 
 router.get('/', auth.verifyJWT, function (req, res) {
-  let fileList;
+  let fileList, lastFile;
   const token = req.get('token');
   const decoded = jwt.verify(token, 'jwSecret');
   try {
-    fileList = fileModel.getFileList(decoded.id);
+    const info = fileModel.getFileList(decoded.id);
+    fileList = info.fileList;
+    lastFile = info.lastFile;
   } catch (err) {
     console.log(err);
     res.send(err);
@@ -17,6 +19,7 @@ router.get('/', auth.verifyJWT, function (req, res) {
   }
   res.json({
     list: fileList,
+    lastFile,
   });
 });
 

@@ -8,6 +8,7 @@ class Explorer {
       response.list.forEach((fileName) => {
         this.addFileButton(fileName);
       });
+      this.openFile(response.lastFile);
     })();
   }
 
@@ -97,6 +98,13 @@ class Explorer {
       if (activeName === fileName) {
         button.querySelector('div').innerHTML = '';
       }
+    });
+  }
+
+  openFile(name) {
+    [...this.#navElement.children].forEach((button) => {
+      const fileName = button.querySelector('h2').innerHTML;
+      if (fileName === name) button.click();
     });
   }
 }

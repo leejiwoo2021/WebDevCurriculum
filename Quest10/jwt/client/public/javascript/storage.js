@@ -19,7 +19,7 @@ class Storage {
   }
 
   async getFile(name) {
-    if (this.#tempData.has(name)) return this.#tempData.get(name);
+    // if (this.#tempData.has(name)) return this.#tempData.get(name);
     const token = localStorage.getItem('token');
     try {
       const response = await fetch(
@@ -38,6 +38,10 @@ class Storage {
     } catch (err) {
       throw new Error('파일을 불러오는 중 오류가 발생했습니다');
     }
+  }
+
+  getFileTemp(name) {
+    return this.#tempData.get(name);
   }
 
   async saveFile(name, content) {

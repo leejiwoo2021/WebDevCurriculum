@@ -27,7 +27,6 @@ class Notepad {
       const savedContent = response.content.split('\n');
       this.#editor.showContent(fileName, savedContent);
       if (this.#editor.getTemp(fileName)) {
-        const response = await this.#storage.getFile(fileName);
         const savedFile = response.content.split('\n');
         const tempedFile = this.#editor.getTemp(fileName);
         if (
@@ -48,7 +47,7 @@ class Notepad {
       const activeFileName = this.#explorer.getActiveFileName();
       this.#editor.setContentTemp(activeFileName);
 
-      const response = await this.#storage.getFile(activeFileName);
+      const response = await this.#storage.getFileTemp(activeFileName);
       const savedFile = response.content;
       const tempedFile = this.#editor.getTemp(activeFileName);
       if (
