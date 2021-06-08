@@ -12,6 +12,10 @@ class Session {
   set(id, value) {
     this.sessionData.set(id, value);
   }
+
+  delete(id) {
+    this.sessionData.delete(id);
+  }
 }
 
 const session = new Session();

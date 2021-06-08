@@ -49,7 +49,7 @@ function userSession(req, res, next) {
   const sessionObj = session.getInstance();
 
   const userInfo = sessionObj.get(req.cookies.id);
-  if (userInfo) {
+  if (userInfo && userInfo.exp > Date.now() / 1000) {
     req.user = userInfo;
     next();
   } else {

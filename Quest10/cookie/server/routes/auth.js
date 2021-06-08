@@ -12,7 +12,7 @@ router.post('/login', check.idPw, function (req, res) {
     const uuid = uuidv4();
 
     const sessionObj = session.getInstance();
-    sessionObj.set(uuid, { id: id });
+    sessionObj.set(uuid, { id: id, exp: Date.now() / 1000 + 20 }); // 20s exp
 
     res.append('Set-Cookie', `id=${uuid}; path=/`);
     res.end();
