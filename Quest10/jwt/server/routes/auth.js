@@ -8,7 +8,10 @@ router.post('/login', check.idPw, function (req, res) {
   const { id, pw } = req.body;
 
   if (user.auth(id, pw)) {
-    const token = jwt.sign({ iss: 'jiwoo', id: id }, 'jwSecret');
+    const token = jwt.sign(
+      { iss: 'jiwoo', id: id, exp: Math.floor(Date.now() / 1000) + 10 * 60 },
+      'jwSecret'
+    );
     res.status(200);
     res.json({
       token: token,

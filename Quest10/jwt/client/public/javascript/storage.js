@@ -10,8 +10,9 @@ class Storage {
         },
       });
       const body = await response.json();
+
       if (response.ok) return body;
-      else throw new Error();
+      else if (!response.ok) location.href = '/login';
     } catch (err) {
       throw new Error('파일 목록을 불러오는 중 오류가 발생했습니다');
     }
@@ -33,7 +34,7 @@ class Storage {
       if (response.ok) {
         this.#tempData.set(name, body);
         return body;
-      } else throw new Error();
+      } else if (!response.ok) location.href = '/login';
     } catch (err) {
       throw new Error('파일을 불러오는 중 오류가 발생했습니다');
     }
@@ -56,7 +57,7 @@ class Storage {
       });
       if (response.ok)
         this.#tempData.set(name, { content: this.contentConcat(content) });
-      else throw new Error();
+      else if (!response.ok) location.href = '/login';
     } catch (err) {
       throw new Error('파일을 저장하는 중 오류가 발생했습니다');
     }
@@ -79,7 +80,7 @@ class Storage {
       });
       if (response.ok)
         this.#tempData.set(newName, { content: this.contentConcat(content) });
-      else throw new Error();
+      else if (!response.ok) location.href = '/login';
     } catch (err) {
       throw new Error('파일을 저장하는 중 오류가 발생했습니다');
     }

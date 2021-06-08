@@ -8,7 +8,6 @@ router.get('/', auth.verifyJWT, function (req, res) {
   let fileList;
   const token = req.get('token');
   const decoded = jwt.verify(token, 'jwSecret');
-
   try {
     fileList = fileModel.getFileList(decoded.id);
   } catch (err) {
@@ -16,7 +15,6 @@ router.get('/', auth.verifyJWT, function (req, res) {
     res.send(err);
     return;
   }
-
   res.json({
     list: fileList,
   });
