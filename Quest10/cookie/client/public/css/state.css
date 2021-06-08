@@ -1,0 +1,60 @@
+.t-nav-button:hover {
+  cursor: pointer;
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+}
+
+.t-nav-button:active {
+  background: white;
+}
+
+.t-editor-container:focus {
+  outline: none;
+}
+
+.t-editor-line:focus {
+  outline: none;
+}
+
+p:empty::before {
+  content: 'write your text';
+  color: gray;
+}
+
+.t-save-button:hover {
+  cursor: pointer;
+  background: linear-gradient(145deg, #3b2a2a, #463232);
+}
+
+.t-save-button:focus {
+  outline: none;
+}
+
+.t-save-button:active {
+  background: black;
+}
+
+.t-new-button:hover {
+  cursor: pointer;
+  background: linear-gradient(145deg, #3b2a2a, #463232);
+}
+
+.t-new-button:focus {
+  outline: none;
+}
+
+.t-new-button:active {
+  background: black;
+}
+
+.t-saveAs-button:hover {
+  cursor: pointer;
+  background: linear-gradient(145deg, #3b2a2a, #463232);
+}
+
+.t-saveAs-button:focus {
+  outline: none;
+}
+
+.t-saveAs-button:active {
+  background: black;
+}
