@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="./css/normalize.css">
+		<link rel="stylesheet" href="./css/layout.css">
+		<link rel="stylesheet" href="./css/theme.css">
+		<link rel="stylesheet" href="./css/state.css">
+		<script src="./javascript/notepad.js"></script>
+		<script src="./javascript/editor.js"></script>
+		<script src="./javascript/line.js"></script>
+		<script src="./javascript/explorer.js"></script>
+		<script src="./javascript/storage.js"></script>
+		<script src="./javascript/menu.js"></script>
+	</head>
+	<body>
+		<!-- TODO: 이 곳을 채워 클라이언트를 만들어 보세요 -->
+		<header class="l-header-container t-header-contaier">
+			<h1 class="l-header-title t-header-title">Text Editor</h1>
+		</header>
+		<div class="l-menu-container t-menu-container">
+			<button class="l-save-button t-save-button">저장하기</button>
+			<button class="l-new-button t-new-button">새 파일</button>
+			<button class="l-saveAs-button t-saveAs-button">다른 이름으로 저장하기</button>
+		</div>
+		<nav class="l-nav-container t-nav-contaier">
+		</nav>	
+		<section id="editor" contentEditable="true"  class="l-editor-container t-editor-container">
+		</section>
+		<template id="template-nav-button">
+			<button class="l-nav-button t-nav-button">
+				<h2 class="l-nav-button-title t-nav-button-title"></h3>
+				<div class="l-nav-button-state"></div>
+			</button>
+		</template>
+		<template id="template-editor-line">
+			<p tabindex='0' class="l-editor-line t-editor-line"></p>
+		</template>
+		<script>
+			let notepad = new Notepad();
+		</script>
+	</body>
+</html>

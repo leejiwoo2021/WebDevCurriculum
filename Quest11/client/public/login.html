@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>login Page</title>
+  </head>
+  <body>
+    <!-- TODO: 이 곳을 채워 클라이언트를 만들어 보세요 -->
+    <div>
+      <label>ID : </label>
+      <input id="id" type="text" placeholder="ID를 입력해주세요" />
+      <label>PW : </label>
+      <input id="pw" type="password" placeholder="PW를 입력해주세요" />
+      <button id="loginBtn">로그인</button>
+    </div>
+  </body>
+  <script>
+    const loginBtn = document.querySelector('#loginBtn');
+    const idInput = document.querySelector('#id');
+    const pwInput = document.querySelector('#pw');
+
+    loginBtn.addEventListener('click', async function () {
+      const id = idInput.value;
+      const pw = pwInput.value;
+
+      if (!id || !pw) {
+        alert('ID와 패스워드를 모두 입력해주세요');
+        return;
+      }
+
+      let response;
+      try {
+        response = await fetch('http://localhost:8000/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: id,
+            pw: pw,
+          }),
+        });
+        const body = await response.json();
+
+        if (response.ok) {
+          const token = body.token;
+          localStorage.setItem('token', token);
+          location.href = '/';
+        }
+      } catch (err) {
+        alert('존재하지 않는 ID이거나 패스워드가 일치하지 않습니다.');
+      }
+    });
+  </script>
+</html>

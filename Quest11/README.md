@@ -59,7 +59,7 @@
   - 해시 함수에는 어떤 것이 있나요?
     - Adaptive Key Derivation Functions, PBKDF2, bcrypt, scrypt 등등...
   - 사용자의 암호를 해싱하여 저장할 때 어떤 식으로 저장하는 것이 보안에 좋을까요?
-    - ???
+    - 해시함수를 여러번 돌리거나, salt 문자열을 조합하여 사용한다
 
 ## Quest
 
