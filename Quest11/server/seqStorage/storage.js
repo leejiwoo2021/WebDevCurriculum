@@ -11,12 +11,31 @@ const sequelize = new Sequelize(
 );
 
 async function run() {
-  try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
+  const User = sequelize.define(
+    'User',
+    {
+      // Model attributes are defined here
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: false,
+      },
+    },
+    {
+      // Other model options go here
+    }
+  );
+
+  // the defined model is the class itself
+  console.log(User === sequelize.models.User); // true
+
+  await User.sync({ force: true });
+  console.log('The table for the User model was just (re)created!');
 }
 
 exports.run = run;
