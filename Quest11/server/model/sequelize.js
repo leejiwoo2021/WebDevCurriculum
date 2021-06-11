@@ -51,7 +51,7 @@ async function init() {
   await setFileList();
 
   async function setModel() {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
     console.log('\n*** 테이블 Model 생성 성공. ***\n');
   }
 
@@ -127,6 +127,10 @@ async function getFile(userName, fileName) {
       name: fileName,
     },
   });
+
+  const [results, metadata] = await sequelize.query(
+    `UPDATE Files SET updatedAt = NOW() WHERE id = ${file.id}`
+  );
 
   return file.content;
 }
