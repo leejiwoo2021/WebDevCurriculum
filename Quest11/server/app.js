@@ -4,16 +4,14 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('./middleware/cors');
 require('dotenv').config();
+const storage = require('./model/sequelize');
+storage.init();
 
-// const indexRouter = require('./routes/index');
-// const fileRouter = require('./routes/file');
-// const infoRouter = require('./routes/info');
-// const authRouter = require('./routes/auth');
+const indexRouter = require('./routes/index');
+const fileRouter = require('./routes/file');
+const infoRouter = require('./routes/info');
+const authRouter = require('./routes/auth');
 
-const indexRouter = require('./seqRoutes/index');
-const fileRouter = require('./seqRoutes/file');
-const infoRouter = require('./seqRoutes/info');
-const authRouter = require('./seqRoutes/auth');
 const app = express();
 
 app.use(logger('dev'));

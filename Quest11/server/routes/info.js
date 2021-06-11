@@ -1,15 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const fileModel = require('../model/fs');
+const storage = require('../model/sequelize');
 const auth = require('../middleware/auth');
 const jwt = require('jsonwebtoken');
 
-router.get('/', auth.verifyJWT, function (req, res) {
+router.get('/', auth.verifyJWT, async function (req, res) {
   let fileList, lastFile;
   const token = req.token;
   const decoded = jwt.verify(token, 'jwSecret');
+
   try {
-    const info = fileModel.getFileList(decoded.id);
+    const info = await storage.getFileList(decoded.id);
+
     fileList = info.fileList;
     lastFile = info.lastFile;
   } catch (err) {

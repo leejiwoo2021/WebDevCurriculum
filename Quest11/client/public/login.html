@@ -47,6 +47,9 @@
           localStorage.setItem('token', token);
           location.href = '/';
         }
+        else
+          throw new Error();
+        
       } catch (err) {
         alert('존재하지 않는 ID이거나 패스워드가 일치하지 않습니다.');
       }
