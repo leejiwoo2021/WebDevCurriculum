@@ -51,7 +51,7 @@ class Storage {
       {
         query: `
           mutation {
-            updateFile(name: "${name}" content: "${this.contentConcat(content)}"){
+            updateFile(name: "${name}" content: ${JSON.stringify(content)}){
               msg
             }
           }
@@ -69,7 +69,7 @@ class Storage {
       {
         query: `
           mutation {
-            createFile(name: "${newName}" content: "${this.contentConcat(content)}"){
+            createFile(name: "${newName}" content:  ${JSON.stringify(content)}){
               msg
             }
           }
