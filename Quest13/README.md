@@ -39,3 +39,27 @@
 
 - GraphQL이 아직 제대로 수행하지 못하거나 불가능한 요구사항에는 어떤 것이 있을까요?
 - GraphQL의 경쟁자에는 어떤 것이 있을까요?
+
+```JSON
+{
+  host: 'localhost:8000',
+  connection: 'keep-alive',
+  'content-length': '79',
+  'sec-ch-ua': '" Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"',
+  accept: 'application/json',
+  'sec-ch-ua-mobile': '?0',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36',
+  'content-type': 'application/json',
+  origin: 'https://localhost:8000',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'https://localhost:8000/',
+  'accept-encoding': 'gzip, deflate, br',
+  'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7'
+}
+{
+  query: 'query {\n  info {\n    list\n    lastFile\n  } \n}',
+  variables: null
+}
+```

@@ -5,10 +5,10 @@ class Explorer {
   constructor() {
     (async () => {
       const response = await this.#storage.getFileNameList();
-      response.list.forEach((fileName) => {
+      response.data.info.list.forEach((fileName) => {
         this.addFileButton(fileName);
       });
-      this.openFile(response.lastFile);
+      this.openFile(response.data.info.lastFile);
     })();
   }
 
@@ -30,9 +30,7 @@ class Explorer {
   createButtonElement(name, state) {
     const buttonTemplate = document.querySelector('#template-nav-button');
     const buttonClone = document.importNode(buttonTemplate.content, true);
-    const buttonElement = buttonClone.querySelector(
-      '.l-nav-button.t-nav-button'
-    );
+    const buttonElement = buttonClone.querySelector('.l-nav-button.t-nav-button');
 
     const buttonTitle = buttonElement.querySelector('h2');
     buttonTitle.innerText = name;

@@ -1,32 +1,130 @@
-var { graphqlHTTP } = require('express-graphql');
-var { buildSchema } = require('graphql');
+const { graphqlHTTP } = require('express-graphql');
+const { buildSchema } = require('graphql');
+const jwt = require('jsonwebtoken');
+const storage = require('../model/sequelize');
 
-var schema = buildSchema(`
+const schema = buildSchema(`
   type Query {
-    hello: String,
-    jiwoo: User
+    info: info
+    file(name: String!): file
   }
 
-  type User {
-    name: String
-    id: ID
+  type info {
+    list: [String]
+    lastFile: String
   }
+
+  type file {
+    name: String
+    content: String
+  }
+
+  type Mutation {
+    createFile(name: String, content:String): mutationResult
+    updateFile(name:String, content:String): mutationResult
+    deleteFile(name:String): mutationResult
+  }
+
+  type mutationResult {
+    msg: String
+  }
+
 `);
 
-// The root provides a resolver function for each API endpoint
-var root = {
-  hello: () => {
-    return 'test String';
-  },
-  jiwoo: () => {
-    return { name: 'testing JIWOO', id: 12 };
-  },
+const root = (req) => {
+  return {
+    info: async () => {
+      const token = req.token;
+      const decoded = jwt.verify(token, 'jwSecret');
+      let fileList, lastFile;
+
+      try {
+        const info = await storage.getFileList(decoded.id);
+        fileList = info.fileList;
+        lastFile = info.lastFile;
+      } catch (err) {
+        console.log(err);
+        return {
+          list: [],
+        };
+      }
+
+      return {
+        list: fileList,
+        lastFile,
+      };
+    },
+
+    file: async (obj) => {
+      let content;
+      const name = obj.name;
+      const token = req.token;
+      const decoded = jwt.verify(token, 'jwSecret');
+      try {
+        content = await storage.getFile(decoded.id, name);
+      } catch (err) {
+        console.log(err);
+        return {
+          msg: '실패',
+        };
+      }
+
+      return {
+        name: name,
+        content: content,
+      };
+    },
+
+    createFile: ({ name, content }) => {
+      const token = req.token;
+      const decoded = jwt.verify(token, 'jwSecret');
+      try {
+        storage.createFile(decoded.id, name, content);
+      } catch (err) {
+        console.log(err);
+        return;
+      }
+
+      return {
+        msg: 'success',
+      };
+    },
+
+    updateFile: ({ name, content }) => {
+      const token = req.token;
+      const decoded = jwt.verify(token, 'jwSecret');
+      try {
+        storage.updateFile(decoded.id, name, content);
+      } catch (err) {
+        console.log(err);
+        return { msg: 'failed' };
+      }
+
+      return { msg: 'success' };
+    },
+
+    deleteFile: ({ name }) => {
+      const token = req.token;
+      const decoded = jwt.verify(token, 'jwSecret');
+
+      try {
+        // fileModel.deleteFile(decoded.id, name);
+      } catch (err) {
+        console.log(err);
+
+        return { msg: 'failed' };
+      }
+      return { msg: 'success' };
+    },
+  };
 };
 
-const router = graphqlHTTP({
-  schema: schema,
-  rootValue: root,
-  graphiql: true,
+const router = graphqlHTTP((req) => {
+  return {
+    schema: schema,
+    rootValue: root(req),
+    graphiql: true,
+  };
 });
 
 module.exports = router;

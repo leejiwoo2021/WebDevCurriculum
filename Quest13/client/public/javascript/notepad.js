@@ -24,17 +24,12 @@ class Notepad {
       this.#explorer.setButtonActive(fileName);
 
       const response = await this.#storage.getFile(fileName);
-      const savedContent = response.content.split('\n');
+      const savedContent = response.data.file.content.split('\n');
       this.#editor.showContent(fileName, savedContent);
       if (this.#editor.getTemp(fileName)) {
-        const savedFile = response.content.split('\n');
+        const savedFile = response.data.file.content.split('\n');
         const tempedFile = this.#editor.getTemp(fileName);
-        if (
-          savedFile &&
-          tempedFile &&
-          this.#editor.isEqual(savedFile, tempedFile)
-        )
-          this.#menu.setSaveButtonDisable();
+        if (savedFile && tempedFile && this.#editor.isEqual(savedFile, tempedFile)) this.#menu.setSaveButtonDisable();
         else this.#menu.setSaveButtonAvailable();
       } else {
         this.#menu.setSaveButtonDisable();
@@ -50,11 +45,7 @@ class Notepad {
       const response = await this.#storage.getFileTemp(activeFileName);
       const savedFile = response.content;
       const tempedFile = this.#editor.getTemp(activeFileName);
-      if (
-        savedFile &&
-        tempedFile &&
-        this.#editor.isEqual(savedFile, tempedFile)
-      ) {
+      if (savedFile && tempedFile && this.#editor.isEqual(savedFile, tempedFile)) {
         this.#menu.setSaveButtonDisable();
         this.#explorer.setStateSaved();
       } else {
