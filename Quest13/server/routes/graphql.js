@@ -16,12 +16,12 @@ const schema = buildSchema(`
 
   type file {
     name: String
-    content: String
+    content: [String]
   }
 
   type Mutation {
-    createFile(name: String, content:String): mutationResult
-    updateFile(name:String, content:String): mutationResult
+    createFile(name: String, content:[String]): mutationResult
+    updateFile(name:String, content:[String]): mutationResult
     deleteFile(name:String): mutationResult
   }
 
@@ -62,6 +62,7 @@ const root = (req) => {
       const decoded = jwt.verify(token, 'jwSecret');
       try {
         content = await storage.getFile(decoded.id, name);
+        content = JSON.parse(content);
       } catch (err) {
         console.log(err);
         return {
@@ -79,7 +80,7 @@ const root = (req) => {
       const token = req.token;
       const decoded = jwt.verify(token, 'jwSecret');
       try {
-        storage.createFile(decoded.id, name, content);
+        storage.createFile(decoded.id, name, JSON.stringify(content));
       } catch (err) {
         console.log(err);
         return {
@@ -96,7 +97,7 @@ const root = (req) => {
       const token = req.token;
       const decoded = jwt.verify(token, 'jwSecret');
       try {
-        storage.updateFile(decoded.id, name, content);
+        storage.updateFile(decoded.id, name, JSON.stringify(content));
       } catch (err) {
         console.log(err);
         return {

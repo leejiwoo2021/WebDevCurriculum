@@ -17,15 +17,11 @@ class Editor {
   }
 
   getContent() {
-    return [...this.#editorElement.children].map(
-      (element) => element.innerHTML
-    );
+    return [...this.#editorElement.children].map((element) => element.innerHTML);
   }
 
   showContent(fileName, savedContent) {
-    let fileData = this.#tempData.has(fileName)
-      ? this.#tempData.get(fileName)
-      : savedContent;
+    let fileData = this.#tempData.has(fileName) ? this.#tempData.get(fileName) : savedContent;
     if (fileData === null) fileData = [''];
     this.#editorElement.innerHTML = '';
     fileData.forEach((text) => {

@@ -24,10 +24,10 @@ class Notepad {
       this.#explorer.setButtonActive(fileName);
 
       const response = await this.#storage.getFile(fileName);
-      const savedContent = response.data.file.content.split('\n');
+      const savedContent = response.data.file.content;
       this.#editor.showContent(fileName, savedContent);
       if (this.#editor.getTemp(fileName)) {
-        const savedFile = response.data.file.content.split('\n');
+        const savedFile = response.data.file.content;
         const tempedFile = this.#editor.getTemp(fileName);
         if (savedFile && tempedFile && this.#editor.isEqual(savedFile, tempedFile)) this.#menu.setSaveButtonDisable();
         else this.#menu.setSaveButtonAvailable();
@@ -43,7 +43,7 @@ class Notepad {
       this.#editor.setContentTemp(activeFileName);
 
       const response = await this.#storage.getFileTemp(activeFileName);
-      const savedFile = response.content;
+      const savedFile = response.data.file.content;
       const tempedFile = this.#editor.getTemp(activeFileName);
       if (savedFile && tempedFile && this.#editor.isEqual(savedFile, tempedFile)) {
         this.#menu.setSaveButtonDisable();
@@ -71,7 +71,8 @@ class Notepad {
     this.#dom.addEventListener('newFile', async () => {
       const fileName = prompt('파일 이름을 입력하세요');
       const response = await this.#storage.getFileNameList();
-      const fileNameList = response.list;
+
+      const fileNameList = response.data.info.list;
       if (!fileName) {
         alert('올바른 이름을 입력해주세요');
         return;

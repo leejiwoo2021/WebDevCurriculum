@@ -2,15 +2,10 @@
 const { Sequelize, Op, Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 
-const sequelize = new Sequelize(
-  'textEditor',
-  process.env.DB_USER,
-  process.env.DB_PASS,
-  {
-    host: process.env.DB_HOST,
-    dialect: 'mysql',
-  }
-);
+const sequelize = new Sequelize('textEditor', process.env.DB_USER, process.env.DB_PASS, {
+  host: process.env.DB_HOST,
+  dialect: 'mysql',
+});
 
 const User = sequelize.define('User', {
   name: {
@@ -128,9 +123,7 @@ async function getFile(userName, fileName) {
     },
   });
 
-  const [results, metadata] = await sequelize.query(
-    `UPDATE Files SET updatedAt = NOW() WHERE id = ${file.id}`
-  );
+  const [results, metadata] = await sequelize.query(`UPDATE Files SET updatedAt = NOW() WHERE id = ${file.id}`);
 
   return file.content;
 }
