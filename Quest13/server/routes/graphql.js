@@ -45,7 +45,7 @@ const root = (req) => {
       } catch (err) {
         console.log(err);
         return {
-          list: [],
+          errors: [err],
         };
       }
 
@@ -65,7 +65,7 @@ const root = (req) => {
       } catch (err) {
         console.log(err);
         return {
-          msg: '실패',
+          errors: [err],
         };
       }
 
@@ -82,7 +82,9 @@ const root = (req) => {
         storage.createFile(decoded.id, name, content);
       } catch (err) {
         console.log(err);
-        return;
+        return {
+          errors: [err],
+        };
       }
 
       return {
@@ -97,7 +99,9 @@ const root = (req) => {
         storage.updateFile(decoded.id, name, content);
       } catch (err) {
         console.log(err);
-        return { msg: 'failed' };
+        return {
+          errors: [err],
+        };
       }
 
       return { msg: 'success' };
@@ -111,8 +115,9 @@ const root = (req) => {
         // fileModel.deleteFile(decoded.id, name);
       } catch (err) {
         console.log(err);
-
-        return { msg: 'failed' };
+        return {
+          errors: [err],
+        };
       }
       return { msg: 'success' };
     },
