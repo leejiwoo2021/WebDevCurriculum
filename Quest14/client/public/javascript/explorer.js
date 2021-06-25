@@ -19,13 +19,11 @@ class Explorer {
         _Explorer_navElement.set(this, document.querySelector('.l-nav-container.t-nav-contaier'));
         _Explorer_api.set(this, new Api());
         (() => __awaiter(this, void 0, void 0, function* () {
-            var _a, _b, _c, _d, _e;
             const response = yield __classPrivateFieldGet(this, _Explorer_api, "f").getFileNameList();
-            (_c = (_b = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.info) === null || _b === void 0 ? void 0 : _b.list) === null || _c === void 0 ? void 0 : _c.forEach((fileName) => {
+            response.data.info.list.forEach((fileName) => {
                 this.addFileButton(fileName);
             });
-            if ((_e = (_d = response === null || response === void 0 ? void 0 : response.data) === null || _d === void 0 ? void 0 : _d.info) === null || _e === void 0 ? void 0 : _e.lastFile)
-                this.openFile(response.data.info.lastFile);
+            this.openFile(response.data.info.lastFile);
         }))();
     }
     addFileButton(fileName) {

@@ -5,10 +5,10 @@ class Explorer {
   constructor() {
     (async () => {
       const response = await this.#api.getFileNameList();
-      response?.data?.info?.list?.forEach((fileName: string) => {
+      response.data.info.list.forEach((fileName: string) => {
         this.addFileButton(fileName);
       });
-      if (response?.data?.info?.lastFile) this.openFile(response.data.info.lastFile);
+      this.openFile(response.data.info.lastFile);
     })();
   }
 

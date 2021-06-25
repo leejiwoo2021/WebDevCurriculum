@@ -21,7 +21,6 @@ class Editor {
 
   showContent(fileName: string, savedContent: string[]): void {
     const fileData = this.#tempData.has(fileName) ? this.#tempData.get(fileName) : savedContent;
-    // if (fileData === null) fileData = [''];
     if (this.#editorElement) this.#editorElement.innerHTML = '';
     fileData.forEach((text: string) => {
       this.#editorElement?.appendChild(new Line(text).getElement());

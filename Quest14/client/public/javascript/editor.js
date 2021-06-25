@@ -27,7 +27,6 @@ class Editor {
     }
     showContent(fileName, savedContent) {
         const fileData = __classPrivateFieldGet(this, _Editor_tempData, "f").has(fileName) ? __classPrivateFieldGet(this, _Editor_tempData, "f").get(fileName) : savedContent;
-        // if (fileData === null) fileData = [''];
         if (__classPrivateFieldGet(this, _Editor_editorElement, "f"))
             __classPrivateFieldGet(this, _Editor_editorElement, "f").innerHTML = '';
         fileData.forEach((text) => {

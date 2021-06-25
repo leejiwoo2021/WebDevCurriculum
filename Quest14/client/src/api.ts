@@ -1,8 +1,8 @@
 class Api {
   #tempData = new Map();
 
-  async getFileNameList(): Promise<resType | undefined> {
-    const fileNameList = await this.useFetch(
+  async getFileNameList(): Promise<fileNameType> {
+    const fileNameList = (await this.useFetch(
       'POST',
       {
         query: `
@@ -15,13 +15,13 @@ class Api {
         `,
       },
       '파일 목록을 불러오는 중 오류가 발생했습니다'
-    );
+    )) as fileNameType;
 
     return fileNameList;
   }
 
-  async getFile(name: string): Promise<resType | undefined> {
-    const resBody = await this.useFetch(
+  async getFile(name: string): Promise<fileType> {
+    const resBody = (await this.useFetch(
       'POST',
       {
         query: `
@@ -34,15 +34,15 @@ class Api {
         `,
       },
       '파일을 불러오는 중 오류가 발생했습니다'
-    );
+    )) as fileType;
 
-    if (resBody) this.#tempData.set(name, resBody);
+    if (resBody) this.#tempData.set(name, { content: this.contentConcat(resBody.data.file.content) });
 
     return resBody;
   }
 
-  getFileTemp(name: string): resType {
-    return this.#tempData.get(name);
+  getFileTemp(name: string): string[] | undefined {
+    return this.#tempData.get(name)?.content?.split('\n');
   }
 
   async saveFile(name: string, content: string[]): Promise<void> {
@@ -90,7 +90,7 @@ class Api {
     return concated;
   }
 
-  async useFetch(method: string, body: bodyType, errMsg: string): Promise<resType | undefined> {
+  async useFetch(method: string, body: bodyType, errMsg: string): Promise<resType> {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch('https://localhost:8000/graphql', {
@@ -106,10 +106,14 @@ class Api {
       const resBody = await response.json();
 
       if (response.ok) return resBody;
-      else if (!response.ok) location.href = '/login';
+      else {
+        location.href = '/login';
+        return Promise.reject(errMsg);
+      }
     } catch (err) {
       console.log(err);
       console.log(errMsg);
+      throw err;
     }
   }
 }
@@ -131,4 +135,22 @@ interface resType {
     msg?: string;
   };
   errors?: string[];
+}
+
+interface fileNameType {
+  data: {
+    info: {
+      list: string[];
+      lastFile: string;
+    };
+  };
+}
+
+interface fileType {
+  data: {
+    file: {
+      name: string;
+      content: string[];
+    };
+  };
 }

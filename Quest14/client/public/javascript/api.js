@@ -20,7 +20,7 @@ class Api {
     }
     getFileNameList() {
         return __awaiter(this, void 0, void 0, function* () {
-            const fileNameList = yield this.useFetch('POST', {
+            const fileNameList = (yield this.useFetch('POST', {
                 query: `
           query {
             info {
@@ -29,13 +29,13 @@ class Api {
             }
           }
         `,
-            }, '파일 목록을 불러오는 중 오류가 발생했습니다');
+            }, '파일 목록을 불러오는 중 오류가 발생했습니다'));
             return fileNameList;
         });
     }
     getFile(name) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resBody = yield this.useFetch('POST', {
+            const resBody = (yield this.useFetch('POST', {
                 query: `
           query {
             file(name: "${name}") {
@@ -44,14 +44,15 @@ class Api {
             }
           }
         `,
-            }, '파일을 불러오는 중 오류가 발생했습니다');
+            }, '파일을 불러오는 중 오류가 발생했습니다'));
             if (resBody)
-                __classPrivateFieldGet(this, _Api_tempData, "f").set(name, resBody);
+                __classPrivateFieldGet(this, _Api_tempData, "f").set(name, { content: this.contentConcat(resBody.data.file.content) });
             return resBody;
         });
     }
     getFileTemp(name) {
-        return __classPrivateFieldGet(this, _Api_tempData, "f").get(name);
+        var _a, _b;
+        return (_b = (_a = __classPrivateFieldGet(this, _Api_tempData, "f").get(name)) === null || _a === void 0 ? void 0 : _a.content) === null || _b === void 0 ? void 0 : _b.split('\n');
     }
     saveFile(name, content) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -108,12 +109,15 @@ class Api {
                 const resBody = yield response.json();
                 if (response.ok)
                     return resBody;
-                else if (!response.ok)
+                else {
                     location.href = '/login';
+                    return Promise.reject(errMsg);
+                }
             }
             catch (err) {
                 console.log(err);
                 console.log(errMsg);
+                throw err;
             }
         });
     }

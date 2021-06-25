@@ -31,7 +31,6 @@ class Notepad {
     addFileClickEvent() {
         var _a;
         (_a = __classPrivateFieldGet(this, _Notepad_dom, "f")) === null || _a === void 0 ? void 0 : _a.addEventListener('openFile', (e) => __awaiter(this, void 0, void 0, function* () {
-            var _b, _c, _d, _e;
             const customEvent = e;
             const fileName = customEvent.detail.fileName;
             const currentFileName = __classPrivateFieldGet(this, _Notepad_explorer, "f").getActiveFileName();
@@ -40,11 +39,10 @@ class Notepad {
             __classPrivateFieldGet(this, _Notepad_editor, "f").setContentTemp(currentFileName);
             __classPrivateFieldGet(this, _Notepad_explorer, "f").setButtonActive(fileName);
             const response = yield __classPrivateFieldGet(this, _Notepad_api, "f").getFile(fileName);
-            const savedContent = (_c = (_b = response === null || response === void 0 ? void 0 : response.data) === null || _b === void 0 ? void 0 : _b.file) === null || _c === void 0 ? void 0 : _c.content;
-            if (savedContent)
-                __classPrivateFieldGet(this, _Notepad_editor, "f").showContent(fileName, savedContent);
+            const savedContent = response.data.file.content;
+            __classPrivateFieldGet(this, _Notepad_editor, "f").showContent(fileName, savedContent);
             if (__classPrivateFieldGet(this, _Notepad_editor, "f").getTemp(fileName)) {
-                const savedFile = (_e = (_d = response === null || response === void 0 ? void 0 : response.data) === null || _d === void 0 ? void 0 : _d.file) === null || _e === void 0 ? void 0 : _e.content;
+                const savedFile = response.data.file.content;
                 const tempedFile = __classPrivateFieldGet(this, _Notepad_editor, "f").getTemp(fileName);
                 if (savedFile && tempedFile && __classPrivateFieldGet(this, _Notepad_editor, "f").isEqual(savedFile, tempedFile))
                     __classPrivateFieldGet(this, _Notepad_menu, "f").setSaveButtonDisable();
@@ -58,14 +56,12 @@ class Notepad {
     }
     addEditorChangeEvent() {
         var _a;
-        (_a = __classPrivateFieldGet(this, _Notepad_dom, "f")) === null || _a === void 0 ? void 0 : _a.addEventListener('editorChange', (e) => {
-            var _a, _b;
+        (_a = __classPrivateFieldGet(this, _Notepad_dom, "f")) === null || _a === void 0 ? void 0 : _a.addEventListener('editorChange', () => {
             const activeFileName = __classPrivateFieldGet(this, _Notepad_explorer, "f").getActiveFileName();
             __classPrivateFieldGet(this, _Notepad_editor, "f").setContentTemp(activeFileName);
-            const response = __classPrivateFieldGet(this, _Notepad_api, "f").getFileTemp(activeFileName);
-            const savedFile = (_b = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.file) === null || _b === void 0 ? void 0 : _b.content;
+            const savedFile = __classPrivateFieldGet(this, _Notepad_api, "f").getFileTemp(activeFileName);
             const tempedFile = __classPrivateFieldGet(this, _Notepad_editor, "f").getTemp(activeFileName);
-            if (savedFile && tempedFile && __classPrivateFieldGet(this, _Notepad_editor, "f").isEqual(savedFile, tempedFile)) {
+            if (savedFile && __classPrivateFieldGet(this, _Notepad_editor, "f").isEqual(savedFile, tempedFile)) {
                 __classPrivateFieldGet(this, _Notepad_menu, "f").setSaveButtonDisable();
                 __classPrivateFieldGet(this, _Notepad_explorer, "f").setStateSaved();
             }
@@ -90,10 +86,9 @@ class Notepad {
     addNewFileEvent() {
         var _a;
         (_a = __classPrivateFieldGet(this, _Notepad_dom, "f")) === null || _a === void 0 ? void 0 : _a.addEventListener('newFile', () => __awaiter(this, void 0, void 0, function* () {
-            var _b, _c;
             const fileName = prompt('파일 이름을 입력하세요');
             const response = yield __classPrivateFieldGet(this, _Notepad_api, "f").getFileNameList();
-            const fileNameList = (_c = (_b = response === null || response === void 0 ? void 0 : response.data) === null || _b === void 0 ? void 0 : _b.info) === null || _c === void 0 ? void 0 : _c.list;
+            const fileNameList = response.data.info.list;
             if (!fileName) {
                 alert('올바른 이름을 입력해주세요');
                 return;

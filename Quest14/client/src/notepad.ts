@@ -25,10 +25,10 @@ class Notepad {
       this.#explorer.setButtonActive(fileName);
 
       const response = await this.#api.getFile(fileName);
-      const savedContent = response?.data?.file?.content;
-      if (savedContent) this.#editor.showContent(fileName, savedContent);
+      const savedContent = response.data.file.content;
+      this.#editor.showContent(fileName, savedContent);
       if (this.#editor.getTemp(fileName)) {
-        const savedFile = response?.data?.file?.content;
+        const savedFile = response.data.file.content;
         const tempedFile = this.#editor.getTemp(fileName);
         if (savedFile && tempedFile && this.#editor.isEqual(savedFile, tempedFile)) this.#menu.setSaveButtonDisable();
         else this.#menu.setSaveButtonAvailable();
@@ -39,14 +39,13 @@ class Notepad {
   }
 
   addEditorChangeEvent(): void {
-    this.#dom?.addEventListener('editorChange', (e) => {
+    this.#dom?.addEventListener('editorChange', () => {
       const activeFileName = this.#explorer.getActiveFileName();
       this.#editor.setContentTemp(activeFileName);
 
-      const response = this.#api.getFileTemp(activeFileName);
-      const savedFile = response?.data?.file?.content;
+      const savedFile = this.#api.getFileTemp(activeFileName);
       const tempedFile = this.#editor.getTemp(activeFileName);
-      if (savedFile && tempedFile && this.#editor.isEqual(savedFile, tempedFile)) {
+      if (savedFile && this.#editor.isEqual(savedFile, tempedFile)) {
         this.#menu.setSaveButtonDisable();
         this.#explorer.setStateSaved();
       } else {
@@ -73,7 +72,7 @@ class Notepad {
       const fileName = prompt('파일 이름을 입력하세요');
       const response = await this.#api.getFileNameList();
 
-      const fileNameList = response?.data?.info?.list;
+      const fileNameList = response.data.info.list;
       if (!fileName) {
         alert('올바른 이름을 입력해주세요');
         return;
