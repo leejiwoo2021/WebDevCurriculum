@@ -7,7 +7,7 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "build": "npx tsc",
-    "lint": "npx eslint ./*.ts"
+    "lint": "npx eslint ./**/*.ts"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
