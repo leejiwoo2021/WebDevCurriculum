@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import { Sequelize, DataTypes, Optional, Model } from 'sequelize';
+import { Sequelize, DataTypes, Model } from 'sequelize';
 import bcrypt from 'bcrypt';
 
 const sequelize = new Sequelize('textEditor', process.env.DB_USER as string, process.env.DB_PASS, {
@@ -7,20 +7,17 @@ const sequelize = new Sequelize('textEditor', process.env.DB_USER as string, pro
   dialect: 'mysql',
 });
 
-interface UserAttributes {
+interface UserInstance extends Model {
   id: number;
   name: string;
   password: string;
 }
 
-interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
-
-interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes {}
-
 const User = sequelize.define<UserInstance>('User', {
   id: {
     primaryKey: true,
     type: DataTypes.INTEGER.UNSIGNED,
+    autoIncrement: true,
   },
   name: {
     type: DataTypes.STRING,
@@ -34,25 +31,21 @@ const User = sequelize.define<UserInstance>('User', {
   },
 });
 
-interface FileAttributes {
+interface FileInstance extends Model {
   id: number;
   user_id: number;
   name: string;
   content: string;
 }
 
-interface FileCreationAttributes extends Optional<FileAttributes, 'id'> {}
-
-interface FileInstance extends Model<FileAttributes, FileCreationAttributes>, FileAttributes {}
-
 const File = sequelize.define<FileInstance>('File', {
   id: {
     primaryKey: true,
     type: DataTypes.INTEGER.UNSIGNED,
+    autoIncrement: true,
   },
   user_id: {
-    type: DataTypes.INTEGER,
-
+    type: DataTypes.INTEGER.UNSIGNED,
     references: {
       model: User,
       key: 'id',
@@ -75,7 +68,7 @@ export async function init(): Promise<void> {
   await setFileList();
 
   async function setModel() {
-    await sequelize.sync();
+    await sequelize.sync({ force: true });
     console.log('\n*** 테이블 Model 생성 성공. ***\n');
   }
 
