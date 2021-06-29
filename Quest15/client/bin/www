@@ -1,0 +1,112 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('client:server');
+var https = require('https');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('../ssl/jiwoo.com.key'),
+  cert: fs.readFileSync('../ssl/jiwoo.com.crt'),
+};
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = https.createServer(options, app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+    case 'EADDRINUSE':
+      process.exit(1);
+    default:
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+// openssl genrsa -aes256 -out rootca.key 2048
+
+// openssl req -new -key rootca.key -out rootca.csr
+
+// openssl x509 -req \
+// -days 3650 \
+// -extensions v3_ca \
+// -set_serial 1 \
+// -in rootca.csr \
+// -signkey rootca.key \
+// -out rootca.crt
+
+// openssl genrsa -aes256 -out jiwoo.com.key 2048
+
+// cp  jiwoo.com.key  jiwoo.com.key.enc
+// openssl rsa -in  jiwoo.com.key.enc -out  jiwoo.com.key
+
+// openssl req -new -key jiwoo.com.key -out jiwoo.com.csr
+
+// openssl x509 -req -days 1825 -extensions v3_user -in jiwoo.com.csr \
+// -CA rootca.crt -CAcreateserial \
+// -CAkey  rootca.key \
+// -out jiwoo.com.crt
