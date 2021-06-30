@@ -5,8 +5,8 @@ import cors from 'cors';
 import * as auth from './middleware/auth.js';
 import dotenv from 'dotenv';
 dotenv.config();
-import * as storage from './model/sequelize.js';
-storage.init();
+// import * as storage from './model/sequelize.js';
+// storage.init();
 
 import indexRouter from './routes/index.js';
 import authRouter from './routes/auth.js';
@@ -40,3 +40,5 @@ app.use(function (err: any, req: express.Request, res: express.Response) {
 });
 
 module.exports = app;
+
+export default app;

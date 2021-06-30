@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import bcrypt from 'bcrypt';
@@ -88,17 +90,17 @@ export async function init(): Promise<void> {
     await File.create({
       user_id: 1,
       name: '테스트 파일 1',
-      content: '첫번째 계정의 테스트 파일입니다',
+      content: '[\"첫번째 계정의 테스트 파일입니다\"]',
     });
     await File.create({
       user_id: 1,
       name: '테스트 파일 2',
-      content: '첫번째 계정의 두번째 테스트 파일입니다',
+      content: '[\"첫번째 계정의 두번째 테스트 파일입니다\"]',
     });
     await File.create({
       user_id: 2,
       name: '테스트 파일 1',
-      content: '두번째 계정의 테스트 파일입니다',
+      content: '[\"두번째 계정의 테스트 파일입니다\"]',
     });
 
     console.log('\n*** File 목록 생성 성공. ***\n');

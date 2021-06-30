@@ -8,5 +8,6 @@ declare namespace Express {
 
   export interface Response {
     locals?: any;
+    body?: any;
   }
 }

@@ -58,12 +58,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.login = void 0;
 var express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
 var checker = __importStar(require("../middleware/check.js"));
 var storage = __importStar(require("../model/sequelize.js"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-router.post('/login', checker.idPw, function (req, res) {
+function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, id, pw, token;
         return __generator(this, function (_b) {
@@ -89,5 +90,7 @@ router.post('/login', checker.idPw, function (req, res) {
             }
         });
     });
-});
+}
+exports.login = login;
+router.post('/login', checker.idPw, login);
 exports.default = router;

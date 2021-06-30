@@ -1,8 +1,7 @@
-import { NextFunction } from 'express';
 import express from 'express';
 import jwt from 'jsonwebtoken';
 
-export function verifyJWT(req: express.Request, res: express.Response, next: NextFunction): any {
+export function verifyJWT(req: express.Request, res: express.Response, next: express.NextFunction): any {
   if (!req.get('Authorization')) {
     res.status(401);
     res.append('WWW-Authenticate', 'Bearer');

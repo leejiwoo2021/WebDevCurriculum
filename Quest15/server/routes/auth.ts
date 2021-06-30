@@ -4,7 +4,7 @@ import * as checker from '../middleware/check.js';
 import * as storage from '../model/sequelize.js';
 import jwt from 'jsonwebtoken';
 
-router.post('/login', checker.idPw, async function (req: express.Request, res: express.Response): Promise<void> {
+async function login(req: express.Request, res: express.Response): Promise<void> {
   const { id, pw } = req.body;
 
   if (await storage.auth(id, pw)) {
@@ -19,6 +19,8 @@ router.post('/login', checker.idPw, async function (req: express.Request, res: e
     res.status(401);
     res.json({ msg: '존재하지 않는 ID거나, 패스워드가 일치하지 않습니다' });
   }
-});
+}
+router.post('/login', checker.idPw, login);
 
 export default router;
+export { login };

@@ -37,7 +37,7 @@ interface FileProps {
   content: string;
 }
 
-const root = (req: express.Request) => {
+const root = (req: express.Request): any => {
   return {
     info: async () => {
       const token = req.token;
@@ -150,3 +150,4 @@ const router = graphqlHTTP((req: any) => {
 });
 
 export default router;
+export { root };

@@ -40,6 +40,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateFile = exports.createFile = exports.getFile = exports.getFileList = exports.auth = exports.init = void 0;
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-empty-interface */
 var sequelize_1 = require("sequelize");
 var bcrypt_1 = __importDefault(require("bcrypt"));
@@ -51,6 +53,7 @@ var User = sequelize.define('User', {
     id: {
         primaryKey: true,
         type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
+        autoIncrement: true,
     },
     name: {
         type: sequelize_1.DataTypes.STRING,
@@ -67,9 +70,10 @@ var File = sequelize.define('File', {
     id: {
         primaryKey: true,
         type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
+        autoIncrement: true,
     },
     user_id: {
-        type: sequelize_1.DataTypes.INTEGER,
+        type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
         references: {
             model: User,
             key: 'id',
@@ -91,7 +95,7 @@ function init() {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, sequelize.sync()];
+                        case 0: return [4 /*yield*/, sequelize.sync({ force: true })];
                         case 1:
                             _a.sent();
                             console.log('\n*** 테이블 Model 생성 성공. ***\n');
@@ -132,21 +136,21 @@ function init() {
                         case 0: return [4 /*yield*/, File.create({
                                 user_id: 1,
                                 name: '테스트 파일 1',
-                                content: '첫번째 계정의 테스트 파일입니다',
+                                content: '[\"첫번째 계정의 테스트 파일입니다\"]',
                             })];
                         case 1:
                             _a.sent();
                             return [4 /*yield*/, File.create({
                                     user_id: 1,
                                     name: '테스트 파일 2',
-                                    content: '첫번째 계정의 두번째 테스트 파일입니다',
+                                    content: '[\"첫번째 계정의 두번째 테스트 파일입니다\"]',
                                 })];
                         case 2:
                             _a.sent();
                             return [4 /*yield*/, File.create({
                                     user_id: 2,
                                     name: '테스트 파일 1',
-                                    content: '두번째 계정의 테스트 파일입니다',
+                                    content: '[\"두번째 계정의 테스트 파일입니다\"]',
                                 })];
                         case 3:
                             _a.sent();
