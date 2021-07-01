@@ -7,7 +7,7 @@
     "dev": "nodemon ./bin/www",
     "build": "npx tsc",
     "lint": "npx eslint ./src",
-    "test": "jest --detectOpenHandles --config jest.config.js"
+    "test": "jest --detectOpenHandles --runInBand --config jest.config.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -35,6 +35,7 @@
     "prettier": "^2.3.1",
     "puppeteer": "^9.1.1",
     "ts-node": "^10.0.0",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.4",
+    "uuid": "^8.3.2"
   }
 }
