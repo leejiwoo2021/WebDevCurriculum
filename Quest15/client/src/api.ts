@@ -90,7 +90,7 @@ class Api {
     return concated;
   }
 
-  async useFetch(method: string, body: bodyType, errMsg: string): Promise<resType> {
+  async useFetch(method: string, body: bodyType, errMsg: string): Promise<fileNameType | fileType> {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch('https://localhost:8000/graphql', {
@@ -120,21 +120,6 @@ class Api {
 
 interface bodyType {
   query: string;
-}
-
-interface resType {
-  data?: {
-    info?: {
-      list?: string[];
-      lastFile?: string;
-    };
-    file?: {
-      name?: string;
-      content?: string[];
-    };
-    msg?: string;
-  };
-  errors?: string[];
 }
 
 interface fileNameType {
