@@ -1,51 +1,62 @@
 import { verifyJWT } from './auth';
-import httpMocks from 'node-mocks-http';
-import request from 'supertest';
-import app from '../app';
-
-async function sendLoginRequest() {
-  const response = await request(app)
-    .post('/api/auth/login')
-    .send({ id: 'test1', pw: 'qwer1234' })
-    .set('Accept', 'application/json')
-    .type('application/json');
-
-  return response;
-}
+import jwt from 'jsonwebtoken';
+import express from 'express';
 
 describe('middleware auth 유닛 테스트', () => {
   test('JWT 토큰 검증 - 토큰 미포함', () => {
-    const requestMock = httpMocks.createRequest({
-      method: 'POST',
-      url: '/graphql',
-    });
-
-    const responseMock = httpMocks.createResponse();
-
     function nextMock() {
       return;
     }
 
+    const requestMock = {
+      headers: {},
+      get(header) {
+        return this.headers[header];
+      },
+    } as express.Request;
+
+    const responseMock = {
+      body: {},
+      headers: {},
+      append(header, value) {
+        this.headers[header] = value;
+      },
+      status(code) {
+        this.statusCode = code;
+      },
+      json(obj) {
+        this.body = obj;
+      },
+    } as unknown as express.Response;
+
     verifyJWT(requestMock, responseMock, nextMock);
 
-    const jsonData = responseMock._getJSONData();
-    expect(jsonData).toStrictEqual({ message: 'no token' });
+    expect(responseMock.body).toStrictEqual({ message: 'no token' });
   });
 
   test('JWT 토큰 검증 - 잘못된 토큰 포함 ', async () => {
-    const token = 'wrongToken';
-
-    const requestMock = httpMocks.createRequest({
-      method: 'POST',
-      url: '/graphql',
+    const requestMock = {
       headers: {
-        Authorization: `Bearer ${token}`,
-        'content-type': 'application/json',
-        'accept-encoding': 'gzip',
+        Authorization: 'Bearer asdf',
       },
-    });
+      get(header) {
+        return this.headers[header];
+      },
+    } as unknown as express.Request;
 
-    const responseMock = httpMocks.createResponse();
+    const responseMock = {
+      body: {},
+      headers: {},
+      append(header, value) {
+        this.headers[header] = value;
+      },
+      status(code) {
+        this.statusCode = code;
+      },
+      json(obj) {
+        this.body = obj;
+      },
+    } as unknown as express.Response;
 
     function nextMock() {
       return;
@@ -53,27 +64,35 @@ describe('middleware auth 유닛 테스트', () => {
 
     verifyJWT(requestMock, responseMock, nextMock);
 
-    const jsonData = responseMock._getJSONData();
-    expect(jsonData).toStrictEqual({ message: 'invalid token' });
+    expect(responseMock.body).toStrictEqual({ message: 'invalid token' });
   });
 
   test('JWT 토큰 검증 - 정상 토큰 포함 ', async () => {
-    const loginResponse = await sendLoginRequest();
-    expect(loginResponse.body.token).not.toBeUndefined();
+    const token = jwt.sign({ iss: 'jiwoo', id: 'test1', exp: Math.floor(Date.now() / 1000) + 10 * 60 }, 'jwSecret');
 
-    const token = loginResponse.body.token;
-
-    const requestMock = httpMocks.createRequest({
-      method: 'POST',
-      url: '/graphql',
+    const requestMock = {
+      token: undefined,
       headers: {
         Authorization: `Bearer ${token}`,
-        'content-type': 'application/json',
-        'accept-encoding': 'gzip',
       },
-    });
+      get(header) {
+        return this.headers[header];
+      },
+    } as unknown as express.Request;
 
-    const responseMock = httpMocks.createResponse();
+    const responseMock = {
+      body: {},
+      headers: {},
+      append(header, value) {
+        this.headers[header] = value;
+      },
+      status(code) {
+        this.statusCode = code;
+      },
+      json(obj) {
+        this.body = obj;
+      },
+    } as unknown as express.Response;
 
     function nextMock() {
       return;

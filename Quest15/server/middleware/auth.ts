@@ -24,6 +24,7 @@ export function verifyJWT(req: express.Request, res: express.Response, next: exp
     });
     return;
   }
+
   req.token = token;
   next();
 }
