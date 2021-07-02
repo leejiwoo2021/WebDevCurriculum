@@ -2,7 +2,7 @@ class Api {
   #tempData = new Map();
 
   async getFileNameList(): Promise<fileNameType> {
-    const fileNameList = (await this.useFetch(
+    const fileNameList = await this.useFetch<fileNameType>(
       'POST',
       {
         query: `
@@ -15,13 +15,13 @@ class Api {
         `,
       },
       '파일 목록을 불러오는 중 오류가 발생했습니다'
-    )) as fileNameType;
+    );
 
     return fileNameList;
   }
 
   async getFile(name: string): Promise<fileType> {
-    const resBody = (await this.useFetch(
+    const resBody = await this.useFetch<fileType>(
       'POST',
       {
         query: `
@@ -34,7 +34,7 @@ class Api {
         `,
       },
       '파일을 불러오는 중 오류가 발생했습니다'
-    )) as fileType;
+    );
 
     if (resBody) this.#tempData.set(name, { content: this.contentConcat(resBody.data.file.content) });
 
@@ -90,7 +90,7 @@ class Api {
     return concated;
   }
 
-  async useFetch(method: string, body: bodyType, errMsg: string): Promise<fileNameType | fileType> {
+  async useFetch<T>(method: string, body: bodyType, errMsg: string): Promise<T> {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch('https://localhost:8000/graphql', {

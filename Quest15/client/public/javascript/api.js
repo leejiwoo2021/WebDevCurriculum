@@ -20,7 +20,7 @@ class Api {
     }
     getFileNameList() {
         return __awaiter(this, void 0, void 0, function* () {
-            const fileNameList = (yield this.useFetch('POST', {
+            const fileNameList = yield this.useFetch('POST', {
                 query: `
           query {
             info {
@@ -29,13 +29,13 @@ class Api {
             }
           }
         `,
-            }, '파일 목록을 불러오는 중 오류가 발생했습니다'));
+            }, '파일 목록을 불러오는 중 오류가 발생했습니다');
             return fileNameList;
         });
     }
     getFile(name) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resBody = (yield this.useFetch('POST', {
+            const resBody = yield this.useFetch('POST', {
                 query: `
           query {
             file(name: "${name}") {
@@ -44,7 +44,7 @@ class Api {
             }
           }
         `,
-            }, '파일을 불러오는 중 오류가 발생했습니다'));
+            }, '파일을 불러오는 중 오류가 발생했습니다');
             if (resBody)
                 __classPrivateFieldGet(this, _Api_tempData, "f").set(name, { content: this.contentConcat(resBody.data.file.content) });
             return resBody;
