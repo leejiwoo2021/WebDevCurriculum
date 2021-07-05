@@ -12,15 +12,16 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'HelloWorld',
+  name: 'FileBtn',
   props: {
     selectedIndex: Number,
     buttonIndex: Number,
-    setSelectedIndex: Function,
   },
-  method: {
+  methods: {
     clickHandler() {
-      console.log(this.buttonIndex);
+      if (!this.isActive) {
+        this.$emit('setSelectedIndex', this.buttonIndex);
+      }
     },
   },
   computed: {
@@ -62,3 +63,5 @@ export default defineComponent({
   background: white;
 }
 </style>
+
+function setSelectedIndex(buttonIndex: number|undefined) { throw new Error('Function not implemented.'); }

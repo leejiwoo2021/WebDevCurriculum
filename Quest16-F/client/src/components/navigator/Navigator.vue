@@ -1,6 +1,11 @@
 <template>
   <div class="l-navigator-container">
-    <FileBtn v-for="(name, index) in fileList" :key="index" :buttonIndex="index" :selectedIndex="selectedIndex"
+    <FileBtn
+      v-for="(name, index) in fileList"
+      :key="index"
+      :buttonIndex="index"
+      :selectedIndex="selectedIndex"
+      @setSelectedIndex="setSelectedIndex"
       >{{ name }}
     </FileBtn>
   </div>
@@ -29,6 +34,11 @@ interface dataTypes {
 export default defineComponent({
   name: 'Navigator',
   components: { FileBtn },
+  methods: {
+    setSelectedIndex(newIndex: number) {
+      this.selectedIndex = newIndex;
+    },
+  },
   data() {
     return {
       selectedIndex: 0,
@@ -36,8 +46,9 @@ export default defineComponent({
     } as dataTypes;
   },
   async mounted(): Promise<void> {
-    const response = await useAxios<apiTypes>({
-      query: `
+    try {
+      const response = await useAxios<apiTypes>({
+        query: `
           query {
             info {
               list
@@ -45,8 +56,11 @@ export default defineComponent({
             }
           }
         `,
-    });
-    this.fileList = response.data.info.list;
+      });
+      this.fileList = response.data.info.list;
+    } catch (err) {
+      this.$router.push({ path: '/login' });
+    }
   },
 });
 </script>
