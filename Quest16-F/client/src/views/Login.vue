@@ -12,43 +12,47 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
 import Title from '../components/title/Title.vue';
 import axios from 'axios';
+import { defineComponent } from 'vue';
 
-@Options({
+export default defineComponent({
+  name: 'Login',
   components: { Title },
-})
-export default class Main extends Vue {
-  id = '';
-  pw = '';
-
-  async onSubmit(): Promise<void> {
-    if (!this.id || !this.pw) {
-      alert('ID와 패스워드를 모두 입력해주세요');
-      return;
-    }
-    const id = this.id;
-    const pw = this.pw;
-    try {
-      const response = await axios.post(
-        'https://localhost:8000/api/auth/login',
-        { id, pw },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-
-      if (response.status === 200) {
-        const token = response.data.token;
-        localStorage.setItem('token', token);
-        location.href = '/';
+  data() {
+    return {
+      id: '',
+      pw: '',
+    };
+  },
+  methods: {
+    async onSubmit(): Promise<void> {
+      if (!this.id || !this.pw) {
+        alert('ID와 패스워드를 모두 입력해주세요');
+        return;
       }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
+      const id = this.id;
+      const pw = this.pw;
+      try {
+        const response = await axios.post(
+          'https://localhost:8000/api/auth/login',
+          { id, pw },
+          {
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+
+        if (response.status === 200) {
+          const token = response.data.token;
+          localStorage.setItem('token', token);
+          location.href = '/';
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

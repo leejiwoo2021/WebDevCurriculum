@@ -1,18 +1,34 @@
 <template>
-  <button class="l-fileBtn-container t-fileBtn-container">{{ fileName }}</button>
+  <button
+    @click="clickHandler"
+    class="l-fileBtn-container t-fileBtn-container"
+    :class="{ 't-fileBtn-container-active': isActive }"
+  >
+    <slot />
+  </button>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { defineComponent } from 'vue';
 
-@Options({
+export default defineComponent({
+  name: 'HelloWorld',
   props: {
-    fileName: String,
+    selectedIndex: Number,
+    buttonIndex: Number,
+    setSelectedIndex: Function,
   },
-})
-export default class FileBtn extends Vue {
-  fileName!: string;
-}
+  method: {
+    clickHandler() {
+      console.log(this.buttonIndex);
+    },
+  },
+  computed: {
+    isActive(): boolean {
+      return this.selectedIndex === this.buttonIndex;
+    },
+  },
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -39,6 +55,10 @@ export default class FileBtn extends Vue {
 }
 
 .t-fileBtn-container:active {
+  background: white;
+}
+
+.t-fileBtn-container-active {
   background: white;
 }
 </style>

@@ -3,10 +3,11 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { defineComponent } from 'vue';
 
-@Options({})
-export default class SaveAsFileBtn extends Vue {}
+export default defineComponent({
+  name: 'SaveAsFileBtn',
+});
 </script>
 
 <style scoped>

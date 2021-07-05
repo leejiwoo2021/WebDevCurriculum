@@ -1,18 +1,13 @@
 <template>
-  <div class="l-line-container">{{ text }}</div>
+  <div class="l-line-container"><slot /></div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { defineComponent } from 'vue';
 
-@Options({
-  props: {
-    text: String,
-  },
-})
-export default class Line extends Vue {
-  text!: string;
-}
+export default defineComponent({
+  name: 'Line',
+});
 </script>
 
 <style scoped>
@@ -21,5 +16,10 @@ export default class Line extends Vue {
   height: auto;
   font-size: 1.5rem;
   margin-top: 0.5rem;
+}
+
+.l-line-container:empty::before {
+  content: 'write your text';
+  color: gray;
 }
 </style>

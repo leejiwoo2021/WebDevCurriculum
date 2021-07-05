@@ -1,19 +1,23 @@
 <template>
-  <div class="l-editor-container t-editor-container" contentEditable="true">
-    <Line text="sample text" />
-    <Line text="sample2 text" />
-    <Line text="sample3 text" />
+  <div ref="editor" class="l-editor-container t-editor-container" contentEditable="true" @keyup="onKeyUp">
+    <Line v-for="(text, index) in content" :key="index" contentEditable="true">{{ text }}</Line>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { defineComponent } from 'vue';
 import Line from './line/Line.vue';
 
-@Options({
+export default defineComponent({
+  name: 'Editor',
   components: { Line },
-})
-export default class Editor extends Vue {}
+  computed: {
+    content() {
+      // return this.$store.state.content;
+      return 1;
+    },
+  },
+});
 </script>
 
 <style scoped>

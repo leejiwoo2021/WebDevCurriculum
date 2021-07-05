@@ -8,19 +8,19 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { defineComponent } from 'vue';
 import Title from '../components/title/Title.vue';
 import Menu from '../components/menu/Menu.vue';
 import Navigator from '../components/navigator/Navigator.vue';
 import Editor from '../components/editor/Editor.vue';
 
-@Options({
+export default defineComponent({
+  name: 'Main',
   components: { Title, Menu, Navigator, Editor },
   beforeMount() {
     if (!localStorage.getItem('token')) this.$router.push('/login');
   },
-})
-export default class Main extends Vue {}
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

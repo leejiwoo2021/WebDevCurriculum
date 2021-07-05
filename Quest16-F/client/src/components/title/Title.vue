@@ -5,16 +5,14 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { defineComponent } from 'vue';
 
-@Options({
+export default defineComponent({
+  name: 'Title',
   props: {
     text: String,
   },
-})
-export default class Title extends Vue {
-  text!: string;
-}
+});
 </script>
 
 <style scoped>

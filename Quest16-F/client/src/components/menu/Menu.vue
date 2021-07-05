@@ -7,15 +7,15 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { defineComponent } from 'vue';
 import NewFileBtn from './buttons/NewFileBtn.vue';
 import SaveFileBtn from './buttons/SaveFileBtn.vue';
 import SaveAsFileBtn from './buttons/SaveAsFileBtn.vue';
 
-@Options({
+export default defineComponent({
+  name: 'Menu',
   components: { NewFileBtn, SaveFileBtn, SaveAsFileBtn },
-})
-export default class Menu extends Vue {}
+});
 </script>
 
 <style scoped>
