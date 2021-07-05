@@ -1,16 +1,13 @@
 <template>
-  <div class="l-main-container"><Main /></div>
+  <div class="l-route-container">
+    <router-view />
+  </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import Main from './components/Main.vue';
 
-@Options({
-  components: {
-    Main,
-  },
-})
+@Options({})
 export default class App extends Vue {}
 </script>
 
@@ -25,7 +22,7 @@ body {
   padding: 0;
 }
 
-.l-main-container {
+.l-route-container {
   width: 100vw;
   height: 100vh;
   display: flex;

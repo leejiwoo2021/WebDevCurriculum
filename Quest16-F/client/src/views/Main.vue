@@ -1,6 +1,6 @@
 <template>
   <div class="l-main-container">
-    <Title />
+    <Title text="TextEditor made by vue" />
     <Menu />
     <Navigator />
     <Editor />
@@ -9,13 +9,16 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import Title from './title/Title.vue';
-import Menu from './menu/Menu.vue';
-import Navigator from './navigator/Navigator.vue';
-import Editor from './editor/Editor.vue';
+import Title from '../components/title/Title.vue';
+import Menu from '../components/menu/Menu.vue';
+import Navigator from '../components/navigator/Navigator.vue';
+import Editor from '../components/editor/Editor.vue';
 
 @Options({
   components: { Title, Menu, Navigator, Editor },
+  beforeMount() {
+    if (!localStorage.getItem('token')) this.$router.push('/login');
+  },
 })
 export default class Main extends Vue {}
 </script>
