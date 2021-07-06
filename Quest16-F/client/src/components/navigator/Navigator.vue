@@ -4,7 +4,6 @@
       v-for="(name, index) in fileList"
       :key="index"
       :buttonIndex="index"
-      :selectedIndex="selectedIndex"
       @setSelected="setSelected"
       :name="name"
     >
@@ -12,7 +11,6 @@
   </div>
 </template>
 
-//
 <script lang="ts">
 import { defineComponent } from 'vue';
 import FileBtn from './buttons/FileBtn.vue';
@@ -28,10 +26,6 @@ interface apiTypes {
   };
 }
 
-interface dataTypes {
-  fileList: string[];
-}
-
 export default defineComponent({
   name: 'Navigator',
   components: { FileBtn },
@@ -42,15 +36,11 @@ export default defineComponent({
     },
   },
   computed: {
-    selectedIndex() {
-      return store.state.selectedIndex;
+    fileList() {
+      return store.state.fileList;
     },
   },
-  data() {
-    return {
-      fileList: [],
-    } as dataTypes;
-  },
+
   async mounted(): Promise<void> {
     try {
       const response = await useAxios<apiTypes>({
@@ -63,9 +53,10 @@ export default defineComponent({
           }
         `,
       });
-      this.fileList = response.data.info.list;
+      const fileList = response.data.info.list;
       const lastFileName = response.data.info.lastFile;
 
+      store.commit('updateFileList', fileList);
       store.commit('updateSelectedFileName', lastFileName);
       store.commit('updateSelectedIndex', this.fileList.indexOf(lastFileName));
     } catch (err) {
@@ -75,7 +66,6 @@ export default defineComponent({
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .l-navigator-container {
   width: 100%;

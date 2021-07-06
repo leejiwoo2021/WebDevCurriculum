@@ -7,7 +7,7 @@
     <div class="l-fileBtn-title">
       {{ name }}
     </div>
-    <div v-if="isUnSaved">⦿</div>
+    <div v-if="isUnSaved" class="l-fileBtn-saveIndicator">⦿</div>
   </button>
 </template>
 
@@ -18,7 +18,7 @@ import store from '../../../store';
 export default defineComponent({
   name: 'FileBtn',
   props: {
-    selectedIndex: Number,
+    // selectedIndex: Number,
     buttonIndex: Number,
     name: String,
   },
@@ -30,6 +30,9 @@ export default defineComponent({
     },
   },
   computed: {
+    selectedIndex() {
+      return store.state.selectedIndex;
+    },
     isActive(): boolean {
       return this.selectedIndex === this.buttonIndex;
     },
@@ -40,14 +43,11 @@ export default defineComponent({
           JSON.stringify(store.state.originContents[this.$props.name])
         );
       return false;
-
-      // to-do
     },
   },
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .l-fileBtn-container {
   height: 50px;

@@ -9,8 +9,13 @@ export default createStore({
     selectedFileName: '',
     originContents: {} as contentsType,
     tempContents: {} as contentsType,
+    fileList: [] as string[],
   },
   mutations: {
+    updateFileList(state, newList) {
+      state.fileList = newList;
+    },
+
     updateSelectedIndex(state, newIndex) {
       state.selectedIndex = newIndex;
     },
