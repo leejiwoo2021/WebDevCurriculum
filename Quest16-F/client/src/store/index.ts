@@ -5,8 +5,9 @@ interface contentsType {
 }
 export default createStore({
   state: {
-    selectedIndex: 0,
+    selectedIndex: -1,
     selectedFileName: '',
+    lastFileName: '',
     originContents: {} as contentsType,
     tempContents: {} as contentsType,
   },

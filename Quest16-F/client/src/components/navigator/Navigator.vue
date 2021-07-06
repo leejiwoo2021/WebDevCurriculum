@@ -63,7 +63,10 @@ export default defineComponent({
         `,
       });
       this.fileList = response.data.info.list;
-      store.commit('updateSelectedFileName', this.fileList[0]);
+      const lastFileName = response.data.info.lastFile;
+
+      store.commit('updateSelectedFileName', lastFileName);
+      store.commit('updateSelectedIndex', this.fileList.indexOf(lastFileName));
     } catch (err) {
       this.$router.push({ path: '/login' });
     }

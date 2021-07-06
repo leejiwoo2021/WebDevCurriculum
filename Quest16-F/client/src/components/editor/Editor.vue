@@ -1,6 +1,6 @@
 <template>
   <div ref="editor" class="l-editor-container t-editor-container" contentEditable="true" @keyup="onKeyUp">
-    <Line v-for="(text, index) in content" :key="index" contentEditable="true">{{ fileName }}</Line>
+    <Line v-for="(text, index) in content" :key="index" contentEditable="true">{{ text }}</Line>
   </div>
 </template>
 
