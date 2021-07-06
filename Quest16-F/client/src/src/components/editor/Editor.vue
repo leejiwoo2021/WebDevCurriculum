@@ -8,7 +8,7 @@
 import { defineComponent } from 'vue';
 import Line from './line/Line.vue';
 import store from '../../store';
-import { useAxios } from '../../utils/api';
+import { getFileInfo } from '../../utils/api';
 
 interface apiTypes {
   data: {
@@ -40,19 +40,11 @@ export default defineComponent({
     },
   },
   watch: {
-    fileName(newFileName) {
+    // async watch 불가능
+    fileName(newFileName: string) {
       const tempContent = store.state.tempContents[newFileName];
       if (!tempContent)
-        useAxios<apiTypes>({
-          query: `
-          query {
-            file(name: "${newFileName}") {
-              name
-              content
-            }
-          }
-        `,
-        })
+        getFileInfo<apiTypes>(newFileName)
           .then((res) => {
             const fileName = res.data.file.name;
             const newContent = res.data.file.content;

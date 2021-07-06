@@ -5,7 +5,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import store from '../../../store';
-import { useAxios } from '../../../utils/api';
+import { saveFile } from '../../../utils/api';
 
 export default defineComponent({
   name: 'SaveFileBtn',
@@ -14,15 +14,7 @@ export default defineComponent({
       const fileName = store.state.selectedFileName;
       const newContent = store.state.tempContents[fileName];
       try {
-        await useAxios({
-          query: `
-          mutation {
-            updateFile(name: "${fileName}" content: ${JSON.stringify(newContent)}){
-              msg
-            }
-          }
-        `,
-        });
+        await saveFile(fileName, newContent);
         store.commit('updateOriginContents', { fileName, newContent });
       } catch (err) {
         console.log(err);

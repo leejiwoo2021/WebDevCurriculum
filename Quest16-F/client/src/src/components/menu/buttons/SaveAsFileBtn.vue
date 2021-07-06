@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import store from '../../../store';
-import { useAxios } from '../../../utils/api';
+import { saveAsFile } from '../../../utils/api';
 
 export default defineComponent({
   name: 'SaveAsFileBtn',
@@ -27,15 +27,7 @@ export default defineComponent({
       const newContents = store.state.tempContents[selectedName];
 
       try {
-        await useAxios({
-          query: `
-          mutation {
-            createFile(name: "${fileName}" content:  ${JSON.stringify(newContents)}){
-              msg
-            }
-          }
-        `,
-        });
+        await saveAsFile(fileName, newContents);
         store.commit('addNewFileList', fileName);
       } catch (err) {
         console.log(err);

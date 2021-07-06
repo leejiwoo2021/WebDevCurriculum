@@ -5,7 +5,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import store from '../../../store';
-import { useAxios } from '../../../utils/api';
+import { addNewFile } from '../../../utils/api';
 
 export default defineComponent({
   name: 'NewFileBtn',
@@ -24,15 +24,7 @@ export default defineComponent({
       }
 
       try {
-        await useAxios({
-          query: `
-          mutation {
-            createFile(name: "${fileName}" content:  ${JSON.stringify([''])}){
-              msg
-            }
-          }
-        `,
-        });
+        await addNewFile(fileName);
         store.commit('addNewFileList', fileName);
       } catch (err) {
         console.log(err);

@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import FileBtn from './buttons/FileBtn.vue';
-import { useAxios } from '../../utils/api';
+import { getFileList } from '../../utils/api';
 import store from '../../store';
 
 interface apiTypes {
@@ -41,18 +41,9 @@ export default defineComponent({
     },
   },
 
-  async mounted(): Promise<void> {
+  async mounted() {
     try {
-      const response = await useAxios<apiTypes>({
-        query: `
-          query {
-            info {
-              list
-              lastFile
-            }
-          }
-        `,
-      });
+      const response = await getFileList<apiTypes>();
       const fileList = response.data.info.list;
       const lastFileName = response.data.info.lastFile;
 
