@@ -7,7 +7,6 @@ export default createStore({
   state: {
     selectedIndex: -1,
     selectedFileName: '',
-    lastFileName: '',
     originContents: {} as contentsType,
     tempContents: {} as contentsType,
   },

@@ -6,7 +6,8 @@
       :buttonIndex="index"
       :selectedIndex="selectedIndex"
       @setSelected="setSelected"
-      >{{ name }}
+      :name="name"
+    >
     </FileBtn>
   </div>
 </template>
@@ -35,7 +36,7 @@ export default defineComponent({
   name: 'Navigator',
   components: { FileBtn },
   methods: {
-    async setSelected(newIndex: number, newFileName: string) {
+    setSelected(newIndex: number, newFileName: string) {
       store.commit('updateSelectedIndex', newIndex);
       store.commit('updateSelectedFileName', newFileName);
     },

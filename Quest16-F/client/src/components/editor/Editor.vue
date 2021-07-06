@@ -1,5 +1,5 @@
 <template>
-  <div ref="editor" class="l-editor-container t-editor-container" contentEditable="true" @keyup="onKeyUp">
+  <div ref="editor" class="l-editor-container t-editor-container" contentEditable="true" @keyup="keyUpHandler">
     <Line v-for="(text, index) in content" :key="index" contentEditable="true">{{ text }}</Line>
   </div>
 </template>
@@ -22,12 +22,21 @@ interface apiTypes {
 export default defineComponent({
   name: 'Editor',
   components: { Line },
+  data() {
+    return {
+      content: [''],
+    };
+  },
+  methods: {
+    keyUpHandler() {
+      const newContent = [...this.$el.children].map((line) => line.innerHTML);
+      const fileName = this.fileName;
+      store.commit('updateTempContents', { fileName, newContent });
+    },
+  },
   computed: {
     fileName(): string {
       return store.state.selectedFileName;
-    },
-    content(): string[] {
-      return store.state.tempContents[this.fileName];
     },
   },
   watch: {
@@ -47,12 +56,14 @@ export default defineComponent({
           .then((res) => {
             const fileName = res.data.file.name;
             const newContent = res.data.file.content;
+            this.content = res.data.file.content;
             store.commit('updateTempContents', { fileName, newContent });
             store.commit('updateOriginContents', { fileName, newContent });
           })
           .catch(() => {
             this.$router.push({ path: '/login' });
           });
+      else this.content = store.state.tempContents[newFileName];
     },
   },
 });

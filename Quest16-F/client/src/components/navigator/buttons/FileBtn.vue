@@ -4,29 +4,44 @@
     class="l-fileBtn-container t-fileBtn-container"
     :class="{ 't-fileBtn-container-active': isActive }"
   >
-    <slot />
+    <div class="l-fileBtn-title">
+      {{ name }}
+    </div>
+    <div v-if="isUnSaved">⦿</div>
   </button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import store from '../../../store';
 
 export default defineComponent({
   name: 'FileBtn',
   props: {
     selectedIndex: Number,
     buttonIndex: Number,
+    name: String,
   },
   methods: {
     clickHandler() {
       if (!this.isActive) {
-        this.$emit('setSelected', this.buttonIndex, this.$el.innerHTML);
+        this.$emit('setSelected', this.buttonIndex, this.$props.name);
       }
     },
   },
   computed: {
     isActive(): boolean {
       return this.selectedIndex === this.buttonIndex;
+    },
+    isUnSaved(): boolean {
+      if (this.$props.name)
+        return !(
+          JSON.stringify(store.state.tempContents[this.$props.name]) ===
+          JSON.stringify(store.state.originContents[this.$props.name])
+        );
+      return false;
+
+      // to-do
     },
   },
 });
@@ -39,6 +54,8 @@ export default defineComponent({
   padding: 10px 20px 10px 20px;
   margin: 0 1rem 0 1rem;
   box-sizing: border-box;
+  flex-shrink: 0;
+
   display: flex;
   align-items: center;
 }
@@ -61,6 +78,10 @@ export default defineComponent({
 
 .t-fileBtn-container-active {
   background: white;
+}
+
+.l-fileBtn-title {
+  margin-right: 0.5rem;
 }
 </style>
 
