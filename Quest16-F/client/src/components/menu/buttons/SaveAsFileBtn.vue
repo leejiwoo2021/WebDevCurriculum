@@ -1,12 +1,47 @@
 <template>
-  <button class="l-saveAsFileBtn-container t-saveAsFileBtn-container">다른 이름으로 저장하기</button>
+  <button @click="clickHandler" class="l-saveAsFileBtn-container t-saveAsFileBtn-container">
+    다른 이름으로 저장하기
+  </button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import store from '../../../store';
+import { useAxios } from '../../../utils/api';
 
 export default defineComponent({
   name: 'SaveAsFileBtn',
+  methods: {
+    async clickHandler() {
+      const fileName = prompt('파일 이름을 입력하세요');
+      const fileNameList = store.state.fileList;
+      const selectedName = store.state.selectedFileName;
+      if (!fileName) {
+        alert('올바른 이름을 입력해주세요');
+        return;
+      }
+      if (fileNameList.indexOf(fileName) !== -1) {
+        alert('중복된 이름이 존재합니다');
+        return;
+      }
+      const newContents = store.state.tempContents[selectedName];
+
+      try {
+        await useAxios({
+          query: `
+          mutation {
+            createFile(name: "${fileName}" content:  ${JSON.stringify(newContents)}){
+              msg
+            }
+          }
+        `,
+        });
+        store.commit('addNewFileList', fileName);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
 });
 </script>
 

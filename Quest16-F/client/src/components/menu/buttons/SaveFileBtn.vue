@@ -1,12 +1,34 @@
 <template>
-  <button class="l-saveFileBtn-container t-saveFileBtn-container">저장하기</button>
+  <button @click="clickHandler" class="l-saveFileBtn-container t-saveFileBtn-container">저장하기</button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import store from '../../../store';
+import { useAxios } from '../../../utils/api';
 
 export default defineComponent({
   name: 'SaveFileBtn',
+  methods: {
+    async clickHandler() {
+      const fileName = store.state.selectedFileName;
+      const newContent = store.state.tempContents[fileName];
+      try {
+        await useAxios({
+          query: `
+          mutation {
+            updateFile(name: "${fileName}" content: ${JSON.stringify(newContent)}){
+              msg
+            }
+          }
+        `,
+        });
+        store.commit('updateOriginContents', { fileName, newContent });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
 });
 </script>
 

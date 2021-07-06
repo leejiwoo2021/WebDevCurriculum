@@ -1,12 +1,44 @@
 <template>
-  <button class="l-newFileBtn-container t-newFileBtn-container">새 파일 만들기</button>
+  <button @click="clickHandler" class="l-newFileBtn-container t-newFileBtn-container">새 파일 만들기</button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import store from '../../../store';
+import { useAxios } from '../../../utils/api';
 
 export default defineComponent({
   name: 'NewFileBtn',
+  methods: {
+    async clickHandler() {
+      const fileName = prompt('파일 이름을 입력하세요');
+
+      const fileNameList = store.state.fileList;
+      if (!fileName) {
+        alert('올바른 이름을 입력해주세요');
+        return;
+      }
+      if (fileNameList.indexOf(fileName) !== -1) {
+        alert('중복된 이름이 존재합니다');
+        return;
+      }
+
+      try {
+        await useAxios({
+          query: `
+          mutation {
+            createFile(name: "${fileName}" content:  ${JSON.stringify([''])}){
+              msg
+            }
+          }
+        `,
+        });
+        store.commit('addNewFileList', fileName);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
 });
 </script>
 

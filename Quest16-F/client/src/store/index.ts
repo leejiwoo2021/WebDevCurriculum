@@ -16,6 +16,10 @@ export default createStore({
       state.fileList = newList;
     },
 
+    addNewFileList(state, newFile) {
+      state.fileList.push(newFile);
+    },
+
     updateSelectedIndex(state, newIndex) {
       state.selectedIndex = newIndex;
     },
