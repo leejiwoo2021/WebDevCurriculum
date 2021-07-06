@@ -5,7 +5,7 @@
       :key="index"
       :buttonIndex="index"
       :selectedIndex="selectedIndex"
-      @setSelectedIndex="setSelectedIndex"
+      @setSelected="setSelected"
       >{{ name }}
     </FileBtn>
   </div>
@@ -16,6 +16,7 @@
 import { defineComponent } from 'vue';
 import FileBtn from './buttons/FileBtn.vue';
 import { useAxios } from '../../utils/api';
+import store from '../../store';
 
 interface apiTypes {
   data: {
@@ -27,7 +28,6 @@ interface apiTypes {
 }
 
 interface dataTypes {
-  selectedIndex: number;
   fileList: string[];
 }
 
@@ -35,13 +35,18 @@ export default defineComponent({
   name: 'Navigator',
   components: { FileBtn },
   methods: {
-    setSelectedIndex(newIndex: number) {
-      this.selectedIndex = newIndex;
+    async setSelected(newIndex: number, newFileName: string) {
+      store.commit('updateSelectedIndex', newIndex);
+      store.commit('updateSelectedFileName', newFileName);
+    },
+  },
+  computed: {
+    selectedIndex() {
+      return store.state.selectedIndex;
     },
   },
   data() {
     return {
-      selectedIndex: 0,
       fileList: [],
     } as dataTypes;
   },
@@ -58,6 +63,7 @@ export default defineComponent({
         `,
       });
       this.fileList = response.data.info.list;
+      store.commit('updateSelectedFileName', this.fileList[0]);
     } catch (err) {
       this.$router.push({ path: '/login' });
     }

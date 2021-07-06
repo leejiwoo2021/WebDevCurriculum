@@ -1,10 +1,30 @@
 import { createStore } from 'vuex';
 
+interface contentsType {
+  [key: string]: string[];
+}
 export default createStore({
-  state: { content: ['1234', '5678'] },
+  state: {
+    selectedIndex: 0,
+    selectedFileName: '',
+    originContents: {} as contentsType,
+    tempContents: {} as contentsType,
+  },
   mutations: {
-    updateMessage(state, message) {
-      state.content = message;
+    updateSelectedIndex(state, newIndex) {
+      state.selectedIndex = newIndex;
+    },
+
+    updateSelectedFileName(state, fileName) {
+      state.selectedFileName = fileName;
+    },
+
+    updateTempContents(state, { fileName, newContent }) {
+      state.tempContents[fileName] = newContent;
+    },
+
+    updateOriginContents(state, { fileName, newContent }) {
+      state.originContents[fileName] = newContent;
     },
   },
   actions: {},

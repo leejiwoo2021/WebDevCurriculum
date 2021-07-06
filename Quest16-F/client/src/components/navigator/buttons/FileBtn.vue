@@ -20,7 +20,7 @@ export default defineComponent({
   methods: {
     clickHandler() {
       if (!this.isActive) {
-        this.$emit('setSelectedIndex', this.buttonIndex);
+        this.$emit('setSelected', this.buttonIndex, this.$el.innerHTML);
       }
     },
   },
