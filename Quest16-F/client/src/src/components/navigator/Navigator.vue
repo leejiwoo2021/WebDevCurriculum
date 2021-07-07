@@ -14,8 +14,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import FileBtn from './buttons/FileBtn.vue';
-import { getFileList } from '../../utils/api';
-import store from '../../store';
+import { getFileList } from '@/utils/api';
+import store from '@/store';
 
 interface apiTypes {
   data: {

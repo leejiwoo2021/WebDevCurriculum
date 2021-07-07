@@ -4,8 +4,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import store from '../../../store';
-import { saveFile } from '../../../utils/api';
+import store from '@/store';
+import { saveFile } from '@/utils/api';
 
 export default defineComponent({
   name: 'SaveFileBtn',

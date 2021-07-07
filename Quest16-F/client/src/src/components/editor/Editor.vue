@@ -7,8 +7,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Line from './line/Line.vue';
-import store from '../../store';
-import { getFileInfo } from '../../utils/api';
+import store from '@/store';
+import { getFileInfo } from '@/utils/api';
 
 interface apiTypes {
   data: {

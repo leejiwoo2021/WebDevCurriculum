@@ -9,10 +9,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Title from '../components/title/Title.vue';
-import Menu from '../components/menu/Menu.vue';
-import Navigator from '../components/navigator/Navigator.vue';
-import Editor from '../components/editor/Editor.vue';
+import Title from '@/components/title/Title.vue';
+import Menu from '@/components/menu/Menu.vue';
+import Navigator from '@/components/navigator/Navigator.vue';
+import Editor from '@/components/editor/Editor.vue';
 
 export default defineComponent({
   name: 'Main',
@@ -23,7 +23,6 @@ export default defineComponent({
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .l-main-container {
   width: 900px;
