@@ -53,7 +53,7 @@ export default defineComponent({
             store.commit('updateOriginContents', { fileName, newContent });
           })
           .catch(() => {
-            this.$router.push({ path: '/login' });
+            this.$router.push('/login');
           });
       else this.content = store.state.tempContents[newFileName];
     },

@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 async function getFileInfo<T>(fileName: string): Promise<T> {
-  const response = await useAxios<T>({
-    query: `
+  try {
+    const response = await useAxios<T>({
+      query: `
     query {
       file(name: "${fileName}") {
         name
@@ -10,14 +11,18 @@ async function getFileInfo<T>(fileName: string): Promise<T> {
       }
     }
   `,
-  });
+    });
 
-  return response;
+    return response;
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
 async function getFileList<T>(): Promise<T> {
-  const response = await useAxios<T>({
-    query: `
+  try {
+    const response = await useAxios<T>({
+      query: `
       query {
         info {
           list
@@ -25,9 +30,11 @@ async function getFileList<T>(): Promise<T> {
         }
       }
     `,
-  });
-
-  return response;
+    });
+    return response;
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
 async function saveFile(fileName: string, content: string[]): Promise<void> {
@@ -96,7 +103,6 @@ async function useAxios<T>(data: dataType): Promise<T> {
     });
     return response.data;
   } catch (err) {
-    localStorage.removeItem('token');
     throw new Error(err);
   }
 }

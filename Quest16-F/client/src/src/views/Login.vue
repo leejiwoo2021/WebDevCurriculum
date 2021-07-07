@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import Title from '@/components/title/Title.vue';
+import Title from '../components/title/Title.vue';
 import axios from 'axios';
 import { defineComponent } from 'vue';
 
@@ -45,7 +45,7 @@ export default defineComponent({
         if (response.status === 200) {
           const token = response.data.token;
           localStorage.setItem('token', token);
-          location.href = '/';
+          this.$router.push('/');
         }
       } catch (err) {
         console.log(err);
@@ -55,6 +55,7 @@ export default defineComponent({
 });
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .l-main-container {
   width: 900px;

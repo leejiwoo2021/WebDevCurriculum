@@ -17,6 +17,7 @@ export default defineComponent({
         await saveFile(fileName, newContent);
         store.commit('updateOriginContents', { fileName, newContent });
       } catch (err) {
+        this.$router.push('/login');
         console.log(err);
       }
     },

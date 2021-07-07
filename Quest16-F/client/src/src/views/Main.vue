@@ -17,7 +17,7 @@ import Editor from '@/components/editor/Editor.vue';
 export default defineComponent({
   name: 'Main',
   components: { Title, Menu, Navigator, Editor },
-  beforeMount() {
+  mounted() {
     if (!localStorage.getItem('token')) this.$router.push('/login');
   },
 });

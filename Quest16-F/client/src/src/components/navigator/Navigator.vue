@@ -51,7 +51,7 @@ export default defineComponent({
       store.commit('updateSelectedFileName', lastFileName);
       store.commit('updateSelectedIndex', this.fileList.indexOf(lastFileName));
     } catch (err) {
-      this.$router.push({ path: '/login' });
+      this.$router.push('/login');
     }
   },
 });

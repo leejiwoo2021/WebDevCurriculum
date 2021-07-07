@@ -27,6 +27,7 @@ export default defineComponent({
         await addNewFile(fileName);
         store.commit('addNewFileList', fileName);
       } catch (err) {
+        this.$router.push('/login');
         console.log(err);
       }
     },
