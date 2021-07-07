@@ -1,5 +1,5 @@
 <template>
-  <div class="l-line-container"><slot /></div>
+  <div class="l-line-container">{{ text }}</div>
 </template>
 
 <script lang="ts">
@@ -7,6 +7,7 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'Line',
+  props: { text: String },
 });
 </script>
 
