@@ -1,0 +1,41 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "build": "npx tsc",
+    "lint": "npx eslint ./src",
+    "test": "jest --detectOpenHandles --runInBand --config jest.config.js"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/expect-puppeteer": "^4.4.5",
+    "@types/jest": "^26.0.23",
+    "@types/jest-environment-puppeteer": "^4.4.1",
+    "@types/puppeteer": "^5.4.3",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "axios": "^0.21.1",
+    "eslint": "^7.29.0",
+    "expect-puppeteer": "^5.0.4",
+    "install": "^0.13.0",
+    "jest": "^27.0.6",
+    "jest-environment-puppeteer": "^5.0.4",
+    "jest-puppeteer": "^5.0.4",
+    "npm": "^7.19.0",
+    "prettier": "^2.3.1",
+    "puppeteer": "^9.1.1",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.4",
+    "uuid": "^8.3.2"
+  }
+}
