@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import Title from '../components/title/Title.vue';
+import Title from '@/components/title/Title.vue';
 import axios from 'axios';
 import { defineComponent } from 'vue';
 
