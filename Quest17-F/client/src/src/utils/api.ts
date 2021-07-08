@@ -107,4 +107,4 @@ async function useAxios<T>(data: dataType): Promise<T> {
   }
 }
 
-export default { useAxios, addNewFile, saveAsFile, saveFile, getFileList, getFileInfo };
+export { useAxios, addNewFile, saveAsFile, saveFile, getFileList, getFileInfo };

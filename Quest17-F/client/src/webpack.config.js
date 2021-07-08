@@ -1,13 +1,14 @@
 const webpack = require('webpack');
 const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   mode: 'development',
   entry: './src/main.ts',
   output: {
     path: __dirname + '/dist',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   target: "web",
   module: {
@@ -37,9 +38,14 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-        exclude: /tests/
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              appendTsSuffixTo: [/\.vue$/]
+            }
+          }
+        ]        
       },
     ],
   },
@@ -60,6 +66,7 @@ module.exports = {
     //   "url": false ,
     //   "http": false,
     // }
+    plugins:[new TsconfigPathsPlugin()]
   },
   devtool: 'inline-source-map',
   devServer: {
