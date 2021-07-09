@@ -5,10 +5,10 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: './src/main.ts',
-  output: {
-    path: __dirname + '/dist',
-    filename: 'bundle.js',
-  },
+  // output: {
+  //   path: __dirname + '/dist',
+  //   filename: 'bundle.js',
+  // },
   target: "web",
   module: {
     rules: [
