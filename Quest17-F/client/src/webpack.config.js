@@ -47,7 +47,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js'],
     alias: {
-      'vue$':'vue/dist/vue.esm-browser.js',
+      'vue$':'vue/dist/vue.runtime.esm-bundler.js',
     },
     plugins:[new TsconfigPathsPlugin()]
   },
