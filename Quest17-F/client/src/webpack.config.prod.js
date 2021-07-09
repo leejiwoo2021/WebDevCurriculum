@@ -7,7 +7,7 @@ module.exports = {
   mode: 'production',
   entry: './src/main.ts',
   output: {
-    path: __dirname + '/dist',
+    path: __dirname + '/../public',
     filename: 'bundle.js',
   },
   target: "web",
