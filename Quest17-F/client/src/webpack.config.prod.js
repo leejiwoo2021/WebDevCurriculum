@@ -1,9 +1,10 @@
+const webpack = require('webpack');
 const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/main.ts',
   output: {
     path: __dirname + '/dist',
@@ -47,16 +48,19 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js'],
     alias: {
-      'vue$':'vue/dist/vue.esm-browser.js',
+      'vue$':'vue/dist/vue.esm-browser.prod.js'
     },
     plugins:[new TsconfigPathsPlugin()]
   },
-  devtool: 'inline-source-map',
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Development',
+      title: 'Production',
       template: 'public/index.html'
      }),
+    new webpack.DefinePlugin({
+      __VUE_OPTIONS_API__: false,
+      __VUE_PROD_DEVTOOLS__: false,
+    }),
   ]
 };

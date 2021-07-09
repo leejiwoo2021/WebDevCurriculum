@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "webpack",
-    "serve": "webpack serve",
+    "build": "webpack --config webpack.config.prod.js",
+    "serve": "webpack serve --config webpack.config.js",
     "test": "jest --detectOpenHandles --runInBand --config jest.config.js"
   },
   "dependencies": {
