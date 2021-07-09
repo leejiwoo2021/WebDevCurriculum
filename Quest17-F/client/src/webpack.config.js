@@ -51,7 +51,7 @@ module.exports = {
     },
     plugins:[new TsconfigPathsPlugin()]
   },
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
