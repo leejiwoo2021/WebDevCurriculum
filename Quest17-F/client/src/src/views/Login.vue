@@ -3,9 +3,9 @@
     <Title text="Login" />
     <div>
       <label>ID : </label>
-      <input v-model="id" type="text" placeholder="ID를 입력해주세요" />
+      <input v-model="id" id="idInput" type="text" placeholder="ID를 입력해주세요" />
       <label>PW : </label>
-      <input v-model="pw" type="password" placeholder="PW를 입력해주세요" />
+      <input v-model="pw" id="pwInput" type="password" placeholder="PW를 입력해주세요" />
       <button @click="onSubmit" id="loginBtn">로그인</button>
     </div>
   </div>

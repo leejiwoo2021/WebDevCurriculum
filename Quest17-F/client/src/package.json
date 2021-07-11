@@ -38,6 +38,7 @@
     "html-webpack-plugin": "^5.3.2",
     "i": "^0.3.6",
     "jest": "^27.0.6",
+    "jest-environment-node": "^24.9.0",
     "jest-environment-puppeteer": "^5.0.4",
     "jest-puppeteer": "^5.0.4",
     "npm": "^7.19.1",
