@@ -7,8 +7,38 @@ const urlsToCache = [
   '/manifest.json'
 ];
 
+let db:IDBDatabase;
+var request = indexedDB.open("MyTestDatabase");
+request.onerror = function(event) {
+  console.log("Why didn't you allow my web app to use IndexedDB?!");
+};
+request.onsuccess = function(event:any) {
+  db = event.target.result;
+};
+
+// const requestData = [
+//   {request: "444-44-4444", response: "Bill", },
+//   {request: "555-55-5555", response: "Donna", }
+// ];
+
+
+request.onupgradeneeded = function(event:any) {
+  var db = event.target.result;
+  var objectStore = db.createObjectStore("fetches",{autoIncrement: true});
+  objectStore.createIndex("request", "request", { unique: true });
+  objectStore.createIndex("response", "response", { unique: false });
+  // objectStore.transaction.oncomplete = function() {
+  //   const fetchObjectStore = db.transaction("fetches", "readwrite").objectStore("fetches");
+  //   requestData.forEach(function(reqResObj) {
+  //     fetchObjectStore.add(reqResObj);
+  //   });
+  // };
+};
+
+
+
 self.addEventListener('install', function(event:any) {
-  // Perform install steps
+  // Perform install steps\
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(function(cache) {
@@ -19,41 +49,34 @@ self.addEventListener('install', function(event:any) {
 });
 
 self.addEventListener('fetch', function(event:any) {
-  event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
+  if(event.request.method === 'GET') {
+    caches.match(event.request).then(function(response) {
+      return response || fetch(event.request).then(function(response) {
+        caches.open(CACHE_NAME).then(function(cache) {
+          cache.put(event.request, response.clone());
+        });
+        return response;
+      });
+    })
+  }
+  else if(event.request.method === 'POST') {
+    const reqClone = event.request.clone();
+    console.log(reqClone);
 
-        // IMPORTANT: Clone the request. A request is a stream and
-        // can only be consumed once. Since we are consuming this
-        // once by cache and once by the browser for fetch, we need
-        // to clone the response.
-        var fetchRequest = event.request.clone();
+    fetch(event.request).then(function(response) {
+      const transaction = db.transaction("fetches", "readwrite");
 
-        return fetch(fetchRequest).then(
-          function(response) {
-            // Check if we received a valid response
-            if(!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
+      transaction.oncomplete = function(event) {
+      };
+      
+      transaction.onerror = function(event) {
+      };
 
-            // IMPORTANT: Clone the response. A response is a stream
-            // and because we want the browser to consume the response
-            // as well as the cache consuming the response, we need
-            // to clone it so we have two streams.
-            var responseToCache = response.clone();
-
-            caches.open(CACHE_NAME)
-              .then(function(cache) {
-                cache.put(event.request, responseToCache);
-              });
-
-            return response;
-          }
-        );
-      })
-    );
+      const objectStore = transaction.objectStore("fetches");
+      const obj =   {request:event.request, response: "Donna!" }
+      objectStore.add(obj);
+      console.log('added');
+      return response;
+    });
+  }
 });

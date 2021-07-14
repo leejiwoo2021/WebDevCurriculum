@@ -14,3 +14,4 @@ if ('serviceWorker' in navigator) {
 }
 
 createApp(App).use(store).use(router).mount('#app');
+
