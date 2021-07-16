@@ -1,4 +1,4 @@
-const { VueLoaderPlugin } = require('vue-loader')
+const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
@@ -17,27 +17,24 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
   },
-  target: "web",
+  target: 'web',
   module: {
     rules: [
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          hotReload: true 
-        }
+          hotReload: true,
+        },
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /tests/
+        exclude: /tests/,
       },
       {
         test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ]
+        use: ['vue-style-loader', 'css-loader'],
       },
       {
         test: /\.tsx?$/,
@@ -45,19 +42,19 @@ module.exports = {
           {
             loader: 'ts-loader',
             options: {
-              appendTsSuffixTo: [/\.vue$/]
-            }
-          }
-        ]        
+              appendTsSuffixTo: [/\.vue$/],
+            },
+          },
+        ],
       },
     ],
   },
   resolve: {
     extensions: ['.ts', '.js'],
     alias: {
-      'vue$':'vue/dist/vue.runtime.esm-bundler.js',
+      vue$: 'vue/dist/vue.runtime.esm-bundler.js',
     },
-    plugins:[new TsconfigPathsPlugin()]
+    plugins: [new TsconfigPathsPlugin()],
   },
   devtool: 'eval-source-map',
   plugins: [
@@ -65,33 +62,33 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Development',
       template: 'public/index.html',
-      favicon: 'public/favicon.ico'
-     }),
+      favicon: 'public/favicon.ico',
+    }),
     new WebpackManifestPlugin({
       fileName: 'manifest.json',
       generate: () => {
         return {
-          short_name: "Text Editor",
-          name: "Text Editor made by Vue.js",
+          short_name: 'Text Editor',
+          name: 'Text Editor made by Vue.js',
           icons: [
             {
-              src: "logo.png",
-              type: "image/png",
-              sizes: "192x192"
+              src: 'logo.png',
+              type: 'image/png',
+              sizes: '192x192',
             },
             {
-              src: "logo2.png",
-              type: "image/png",
-              sizes: "512x512"
-            }
+              src: 'logo2.png',
+              type: 'image/png',
+              sizes: '512x512',
+            },
           ],
-          start_url: "/?source=pwa",
-          background_color: "#4c5aff",
-          display: "standalone",
-          theme_color: "#4c5aff",
-          description: "vuejs로 생성한 텍스트 에디터입니다.",
+          start_url: '/?source=pwa',
+          background_color: '#4c5aff',
+          display: 'standalone',
+          theme_color: '#4c5aff',
+          description: 'vuejs로 생성한 텍스트 에디터입니다.',
         };
-      }
+      },
     }),
-  ]
+  ],
 };

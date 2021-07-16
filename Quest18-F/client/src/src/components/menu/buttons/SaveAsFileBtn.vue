@@ -1,5 +1,5 @@
 <template>
-  <button @click="clickHandler" class="l-saveAsFileBtn-container t-saveAsFileBtn-container">
+  <button class="l-saveAsFileBtn-container t-saveAsFileBtn-container" @click="clickHandler">
     다른 이름으로 저장하기
   </button>
 </template>
@@ -9,8 +9,19 @@ import { defineComponent } from 'vue';
 import store from '@/store';
 import { saveAsFile } from '@/utils/api';
 
+interface fetchTempType {
+  method: string;
+  fileName: string;
+  content?: string[];
+}
+
 export default defineComponent({
   name: 'SaveAsFileBtn',
+  computed: {
+    isOnline() {
+      return store.state.isOnline;
+    },
+  },
   methods: {
     async clickHandler() {
       const fileName = prompt('파일 이름을 입력하세요');
@@ -27,7 +38,15 @@ export default defineComponent({
       const newContents = store.state.tempContents[selectedName];
 
       try {
-        await saveAsFile(fileName, newContents);
+        if (this.isOnline) await saveAsFile(fileName, newContents);
+        else {
+          const storageData = localStorage.getItem('fetchTemp');
+          const tempData: fetchTempType[] = storageData ? JSON.parse(storageData) : [];
+
+          tempData.push({ method: 'saveAsFile', fileName, content: newContents });
+
+          localStorage.setItem('fetchTemp', JSON.stringify(tempData));
+        }
         store.commit('addNewFileList', fileName);
       } catch (err) {
         this.$router.push('/login');

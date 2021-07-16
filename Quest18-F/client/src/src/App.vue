@@ -6,6 +6,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import store from '@/store';
+
+window.addEventListener('online', () => {
+  store.commit('updateIsOnline', true);
+});
+
+window.addEventListener('offline', () => {
+  store.commit('updateIsOnline', false);
+});
 
 export default defineComponent({
   name: 'App',

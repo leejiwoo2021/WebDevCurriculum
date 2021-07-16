@@ -1,5 +1,5 @@
 <template>
-  <button @click="clickHandler" class="l-newFileBtn-container t-newFileBtn-container">새 파일 만들기</button>
+  <button class="l-newFileBtn-container t-newFileBtn-container" @click="clickHandler">새 파일 만들기</button>
 </template>
 
 <script lang="ts">
@@ -7,8 +7,19 @@ import { defineComponent } from 'vue';
 import store from '@/store';
 import { addNewFile } from '@/utils/api';
 
+interface fetchTempType {
+  method: string;
+  fileName: string;
+  content?: string[];
+}
+
 export default defineComponent({
   name: 'NewFileBtn',
+  computed: {
+    isOnline() {
+      return store.state.isOnline;
+    },
+  },
   methods: {
     async clickHandler() {
       const fileName = prompt('파일 이름을 입력하세요');
@@ -24,7 +35,15 @@ export default defineComponent({
       }
 
       try {
-        await addNewFile(fileName);
+        if (this.isOnline) await addNewFile(fileName);
+        else {
+          const storageData = localStorage.getItem('fetchTemp');
+          const tempData: fetchTempType[] = storageData ? JSON.parse(storageData) : [];
+
+          tempData.push({ method: 'newFile', fileName });
+
+          localStorage.setItem('fetchTemp', JSON.stringify(tempData));
+        }
         store.commit('addNewFileList', fileName);
       } catch (err) {
         this.$router.push('/login');

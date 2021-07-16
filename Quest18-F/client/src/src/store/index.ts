@@ -10,6 +10,7 @@ export default createStore({
     originContents: {} as contentsType,
     tempContents: {} as contentsType,
     fileList: [] as string[],
+    isOnline: true,
   },
   mutations: {
     updateFileList(state, newList) {
@@ -34,6 +35,10 @@ export default createStore({
 
     updateOriginContents(state, { fileName, newContent }) {
       state.originContents[fileName] = newContent;
+    },
+
+    updateIsOnline(state, newOnlineState) {
+      state.isOnline = newOnlineState;
     },
   },
   actions: {},

@@ -1,5 +1,5 @@
 <template>
-  <button @click="clickHandler" class="l-saveFileBtn-container t-saveFileBtn-container">저장하기</button>
+  <button class="l-saveFileBtn-container t-saveFileBtn-container" @click="clickHandler">저장하기</button>
 </template>
 
 <script lang="ts">
@@ -7,14 +7,33 @@ import { defineComponent } from 'vue';
 import store from '@/store';
 import { saveFile } from '@/utils/api';
 
+interface fetchTempType {
+  method: string;
+  fileName: string;
+  content?: string[];
+}
+
 export default defineComponent({
   name: 'SaveFileBtn',
+  computed: {
+    isOnline() {
+      return store.state.isOnline;
+    },
+  },
   methods: {
     async clickHandler() {
       const fileName = store.state.selectedFileName;
       const newContent = store.state.tempContents[fileName];
       try {
-        await saveFile(fileName, newContent);
+        if (this.isOnline) await saveFile(fileName, newContent);
+        else {
+          const storageData = localStorage.getItem('fetchTemp');
+          const tempData: fetchTempType[] = storageData ? JSON.parse(storageData) : [];
+
+          tempData.push({ method: 'saveFile', fileName, content: newContent });
+
+          localStorage.setItem('fetchTemp', JSON.stringify(tempData));
+        }
         store.commit('updateOriginContents', { fileName, newContent });
       } catch (err) {
         this.$router.push('/login');

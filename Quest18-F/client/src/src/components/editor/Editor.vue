@@ -1,6 +1,6 @@
 <template>
   <div ref="editor" class="l-editor-container t-editor-container" contentEditable="true" @keyup="keyUpHandler">
-    <Line v-for="(text, index) in content" :key="index" contentEditable="true" :text="text"></Line>
+    <Line v-for="(text, index) in content" :key="index" content-editable="true" :text="text"></Line>
   </div>
 </template>
 
@@ -27,20 +27,12 @@ export default defineComponent({
       content: [''],
     };
   },
-  methods: {
-    keyUpHandler() {
-      const newContent = [...this.$el.children].map((line) => line.innerHTML);
-      const fileName = this.fileName;
-      store.commit('updateTempContents', { fileName, newContent });
-    },
-  },
   computed: {
     fileName(): string {
       return store.state.selectedFileName;
     },
   },
   watch: {
-    // async watch 불가능
     fileName(newFileName: string) {
       const tempContent = store.state.tempContents[newFileName];
       if (!tempContent)
@@ -56,6 +48,13 @@ export default defineComponent({
             this.$router.push('/login');
           });
       else this.content = store.state.tempContents[newFileName];
+    },
+  },
+  methods: {
+    keyUpHandler() {
+      const newContent = [...this.$el.children].map((line) => line.innerHTML);
+      const fileName = this.fileName;
+      store.commit('updateTempContents', { fileName, newContent });
     },
   },
 });

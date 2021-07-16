@@ -3,9 +3,9 @@
     <FileBtn
       v-for="(name, index) in fileList"
       :key="index"
-      :buttonIndex="index"
-      @setSelected="setSelected"
+      :button-index="index"
       :name="name"
+      @setSelected="setSelected"
     >
     </FileBtn>
   </div>
@@ -29,12 +29,6 @@ interface apiTypes {
 export default defineComponent({
   name: 'Navigator',
   components: { FileBtn },
-  methods: {
-    setSelected(newIndex: number, newFileName: string) {
-      store.commit('updateSelectedIndex', newIndex);
-      store.commit('updateSelectedFileName', newFileName);
-    },
-  },
   computed: {
     fileList() {
       return store.state.fileList;
@@ -53,6 +47,12 @@ export default defineComponent({
     } catch (err) {
       this.$router.push('/login');
     }
+  },
+  methods: {
+    setSelected(newIndex: number, newFileName: string) {
+      store.commit('updateSelectedIndex', newIndex);
+      store.commit('updateSelectedFileName', newFileName);
+    },
   },
 });
 </script>
