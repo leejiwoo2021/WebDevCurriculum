@@ -49,8 +49,8 @@ export default defineComponent({
         }
         store.commit('addNewFileList', fileName);
       } catch (err) {
-        this.$router.push('/login');
-        console.log(err);
+        if (err.status === 401) this.$router.push('/login');
+        else console.log('server error');
       }
     },
   },

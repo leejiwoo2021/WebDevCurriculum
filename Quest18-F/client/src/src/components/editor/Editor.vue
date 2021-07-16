@@ -44,8 +44,9 @@ export default defineComponent({
             store.commit('updateTempContents', { fileName, newContent });
             store.commit('updateOriginContents', { fileName, newContent });
           })
-          .catch(() => {
-            this.$router.push('/login');
+          .catch((err) => {
+            if (err.status === 401) this.$router.push('/login');
+            else console.log('server error');
           });
       else this.content = store.state.tempContents[newFileName];
     },

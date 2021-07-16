@@ -15,7 +15,7 @@ async function getFileInfo<T>(fileName: string): Promise<T> {
 
     return response;
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 }
 
@@ -33,7 +33,7 @@ async function getFileList<T>(): Promise<T> {
     });
     return response;
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 }
 
@@ -49,7 +49,7 @@ async function saveFile(fileName: string, content: string[]): Promise<void> {
   `,
     });
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 }
 
@@ -65,7 +65,7 @@ async function saveAsFile(fileName: string, content: string[]): Promise<void> {
   `,
     });
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 }
 
@@ -81,7 +81,7 @@ async function addNewFile(fileName: string): Promise<void> {
   `,
     });
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 }
 interface dataType {
@@ -103,7 +103,7 @@ async function useAxios<T>(data: dataType): Promise<T> {
     });
     return response.data;
   } catch (err) {
-    throw new Error(err);
+    throw err.response;
   }
 }
 

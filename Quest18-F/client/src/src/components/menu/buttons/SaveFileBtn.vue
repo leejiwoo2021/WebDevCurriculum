@@ -36,8 +36,8 @@ export default defineComponent({
         }
         store.commit('updateOriginContents', { fileName, newContent });
       } catch (err) {
-        this.$router.push('/login');
-        console.log(err);
+        if (err.status === 401) this.$router.push('/login');
+        else console.log('server error');
       }
     },
   },
