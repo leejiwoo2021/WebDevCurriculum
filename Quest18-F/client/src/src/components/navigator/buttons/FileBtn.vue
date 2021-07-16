@@ -1,8 +1,8 @@
 <template>
   <button
-    @click="clickHandler"
     class="l-fileBtn-container t-fileBtn-container"
     :class="{ 't-fileBtn-container-active': isActive }"
+    @click="clickHandler"
   >
     <div class="l-fileBtn-title">
       {{ name }}
@@ -19,16 +19,10 @@ export default defineComponent({
   name: 'FileBtn',
   props: {
     // selectedIndex: Number,
-    buttonIndex: Number,
-    name: String,
+    buttonIndex: { type: Number, required: true },
+    name: { type: String, required: true },
   },
-  methods: {
-    clickHandler() {
-      if (!this.isActive) {
-        this.$emit('setSelected', this.buttonIndex, this.$props.name);
-      }
-    },
-  },
+  emits: ['setSelected'],
   computed: {
     selectedIndex() {
       return store.state.selectedIndex;
@@ -43,6 +37,19 @@ export default defineComponent({
           JSON.stringify(store.state.originContents[this.$props.name])
         );
       return false;
+    },
+    isOnline() {
+      return store.state.isOnline;
+    },
+  },
+  methods: {
+    clickHandler() {
+      if (!this.isActive) {
+        if (this.isOnline) this.$emit('setSelected', this.buttonIndex, this.$props.name);
+        else if (store.state.tempContents[this.$props.name] || store.state.originContents[this.$props.name])
+          this.$emit('setSelected', this.buttonIndex, this.$props.name);
+        else alert('파일을 불러올 수 없습니다');
+      }
     },
   },
 });
