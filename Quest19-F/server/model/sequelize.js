@@ -84,7 +84,7 @@ var File = sequelize.define('File', {
         allowNull: false,
     },
     content: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING(20000),
         allowNull: false,
         unique: false,
     },

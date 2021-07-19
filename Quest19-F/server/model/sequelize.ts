@@ -58,7 +58,7 @@ const File = sequelize.define<FileInstance>('File', {
     allowNull: false,
   },
   content: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(20000),
     allowNull: false,
     unique: false,
   },
