@@ -50,6 +50,9 @@ module.exports = {
     ],
   },
   resolve: {
+    fallback: {
+      crypto: false,
+    },
     extensions: ['.ts', '.js'],
     alias: {
       vue$: 'vue/dist/vue.runtime.esm-bundler.js',

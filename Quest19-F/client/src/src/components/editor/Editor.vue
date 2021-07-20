@@ -64,6 +64,9 @@ export default defineComponent({
 <style scoped>
 .l-editor-container {
   width: 100%;
+  padding-bottom: 5rem;
+  box-sizing: border-box;
+  overflow: auto;
   margin-top: 1rem;
   display: flex;
   flex-flow: column;
