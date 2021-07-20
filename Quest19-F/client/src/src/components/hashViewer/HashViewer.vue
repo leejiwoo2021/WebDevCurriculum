@@ -32,14 +32,17 @@ export default defineComponent({
     },
   },
   watch: {
-    contentString(newStr): void {
+    async contentString(newStr): Promise<void> {
       const startTime = new Date().getTime();
       const hash = sha256(newStr).toString();
       const endTime = new Date().getTime();
 
-      console.log(newStr);
       this.jsTime = endTime - startTime;
       this.jsHashValue = hash;
+
+      const wasm = await import('./rustSHA/pkg/rust_sha.js');
+      const result = wasm.sha256(newStr);
+      console.log(result);
     },
   },
 });
