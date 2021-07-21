@@ -1,6 +1,6 @@
 <template>
   <div class="l-hashViewer-container">
-    <div class="l-hash-container">Hash : {{ jsHashValue }}</div>
+    <div class="l-hash-container">Hash : {{ hashCode }}</div>
     <div class="l-hash-container">Js : {{ jsTime }}ms &nbsp; Rust : {{ rsTime }}ms</div>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default defineComponent({
     return {
       jsTime: 0,
       rsTime: 0,
-      jsHashValue: '',
+      hashCode: '',
     };
   },
   computed: {
@@ -33,16 +33,20 @@ export default defineComponent({
   },
   watch: {
     async contentString(newStr): Promise<void> {
-      const startTime = new Date().getTime();
-      const hash = sha256(newStr).toString();
-      const endTime = new Date().getTime();
-
-      this.jsTime = endTime - startTime;
-      this.jsHashValue = hash;
-
       const wasm = await import('./rustSHA/pkg/rust_sha.js');
-      const result = wasm.sha256(newStr);
-      console.log(result);
+
+      const jsStartTime = performance.now();
+      for (let index = 0; index < 5000; index++) sha256(newStr).toString();
+      const jsEndTime = performance.now();
+
+      this.jsTime = jsEndTime - jsStartTime;
+
+      const rsStartTime = performance.now();
+      for (let index = 0; index < 5000; index++) wasm.sha256(newStr);
+      this.hashCode = wasm.sha256(newStr);
+      const rsEndTime = performance.now();
+
+      this.rsTime = rsEndTime - rsStartTime;
     },
   },
 });
