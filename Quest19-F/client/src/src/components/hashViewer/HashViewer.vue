@@ -9,6 +9,7 @@
 import { defineComponent } from 'vue';
 import store from '@/store';
 import sha256 from 'crypto-js/sha256';
+import * as wasm from './rustSHA/pkg/rust_sha.js';
 
 export default defineComponent({
   name: 'HashViewer',
@@ -32,9 +33,7 @@ export default defineComponent({
     },
   },
   watch: {
-    async contentString(newStr): Promise<void> {
-      const wasm = await import('./rustSHA/pkg/rust_sha.js');
-
+    contentString(newStr): void {
       const jsStartTime = performance.now();
       for (let index = 0; index < 5000; index++) sha256(newStr).toString();
       const jsEndTime = performance.now();
