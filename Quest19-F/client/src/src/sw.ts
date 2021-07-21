@@ -1,7 +1,10 @@
+export type {};
+declare const self: ServiceWorkerGlobalScope;
+
 const CACHE_NAME = 'v1';
 const urlsToCache = ['/', '/main.js', '/logo.png', '/logo2.png', '/manifest.json'];
 
-self.addEventListener('install', function (event: any) {
+self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
       console.log('Opened cache');
@@ -10,7 +13,7 @@ self.addEventListener('install', function (event: any) {
   );
 });
 
-self.addEventListener('activate', function (e: any) {
+self.addEventListener('activate', function (e) {
   e.waitUntil(
     caches.keys().then(function (keyList) {
       return Promise.all(
@@ -24,7 +27,7 @@ self.addEventListener('activate', function (e: any) {
   );
 });
 
-self.addEventListener('fetch', function (event: any) {
+self.addEventListener('fetch', function (event) {
   if (event.request.method === 'GET') {
     event.respondWith(
       caches.match(event.request).then(function (resp) {
