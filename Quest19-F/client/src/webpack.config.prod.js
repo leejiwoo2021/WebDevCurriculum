@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const { VueLoaderPlugin } = require('vue-loader')
+const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
@@ -14,27 +14,24 @@ module.exports = {
     path: __dirname + '/../public',
     filename: '[name].js',
   },
-  target: "web",
+  target: 'web',
   module: {
     rules: [
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          hotReload: true 
-        }
+          hotReload: true,
+        },
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /tests/
+        exclude: /tests/,
       },
       {
         test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ]
+        use: ['vue-style-loader', 'css-loader'],
       },
       {
         test: /\.tsx?$/,
@@ -42,26 +39,29 @@ module.exports = {
           {
             loader: 'ts-loader',
             options: {
-              appendTsSuffixTo: [/\.vue$/]
-            }
-          }
-        ]        
+              appendTsSuffixTo: [/\.vue$/],
+            },
+          },
+        ],
       },
     ],
   },
   resolve: {
+    fallback: {
+      crypto: false,
+    },
     extensions: ['.ts', '.js'],
     alias: {
-      'vue$':'vue/dist/vue.runtime.esm-browser.prod.js',
+      vue$: 'vue/dist/vue.runtime.esm-browser.prod.js',
     },
-    plugins:[new TsconfigPathsPlugin()]
+    plugins: [new TsconfigPathsPlugin()],
   },
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       title: 'Production',
       template: 'public/index.html',
-      favicon: 'public/favicon.ico'
+      favicon: 'public/favicon.ico',
     }),
     new webpack.DefinePlugin({
       __VUE_OPTIONS_API__: false,
@@ -71,27 +71,30 @@ module.exports = {
       fileName: 'manifest.json',
       generate: () => {
         return {
-          short_name: "Text Editor",
-          name: "Text Editor made by Vue.js",
+          short_name: 'Text Editor',
+          name: 'Text Editor made by Vue.js',
           icons: [
             {
-              src: "logo.png",
-              type: "image/png",
-              sizes: "192x192"
+              src: 'logo.png',
+              type: 'image/png',
+              sizes: '192x192',
             },
             {
-              src: "logo2.png",
-              type: "image/png",
-              sizes: "512x512"
-            }
+              src: 'logo2.png',
+              type: 'image/png',
+              sizes: '512x512',
+            },
           ],
-          start_url: "/?source=pwa",
-          background_color: "#4c5aff",
-          display: "standalone",
-          theme_color: "#4c5aff",
-          description: "vuejs로 생성한 텍스트 에디터입니다.",
+          start_url: '/?source=pwa',
+          background_color: '#4c5aff',
+          display: 'standalone',
+          theme_color: '#4c5aff',
+          description: 'vuejs로 생성한 텍스트 에디터입니다.',
         };
-      }
+      },
     }),
-  ]
+  ],
+  experiments: {
+    asyncWebAssembly: true,
+  },
 };
